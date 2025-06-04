@@ -1,5 +1,6 @@
 package net.toilgoat.ultvanillaexp;
 
+import net.toilgoat.ultvanillaexp.block.Blocks;
 import net.toilgoat.ultvanillaexp.item.Items;
 import org.slf4j.Logger;
 
@@ -40,6 +41,8 @@ public class UltVanillaExp
         NeoForge.EVENT_BUS.register(this);
 
         Items.register(modEventBus);
+        Blocks.register(modEventBus);
+
 
         // Register the item to a creative tab
         modEventBus.addListener(this::addCreative);
@@ -52,14 +55,45 @@ public class UltVanillaExp
 
     }
 
-    // Add the example block item to the building blocks tab
+    // Add the example net.toilgoat.ultvanillaexp.block item to the building blocks tab
     private void addCreative(BuildCreativeModeTabContentsEvent event)
     {
         if (event.getTabKey() == CreativeModeTabs.INGREDIENTS) {
             event.accept(Items.URANIUM);
+            event.accept(Items.BEESWAX);
         }
         if (event.getTabKey() == CreativeModeTabs.FOOD_AND_DRINKS) {
             event.accept(Items.GREEN_APPLE);
+            event.accept(Items.CRYSTALLIZED_HONEY);
+        }
+
+        if (event.getTabKey() == CreativeModeTabs.BUILDING_BLOCKS) {
+            event.accept(Blocks.POLISHED_CALCITE);
+            event.accept(Blocks.POLISHED_DRIPSTONE);
+            event.accept(Blocks.POLISHED_ANDESITE_BRICKS);
+            event.accept(Blocks.POLISHED_CALCITE_BRICKS);
+            event.accept(Blocks.POLISHED_DIORITE_BRICKS);
+            event.accept(Blocks.POLISHED_DRIPSTONE_BRICKS);
+            event.accept(Blocks.POLISHED_GRANITE_BRICKS);
+            event.accept(Blocks.CRACKED_POLISHED_ANDESITE_BRICKS);
+            event.accept(Blocks.CRACKED_POLISHED_CALCITE_BRICKS);
+            event.accept(Blocks.CRACKED_POLISHED_DIORITE_BRICKS);
+            event.accept(Blocks.CRACKED_POLISHED_DRIPSTONE_BRICKS);
+            event.accept(Blocks.CRACKED_POLISHED_GRANITE_BRICKS);
+            event.accept(Blocks.CHISELED_POLISHED_ANDESITE_BRICKS);
+            event.accept(Blocks.CHISELED_POLISHED_CALCITE_BRICKS);
+            event.accept(Blocks.CHISELED_POLISHED_DIORITE_BRICKS);
+            event.accept(Blocks.CHISELED_POLISHED_DRIPSTONE_BRICKS);
+            event.accept(Blocks.CHISELED_POLISHED_GRANITE_BRICKS);
+            event.accept(Blocks.MOSSY_DEEPSLATE_BRICKS);
+            event.accept(Blocks.MOSSY_POLISHED_ANDESITE_BRICKS);
+            event.accept(Blocks.MOSSY_POLISHED_CALCITE_BRICKS);
+            event.accept(Blocks.MOSSY_POLISHED_DIORITE_BRICKS);
+            event.accept(Blocks.MOSSY_POLISHED_DRIPSTONE_BRICKS);
+            event.accept(Blocks.MOSSY_POLISHED_GRANITE_BRICKS);
+            event.accept(Blocks.WAX_BLOCK);
+            event.accept(Blocks.POLISHED_DRIPSTONE_STAIRS);
+            event.accept(Blocks.POLISHED_DRIPSTONE_SLAB);
         }
     }
 
