@@ -1,11 +1,16 @@
 package net.toilgoat.ultvanillaexp.datagen;
 
+import net.minecraft.advancements.critereon.StatePropertiesPredicate;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.loot.BlockLootSubProvider;
 import net.minecraft.world.flag.FeatureFlags;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.storage.loot.predicates.LootItemBlockStatePropertyCondition;
+import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
 import net.toilgoat.ultvanillaexp.block.Blocks;
+import net.toilgoat.ultvanillaexp.block.custom.OnionCrop;
+import net.toilgoat.ultvanillaexp.item.Items;
 
 import java.util.Set;
 
@@ -35,6 +40,7 @@ public class BlocksLootTableProvider extends BlockLootSubProvider {
         dropSelf(Blocks.CHISELED_POLISHED_DRIPSTONE_BRICKS.get());
         dropSelf(Blocks.CHISELED_POLISHED_GRANITE_BRICKS.get());
         dropSelf(Blocks.MOSSY_DEEPSLATE_BRICKS.get());
+        dropSelf(Blocks.MOSSY_TUFF_BRICKS.get());
         dropSelf(Blocks.MOSSY_POLISHED_ANDESITE_BRICKS.get());
         dropSelf(Blocks.MOSSY_POLISHED_CALCITE_BRICKS.get());
         dropSelf(Blocks.MOSSY_POLISHED_DIORITE_BRICKS.get());
@@ -42,10 +48,66 @@ public class BlocksLootTableProvider extends BlockLootSubProvider {
         dropSelf(Blocks.MOSSY_POLISHED_GRANITE_BRICKS.get());
         dropSelf(Blocks.WAX_BLOCK.get());
         // Stairs
+        dropSelf(Blocks.CALCITE_STAIRS.get());
+        dropSelf(Blocks.DRIPSTONE_STAIRS.get());
+        dropSelf(Blocks.POLISHED_CALCITE_STAIRS.get());
         dropSelf(Blocks.POLISHED_DRIPSTONE_STAIRS.get());
+        dropSelf(Blocks.POLISHED_ANDESITE_BRICKS_STAIRS.get());
+        dropSelf(Blocks.POLISHED_CALCITE_BRICKS_STAIRS.get());
+        dropSelf(Blocks.POLISHED_DIORITE_BRICKS_STAIRS.get());
+        dropSelf(Blocks.POLISHED_DRIPSTONE_BRICKS_STAIRS.get());
+        dropSelf(Blocks.POLISHED_GRANITE_BRICKS_STAIRS.get());
         //Slab
+        add(Blocks.CALCITE_SLAB.get(),
+                block -> createSlabItemTable(Blocks.CALCITE_SLAB.get()));
+        add(Blocks.DRIPSTONE_SLAB.get(),
+                block -> createSlabItemTable(Blocks.DRIPSTONE_SLAB.get()));
+        add(Blocks.POLISHED_CALCITE_SLAB.get(),
+                block -> createSlabItemTable(Blocks.POLISHED_CALCITE_SLAB.get()));
         add(Blocks.POLISHED_DRIPSTONE_SLAB.get(),
                 block -> createSlabItemTable(Blocks.POLISHED_DRIPSTONE_SLAB.get()));
+        add(Blocks.POLISHED_ANDESITE_BRICKS_SLAB.get(),
+                block -> createSlabItemTable(Blocks.POLISHED_ANDESITE_BRICKS_SLAB.get()));
+        add(Blocks.POLISHED_CALCITE_BRICKS_SLAB.get(),
+                block -> createSlabItemTable(Blocks.POLISHED_CALCITE_BRICKS_SLAB.get()));
+        add(Blocks.POLISHED_DIORITE_BRICKS_SLAB.get(),
+                block -> createSlabItemTable(Blocks.POLISHED_DIORITE_BRICKS_SLAB.get()));
+        add(Blocks.POLISHED_DRIPSTONE_BRICKS_SLAB.get(),
+                block -> createSlabItemTable(Blocks.POLISHED_DRIPSTONE_BRICKS_SLAB.get()));
+        add(Blocks.POLISHED_GRANITE_BRICKS_SLAB.get(),
+                block -> createSlabItemTable(Blocks.POLISHED_GRANITE_BRICKS_SLAB.get()));
+        //Wall
+        dropSelf(Blocks.CALCITE_WALL.get());
+        dropSelf(Blocks.DRIPSTONE_WALL.get());
+        dropSelf(Blocks.POLISHED_ANDESITE_WALL.get());
+        dropSelf(Blocks.POLISHED_CALCITE_WALL.get());
+        dropSelf(Blocks.POLISHED_DIORITE_WALL.get());
+        dropSelf(Blocks.POLISHED_DRIPSTONE_WALL.get());
+        dropSelf(Blocks.POLISHED_GRANITE_WALL.get());
+        dropSelf(Blocks.POLISHED_ANDESITE_BRICKS_WALL.get());
+        dropSelf(Blocks.POLISHED_CALCITE_BRICKS_WALL.get());
+        dropSelf(Blocks.POLISHED_DIORITE_BRICKS_WALL.get());
+        dropSelf(Blocks.POLISHED_DRIPSTONE_BRICKS_WALL.get());
+        dropSelf(Blocks.POLISHED_GRANITE_BRICKS_WALL.get());
+        dropSelf(Blocks.FROSTER.get());
+
+        LootItemCondition.Builder onionCropCondition = LootItemBlockStatePropertyCondition.hasBlockStateProperties(Blocks.ONION_CROP.get())
+                .setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(OnionCrop.AGE, 3));
+
+        this.add(Blocks.ONION_CROP.get(), this.createCropDrops(Blocks.ONION_CROP.get(),
+                Items.ONION.get(), Items.ONION.get(), onionCropCondition));
+
+        LootItemCondition.Builder barleyCropCondition = LootItemBlockStatePropertyCondition.hasBlockStateProperties(Blocks.BARLEY_CROP.get())
+                .setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(OnionCrop.AGE, 3));
+
+        this.add(Blocks.BARLEY_CROP.get(), this.createCropDrops(Blocks.BARLEY_CROP.get(),
+                Items.BARLEY.get(), Items.BARLEY_SEEDS.get(), barleyCropCondition));
+
+        add(Blocks.RUBY_ORE.get(),
+                block -> createOreDrop(Blocks.RUBY_ORE.get(), Items.RUBY.get()));
+
+        add(Blocks.DEEPSLATE_RUBY_ORE.get(),
+                block -> createOreDrop(Blocks.DEEPSLATE_RUBY_ORE.get(), Items.RUBY.get()));
     }
 
     @Override

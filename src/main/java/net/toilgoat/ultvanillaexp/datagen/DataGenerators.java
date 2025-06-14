@@ -13,6 +13,7 @@ import net.toilgoat.ultvanillaexp.UltVanillaExp;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Set;
 import java.util.concurrent.CompletableFuture;
 
 @EventBusSubscriber (modid = UltVanillaExp.MODID, bus = EventBusSubscriber.Bus.MOD)
@@ -26,14 +27,18 @@ public class DataGenerators {
         BlockTagsProvider blockTagsProvider = new BlockTagProvider(packOutput, lookupProvider);
         generator.addProvider(true, blockTagsProvider);
         generator.addProvider(true, new ItemTagProvider(packOutput, lookupProvider, blockTagsProvider.contentsGetter()));
+        generator.addProvider(true, new EntityTypeTagProvider(packOutput, lookupProvider));
 
-        generator.addProvider(true, new LootTableProvider(packOutput, Collections.emptySet(),
-                List.of(new LootTableProvider.SubProviderEntry(BlocksLootTableProvider::new, LootContextParamSets.BLOCK)), lookupProvider));
+        generator.addProvider(true, new LootTableProvider(packOutput, Set.of(),
+                List.of(new LootTableProvider.SubProviderEntry(BlocksLootTableProvider::new, LootContextParamSets.BLOCK),
+                new LootTableProvider.SubProviderEntry(EntitiesLootTableProvider::new, LootContextParamSets.ENTITY)), lookupProvider));
         generator.addProvider(true, new RecipesProvider.Runner(packOutput, lookupProvider));
 
         generator.addProvider(true, new ModelsProvider(packOutput));
 
         generator.addProvider(true, new DataMapsProvider(packOutput, lookupProvider));
+
+        generator.addProvider(true, new DatapacksProvider(packOutput, lookupProvider));
     }
 
 }

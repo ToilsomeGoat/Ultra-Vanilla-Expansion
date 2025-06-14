@@ -1,7 +1,17 @@
 package net.toilgoat.ultvanillaexp;
 
+import net.minecraft.client.renderer.ItemBlockRenderTypes;
+import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.entity.EntityRenderers;
+import net.neoforged.neoforge.client.event.RegisterMenuScreensEvent;
 import net.toilgoat.ultvanillaexp.block.Blocks;
+import net.toilgoat.ultvanillaexp.block.entity.BlockEntities;
+import net.toilgoat.ultvanillaexp.entity.Entities;
+import net.toilgoat.ultvanillaexp.entity.client.DuckRenderer;
 import net.toilgoat.ultvanillaexp.item.Items;
+import net.toilgoat.ultvanillaexp.loot.LootModifiers;
+import net.toilgoat.ultvanillaexp.screen.MenuTypes;
+import net.toilgoat.ultvanillaexp.screen.custom.FrosterScreen;
 import org.slf4j.Logger;
 
 import com.mojang.logging.LogUtils;
@@ -42,6 +52,10 @@ public class UltVanillaExp
 
         Items.register(modEventBus);
         Blocks.register(modEventBus);
+        Entities.register(modEventBus);
+        LootModifiers.register(modEventBus);
+        BlockEntities.register(modEventBus);
+        MenuTypes.register(modEventBus);
 
 
         // Register the item to a creative tab
@@ -55,16 +69,33 @@ public class UltVanillaExp
 
     }
 
-    // Add the example net.toilgoat.ultvanillaexp.block item to the building blocks tab
     private void addCreative(BuildCreativeModeTabContentsEvent event)
     {
         if (event.getTabKey() == CreativeModeTabs.INGREDIENTS) {
             event.accept(Items.URANIUM);
             event.accept(Items.BEESWAX);
+            event.accept(Items.RUBY);
         }
+
+        if (event.getTabKey() == CreativeModeTabs.NATURAL_BLOCKS){
+            event.accept(Blocks.RUBY_ORE);
+            event.accept(Blocks.DEEPSLATE_RUBY_ORE);
+        }
+
+        if (event.getTabKey() == CreativeModeTabs.FUNCTIONAL_BLOCKS){
+            event.accept(Blocks.FROSTER);
+        }
+
         if (event.getTabKey() == CreativeModeTabs.FOOD_AND_DRINKS) {
             event.accept(Items.GREEN_APPLE);
             event.accept(Items.CRYSTALLIZED_HONEY);
+            event.accept(Items.ONION);
+            event.accept(Items.BAKED_ONION);
+            event.accept(Items.BARLEY);
+            event.accept(Items.BARLEY_SEEDS);
+            event.accept(Items.BARLEY_STEW);
+            event.accept(Items.RAW_DUCK);
+            event.accept(Items.ROASTED_DUCK);
         }
 
         if (event.getTabKey() == CreativeModeTabs.BUILDING_BLOCKS) {
@@ -86,14 +117,51 @@ public class UltVanillaExp
             event.accept(Blocks.CHISELED_POLISHED_DRIPSTONE_BRICKS);
             event.accept(Blocks.CHISELED_POLISHED_GRANITE_BRICKS);
             event.accept(Blocks.MOSSY_DEEPSLATE_BRICKS);
+            event.accept(Blocks.MOSSY_TUFF_BRICKS);
             event.accept(Blocks.MOSSY_POLISHED_ANDESITE_BRICKS);
             event.accept(Blocks.MOSSY_POLISHED_CALCITE_BRICKS);
             event.accept(Blocks.MOSSY_POLISHED_DIORITE_BRICKS);
             event.accept(Blocks.MOSSY_POLISHED_DRIPSTONE_BRICKS);
             event.accept(Blocks.MOSSY_POLISHED_GRANITE_BRICKS);
-            event.accept(Blocks.WAX_BLOCK);
+            //Stairs
+            event.accept(Blocks.CALCITE_STAIRS);
+            event.accept(Blocks.DRIPSTONE_STAIRS);
+            event.accept(Blocks.POLISHED_CALCITE_STAIRS);
             event.accept(Blocks.POLISHED_DRIPSTONE_STAIRS);
+            event.accept(Blocks.POLISHED_ANDESITE_BRICKS_STAIRS);
+            event.accept(Blocks.POLISHED_CALCITE_BRICKS_STAIRS);
+            event.accept(Blocks.POLISHED_DIORITE_BRICKS_STAIRS);
+            event.accept(Blocks.POLISHED_DRIPSTONE_BRICKS_STAIRS);
+            event.accept(Blocks.POLISHED_GRANITE_BRICKS_STAIRS);
+            //Slab
+            event.accept(Blocks.CALCITE_SLAB);
+            event.accept(Blocks.DRIPSTONE_SLAB);
+            event.accept(Blocks.POLISHED_CALCITE_SLAB);
             event.accept(Blocks.POLISHED_DRIPSTONE_SLAB);
+            event.accept(Blocks.POLISHED_ANDESITE_BRICKS_SLAB);
+            event.accept(Blocks.POLISHED_CALCITE_BRICKS_SLAB);
+            event.accept(Blocks.POLISHED_DIORITE_BRICKS_SLAB);
+            event.accept(Blocks.POLISHED_DRIPSTONE_BRICKS_SLAB);
+            event.accept(Blocks.POLISHED_GRANITE_BRICKS_SLAB);
+            //Wall
+            event.accept(Blocks.CALCITE_WALL);
+            event.accept(Blocks.DRIPSTONE_WALL);
+            event.accept(Blocks.POLISHED_ANDESITE_WALL);
+            event.accept(Blocks.POLISHED_CALCITE_WALL);
+            event.accept(Blocks.POLISHED_DIORITE_WALL);
+            event.accept(Blocks.POLISHED_DRIPSTONE_WALL);
+            event.accept(Blocks.POLISHED_GRANITE_WALL);
+            event.accept(Blocks.POLISHED_ANDESITE_BRICKS_WALL);
+            event.accept(Blocks.POLISHED_CALCITE_BRICKS_WALL);
+            event.accept(Blocks.POLISHED_DIORITE_BRICKS_WALL);
+            event.accept(Blocks.POLISHED_DRIPSTONE_BRICKS_WALL);
+            event.accept(Blocks.POLISHED_GRANITE_BRICKS_WALL);
+
+            event.accept(Blocks.WAX_BLOCK);
+
+        }
+        if (event.getTabKey() == CreativeModeTabs.SPAWN_EGGS) {
+            event.accept(Items.DUCK_SPAWN_EGG);
         }
     }
 
@@ -111,7 +179,13 @@ public class UltVanillaExp
         @SubscribeEvent
         public static void onClientSetup(FMLClientSetupEvent event)
         {
-
+            ItemBlockRenderTypes.setRenderLayer(Blocks.ONION_CROP.get(), RenderType.cutout());
+            ItemBlockRenderTypes.setRenderLayer(Blocks.BARLEY_CROP.get(), RenderType.cutout());
+            EntityRenderers.register(Entities.DUCK.get(), DuckRenderer::new);
+        }
+        @SubscribeEvent
+        public static void registerScreens(RegisterMenuScreensEvent event) {
+            event.register(MenuTypes.FROSTER_MENU.get(), FrosterScreen::new);
         }
     }
 }
