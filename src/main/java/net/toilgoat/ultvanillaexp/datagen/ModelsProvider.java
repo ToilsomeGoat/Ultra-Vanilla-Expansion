@@ -36,8 +36,10 @@ public class ModelsProvider extends ModelProvider {
         itemModels.generateFlatItem(Items.BARLEY.get(), ModelTemplates.FLAT_ITEM);
         itemModels.generateFlatItem(Items.BARLEY_STEW.get(), ModelTemplates.FLAT_ITEM);
         itemModels.generateSpawnEgg(Items.DUCK_SPAWN_EGG.get(), 0x8a5c2a, 0x36434d);
+        itemModels.generateSpawnEgg(Items.GRIZZLY_BEAR_SPAWN_EGG.get(), 0x28211d, 0x643a36);
         itemModels.generateFlatItem(Items.RAW_DUCK.get(), ModelTemplates.FLAT_ITEM);
         itemModels.generateFlatItem(Items.ROASTED_DUCK.get(), ModelTemplates.FLAT_ITEM);
+        itemModels.generateFlatItem(Blocks.PALM_SAPLING.get().asItem(), ModelTemplates.FLAT_ITEM);
 
         //BLOCKS
         blockModels.createTrivialCube(Blocks.CRACKED_POLISHED_ANDESITE_BRICKS.get());
@@ -119,6 +121,23 @@ public class ModelsProvider extends ModelProvider {
         blockModels.createTrivialCube(Blocks.RUBY_ORE.get());
         blockModels.createTrivialCube(Blocks.DEEPSLATE_RUBY_ORE.get());
         blockModels.createFurnace(Blocks.FROSTER.get(), TexturedModel.ORIENTABLE);
+
+        blockModels.woodProvider(Blocks.PALM_LOG.get()).logWithHorizontal(Blocks.PALM_LOG.get()).wood(Blocks.PALM_WOOD.get());
+        blockModels.woodProvider(Blocks.STRIPPED_PALM_LOG.get()).logWithHorizontal(Blocks.STRIPPED_PALM_LOG.get()).wood(Blocks.STRIPPED_PALM_WOOD.get());
+
+        blockModels.family(Blocks.PALM_PLANKS.get())
+                .stairs(Blocks.PALM_STAIRS.get())
+                .slab(Blocks.PALM_SLAB.get())
+                .fence(Blocks.PALM_FENCE.get())
+                .fenceGate(Blocks.PALM_FENCE_GATE.get())
+                .button(Blocks.PALM_BUTTON.get())
+                .pressurePlate(Blocks.PALM_PRESSURE_PLATE.get())
+                .door(Blocks.PALM_DOOR.get())
+                .trapdoor(Blocks.PALM_TRAPDOOR.get());
+
+        blockModels.createTintedLeaves(Blocks.PALM_LEAVES.get(), TexturedModel.LEAVES,-12012264);
+
+        blockModels.createCrossBlock(Blocks.PALM_SAPLING.get(), BlockModelGenerators.PlantType.TINTED);
     }
     @Override
     protected Stream<? extends Holder<Block>> getKnownBlocks() {

@@ -14,6 +14,7 @@ import net.minecraft.world.level.block.Block;
 import net.toilgoat.ultvanillaexp.UltVanillaExp;
 import net.toilgoat.ultvanillaexp.block.Blocks;
 import net.toilgoat.ultvanillaexp.entity.custom.DuckEntity;
+import net.toilgoat.ultvanillaexp.util.Tags;
 
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
@@ -84,6 +85,8 @@ public class RecipesProvider extends RecipeProvider {
                 .unlockedBy("has_polished_dripstone_bricks", has(Blocks.POLISHED_DRIPSTONE_BRICKS)).save(output);
         stairBuilder(Blocks.POLISHED_GRANITE_BRICKS_STAIRS.get(), Ingredient.of(Blocks.POLISHED_GRANITE_BRICKS)).group("granite_bricks")
                 .unlockedBy("has_polished_granite_bricks", has(Blocks.POLISHED_GRANITE_BRICKS)).save(output);
+        stairBuilder(Blocks.PALM_STAIRS.get(), Ingredient.of(Blocks.PALM_PLANKS)).group("palm_planks")
+                .unlockedBy("has_palm_planks", has(Blocks.PALM_PLANKS)).save(output);
         //Slab
         slab(RecipeCategory.BUILDING_BLOCKS, Blocks.CALCITE_SLAB.get(), net.minecraft.world.level.block.Blocks.CALCITE);
         slab(RecipeCategory.BUILDING_BLOCKS, Blocks.DRIPSTONE_SLAB.get(), net.minecraft.world.level.block.Blocks.DRIPSTONE_BLOCK);
@@ -94,6 +97,7 @@ public class RecipesProvider extends RecipeProvider {
         slab(RecipeCategory.BUILDING_BLOCKS, Blocks.POLISHED_DIORITE_BRICKS_SLAB.get(), Blocks.POLISHED_DIORITE_BRICKS.get());
         slab(RecipeCategory.BUILDING_BLOCKS, Blocks.POLISHED_DRIPSTONE_BRICKS_SLAB.get(), Blocks.POLISHED_DRIPSTONE_BRICKS.get());
         slab(RecipeCategory.BUILDING_BLOCKS, Blocks.POLISHED_GRANITE_BRICKS_SLAB.get(), Blocks.POLISHED_GRANITE_BRICKS.get());
+        slab(RecipeCategory.BUILDING_BLOCKS, Blocks.PALM_SLAB.get(), Blocks.PALM_PLANKS.get());
 
         //Wall
         wall(RecipeCategory.BUILDING_BLOCKS, Blocks.CALCITE_WALL.get(), net.minecraft.world.level.block.Blocks.CALCITE);
@@ -109,8 +113,35 @@ public class RecipesProvider extends RecipeProvider {
         wall(RecipeCategory.BUILDING_BLOCKS, Blocks.POLISHED_DRIPSTONE_BRICKS_WALL.get(), Blocks.POLISHED_DRIPSTONE_BRICKS.get());
         wall(RecipeCategory.BUILDING_BLOCKS, Blocks.POLISHED_GRANITE_BRICKS_WALL.get(), Blocks.POLISHED_GRANITE_BRICKS.get());
 
+        //Fence
+        fenceBuilder(Blocks.PALM_FENCE.get(), Ingredient.of(Blocks.PALM_PLANKS.get())).group("palm_planks")
+                .unlockedBy("has_palm_planks", has(Blocks.PALM_PLANKS.get())).save(output);
 
+        //Fence Gate
+        fenceGateBuilder(Blocks.PALM_FENCE_GATE.get(), Ingredient.of(Blocks.PALM_PLANKS.get())).group("palm_planks")
+                .unlockedBy("has_palm_planks", has(Blocks.PALM_PLANKS.get())).save(output);
 
+        //Door
+        doorBuilder(Blocks.PALM_DOOR.get(), Ingredient.of(Blocks.PALM_PLANKS.get())).group("palm_planks")
+                .unlockedBy("has_palm_planks", has(Blocks.PALM_PLANKS.get())).save(output);
+
+        //Trapdoor
+        trapdoorBuilder(Blocks.PALM_TRAPDOOR.get(), Ingredient.of(Blocks.PALM_PLANKS.get())).group("palm_planks")
+                .unlockedBy("has_palm_planks", has(Blocks.PALM_PLANKS.get())).save(output);
+
+        //Pressure Plate
+        pressurePlate(Blocks.PALM_PRESSURE_PLATE.get(), Blocks.PALM_PLANKS.get());
+
+        //Button
+        buttonBuilder(Blocks.PALM_BUTTON.get(), Ingredient.of(Blocks.PALM_PLANKS.get())).group("palm_planks")
+                .unlockedBy("has_palm_planks", has(Blocks.PALM_PLANKS.get())).save(output);
+
+        //Planks
+        planksFromLogs(Blocks.PALM_PLANKS.get(), Tags.Items.PALM_LOGS, 4);
+
+        //Wood
+        woodFromLogs(Blocks.PALM_WOOD.get(), Blocks.PALM_LOG.get());
+        woodFromLogs(Blocks.STRIPPED_PALM_WOOD.get(), Blocks.STRIPPED_PALM_LOG.get());
 
         //Chiseled
         chiseled(RecipeCategory.BUILDING_BLOCKS, Blocks.CHISELED_POLISHED_ANDESITE_BRICKS.get(), Blocks.POLISHED_ANDESITE_BRICKS_SLAB.get());
@@ -270,11 +301,6 @@ public class RecipesProvider extends RecipeProvider {
                 .requires(net.minecraft.world.level.block.Blocks.MOSS_BLOCK)
                 .unlockedBy("has_moss_block", has(net.minecraft.world.level.block.Blocks.MOSS_BLOCK)).save(output, "ultvanillaexp:mossy_polished_granite_bricks_2");
 
-        shapeless(RecipeCategory.FOOD, net.toilgoat.ultvanillaexp.item.Items.CRYSTALLIZED_HONEY.get())
-                .requires(Items.HONEY_BOTTLE)
-                .requires(net.minecraft.world.level.block.Blocks.ICE)
-                .unlockedBy("has_ice", has(net.minecraft.world.level.block.Blocks.ICE)).save(output);
-
         shapeless(RecipeCategory.FOOD, net.toilgoat.ultvanillaexp.item.Items.BARLEY_STEW.get())
                 .requires(Items.BROWN_MUSHROOM)
                 .requires(Items.CARROT)
@@ -306,8 +332,8 @@ public class RecipesProvider extends RecipeProvider {
                 .pattern("SSS")
                 .pattern("S S")
                 .pattern("SSS")
-                .define('S', net.minecraft.world.level.block.Blocks.IRON_BLOCK)
-                .unlockedBy("has_iron_block", has(net.minecraft.world.level.block.Blocks.IRON_BLOCK)).save(output);
+                .define('S', Items.IRON_INGOT)
+                .unlockedBy("has_iron_ingot", has(Items.IRON_INGOT)).save(output);
 
         smelting(output, ONION, RecipeCategory.FOOD, net.toilgoat.ultvanillaexp.item.Items.BAKED_ONION.get(), 0.35f, 200, "onion");
         smoking(output, ONION, RecipeCategory.FOOD, net.toilgoat.ultvanillaexp.item.Items.BAKED_ONION.get(), 0.35f, 100, "onion");

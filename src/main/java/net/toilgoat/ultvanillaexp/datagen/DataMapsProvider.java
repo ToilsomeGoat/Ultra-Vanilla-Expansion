@@ -1,5 +1,6 @@
 package net.toilgoat.ultvanillaexp.datagen;
 
+import net.minecraft.world.level.block.Blocks;
 import net.neoforged.neoforge.common.data.DataMapProvider;
 import net.toilgoat.ultvanillaexp.item.Items;
 import net.minecraft.core.HolderLookup;
@@ -19,7 +20,10 @@ public class DataMapsProvider extends DataMapProvider {
     @Override
     protected void gather(HolderLookup.Provider provider) {
         this.builder(NeoForgeDataMaps.FURNACE_FUELS)
-                .add(Items.URANIUM.getId(), new FurnaceFuel(3000), false);
+                .add(Items.URANIUM.getId(), new FurnaceFuel(3000), false)
+                .add(net.minecraft.world.item.Items.ICE.builtInRegistryHolder(), new FurnaceFuel(600), false)
+                .add(net.minecraft.world.item.Items.PACKED_ICE.builtInRegistryHolder(), new FurnaceFuel(6000), false)
+                .add(net.minecraft.world.item.Items.BLUE_ICE.builtInRegistryHolder(), new FurnaceFuel(60000), false);
 
         this.builder(NeoForgeDataMaps.COMPOSTABLES)
                 .add(Items.ONION.getId(), new Compostable(0.65f),true)

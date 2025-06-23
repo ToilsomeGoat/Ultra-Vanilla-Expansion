@@ -18,13 +18,14 @@ import net.minecraft.world.item.crafting.RecipeBookCategories;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
 import net.toilgoat.ultvanillaexp.UltVanillaExp;
+import net.toilgoat.ultvanillaexp.recipe.Recipes;
 import net.toilgoat.ultvanillaexp.screen.AbstractFrosterScreen;
 
 public class FrosterScreen extends AbstractFrosterScreen<FrosterMenu> {
     private static final ResourceLocation LIT_PROGRESS_SPRITE = ResourceLocation.fromNamespaceAndPath(UltVanillaExp.MODID,"container/froster/frost_progress");
     private static final ResourceLocation BURN_PROGRESS_SPRITE = ResourceLocation.fromNamespaceAndPath(UltVanillaExp.MODID,"container/froster/frosting_progress");
     private static final ResourceLocation GUI_TEXTURE = ResourceLocation.fromNamespaceAndPath(UltVanillaExp.MODID,"textures/gui/sprites/container/froster/gui.png");
-    private static final Component FILTER_NAME = Component.translatable("gui.recipebook.toggleRecipes.blastable");
+    private static final Component FILTER_NAME = Component.translatable("gui.recipebook.toggleRecipes.frostable");
     private static final List<RecipeBookComponent.TabInfo> TABS;
 
     public FrosterScreen(FrosterMenu menu, Inventory playerInventory, Component title) {

@@ -1,0 +1,15 @@
+{
+  "required": true,
+  "package": "net.toilgoat.ultvanillaexp.mixin",
+  "compatibilityLevel": "JAVA_17",
+  "mixins": [
+    "FuelSlotMixin",
+    "AbstractFurnaceMenuMixin",
+    "MenuAccessor",
+    "FuelCheck"
+  ],
+  "client": [],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

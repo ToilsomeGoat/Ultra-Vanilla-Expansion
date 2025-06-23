@@ -37,19 +37,19 @@ public class FrosterFuelValues {
 
         /** @deprecated */
         @Deprecated
-        public int burnDuration(ItemStack stack) {
+        public int frostDuration(ItemStack stack) {
             return stack.isEmpty() ? 0 : this.values.getInt(stack.getItem());
         }
 
-        public static FrosterFuelValues vanillaBurnTimes(HolderLookup.Provider registries, FeatureFlagSet enabledFeatures) {
-            return vanillaBurnTimes(registries, enabledFeatures, 300);
+        public static FrosterFuelValues frostTimes(HolderLookup.Provider registries, FeatureFlagSet enabledFeatures) {
+            return frostTimes(registries, enabledFeatures, 300);
         }
 
-        public static FrosterFuelValues vanillaBurnTimes(HolderLookup.Provider registries, FeatureFlagSet enabledFeatures, int smeltingTime) {
-            return vanillaBurnTimes(new FrosterFuelValues.Builder(registries, enabledFeatures), smeltingTime);
+        public static FrosterFuelValues frostTimes(HolderLookup.Provider registries, FeatureFlagSet enabledFeatures, int frostingTime) {
+            return frostTimes(new FrosterFuelValues.Builder(registries, enabledFeatures), frostingTime);
         }
 
-        public static FrosterFuelValues vanillaBurnTimes(FrosterFuelValues.Builder builder, int p_363365_) {
+        public static FrosterFuelValues frostTimes(FrosterFuelValues.Builder builder, int p_363365_) {
             return builder.add(Blocks.ICE, p_363365_ * 3).add(Blocks.PACKED_ICE, p_363365_ * 30).add(Blocks.BLUE_ICE, p_363365_ * 300).build();
         }
 

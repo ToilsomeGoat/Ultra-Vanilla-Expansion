@@ -1,5 +1,7 @@
 package net.toilgoat.ultvanillaexp.screen.custom;
 
+import net.minecraft.tags.BlockTags;
+import net.minecraft.tags.ItemTags;
 import net.minecraft.world.Container;
 import net.minecraft.world.inventory.AbstractFurnaceMenu;
 import net.minecraft.world.inventory.Slot;
@@ -16,7 +18,7 @@ public class FrosterFuelSlot extends Slot{
         }
 
         public boolean mayPlace(ItemStack stack) {
-            return this.menu.isFrosterFuel(stack) || isBucket(stack);
+            return isIce(stack) || isBucket(stack);
         }
 
         public int getMaxStackSize(ItemStack stack) {
@@ -26,4 +28,7 @@ public class FrosterFuelSlot extends Slot{
         public static boolean isBucket(ItemStack stack) {
             return stack.is(Items.BUCKET);
         }
+    public static boolean isIce(ItemStack stack) {
+        return stack.is(Items.ICE) || stack.is(Items.PACKED_ICE) || stack.is(Items.BLUE_ICE);
+    }
 }

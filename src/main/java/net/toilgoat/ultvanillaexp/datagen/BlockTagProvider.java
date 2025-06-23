@@ -73,7 +73,9 @@ public class BlockTagProvider extends BlockTagsProvider {
                 .add(Blocks.POLISHED_CALCITE_BRICKS_WALL.get())
                 .add(Blocks.POLISHED_DIORITE_BRICKS_WALL.get())
                 .add(Blocks.POLISHED_DRIPSTONE_BRICKS_WALL.get())
-                .add(Blocks.POLISHED_GRANITE_BRICKS_WALL.get());
+                .add(Blocks.POLISHED_GRANITE_BRICKS_WALL.get())
+
+                .add(Blocks.FROSTER.get());
 
         tag(BlockTags.WALLS)
                 .add(Blocks.DRIPSTONE_WALL.get())
@@ -91,9 +93,48 @@ public class BlockTagProvider extends BlockTagsProvider {
                 .add(Blocks.RUBY_ORE.get())
                 .add(Blocks.DEEPSLATE_RUBY_ORE.get());
 
+        tag(BlockTags.LOGS_THAT_BURN)
+                .add(Blocks.PALM_LOG.get())
+                .add(Blocks.STRIPPED_PALM_LOG.get())
+                .add(Blocks.PALM_WOOD.get())
+                .add(Blocks.STRIPPED_PALM_WOOD.get());
+
+        tag(BlockTags.PLANKS)
+                .add(Blocks.PALM_PLANKS.get());
+
+        tag(BlockTags.WOODEN_STAIRS)
+                .add(Blocks.PALM_STAIRS.get());
+
+        tag(BlockTags.WOODEN_SLABS)
+                .add(Blocks.PALM_SLAB.get());
+
+        tag(BlockTags.WOODEN_FENCES)
+                .add(Blocks.PALM_FENCE.get());
+
+        tag(BlockTags.FENCE_GATES)
+                .add(Blocks.PALM_FENCE_GATE.get());
+
+        tag(BlockTags.WOODEN_DOORS)
+                .add(Blocks.PALM_DOOR.get());
+
+        tag(BlockTags.WOODEN_TRAPDOORS)
+                .add(Blocks.PALM_TRAPDOOR.get());
+
+        tag(BlockTags.WOODEN_PRESSURE_PLATES)
+                .add(Blocks.PALM_PRESSURE_PLATE.get());
+
+        tag(BlockTags.WOODEN_BUTTONS)
+                .add(Blocks.PALM_BUTTON.get());
+
+        tag(BlockTags.NEEDS_STONE_TOOL)
+                .add(Blocks.FROSTER.get());
+
         tag(BlockTags.NEEDS_IRON_TOOL)
                 .add(Blocks.RUBY_ORE.get())
                 .add(Blocks.DEEPSLATE_RUBY_ORE.get());
+
+        tag(BlockTags.LEAVES)
+                .add(Blocks.PALM_LEAVES.get());
 
     }
 }

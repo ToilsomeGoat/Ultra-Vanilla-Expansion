@@ -10,6 +10,7 @@ import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.registries.DeferredRegister;
 import net.toilgoat.ultvanillaexp.UltVanillaExp;
 import net.toilgoat.ultvanillaexp.entity.custom.DuckEntity;
+import net.toilgoat.ultvanillaexp.entity.custom.GrizzlyBearEntity;
 
 import java.util.function.Supplier;
 
@@ -18,10 +19,15 @@ public class Entities {
             DeferredRegister.create(BuiltInRegistries.ENTITY_TYPE, UltVanillaExp.MODID);
 
     public static ResourceKey<EntityType<?>> DUCK_KEY = ResourceKey.create(Registries.ENTITY_TYPE, ResourceLocation.withDefaultNamespace("duck"));
+    public static ResourceKey<EntityType<?>> GRIZZLY_BEAR_KEY = ResourceKey.create(Registries.ENTITY_TYPE, ResourceLocation.withDefaultNamespace("grizzly_bear"));
 
     public static final Supplier<EntityType<DuckEntity>> DUCK =
             ENTITY_TYPES.register("duck", () -> EntityType.Builder.of(DuckEntity::new, MobCategory.CREATURE)
                     .sized(0.6f, 0.85f).eyeHeight(0.75f).build(DUCK_KEY));
+
+    public static final Supplier<EntityType<GrizzlyBearEntity>> GRIZZLY_BEAR =
+            ENTITY_TYPES.register("grizzly_bear", () -> EntityType.Builder.of(GrizzlyBearEntity::new, MobCategory.CREATURE)
+                    .sized(1.4f, 1.3f).eyeHeight(0.9f).build(GRIZZLY_BEAR_KEY));
 
     public static void register(IEventBus eventBus) {
         ENTITY_TYPES.register(eventBus);

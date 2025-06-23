@@ -22,6 +22,8 @@ import net.minecraft.world.level.storage.loot.functions.EnchantedCountIncreaseFu
 import net.minecraft.world.level.storage.loot.functions.SetItemCountFunction;
 import net.minecraft.world.level.storage.loot.functions.SmeltItemFunction;
 import net.minecraft.world.level.storage.loot.predicates.LootItemEntityPropertyCondition;
+import net.minecraft.world.level.storage.loot.predicates.LootItemKilledByPlayerCondition;
+import net.minecraft.world.level.storage.loot.predicates.LootItemRandomChanceWithEnchantedBonusCondition;
 import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
 import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
 import net.neoforged.neoforge.client.event.RenderHighlightEvent;
@@ -50,6 +52,19 @@ public class EntitiesLootTableProvider extends EntityLootSubProvider {
                                 .add(LootItem.lootTableItem(net.toilgoat.ultvanillaexp.item.Items.RAW_DUCK.get())
                                                 .apply(SmeltItemFunction.smelted().when(this.shouldSmeltLoot()))
                                                 .apply(EnchantedCountIncreaseFunction.lootingMultiplier(this.registries, UniformGenerator.between(0.0F, 1.0F))))));
+        this.add(
+                Entities.GRIZZLY_BEAR.get(),
+                LootTable.lootTable().withPool(LootPool.lootPool()
+                        .setRolls(ConstantValue.exactly(1.0F))
+                        .add(LootItem.lootTableItem(net.toilgoat.ultvanillaexp.item.Items.BEESWAX.get())
+                                .apply(SetItemCountFunction.setCount(UniformGenerator.between(0.0F, 2.0F)))
+                                .apply(EnchantedCountIncreaseFunction.lootingMultiplier(this.registries, UniformGenerator.between(0.0F, 1.0F))))
+                        .add(LootItem.lootTableItem(net.toilgoat.ultvanillaexp.item.Items.CRYSTALLIZED_HONEY.get())
+                                .when(LootItemKilledByPlayerCondition.killedByPlayer())
+                                .when(LootItemRandomChanceWithEnchantedBonusCondition.randomChanceAndLootingBoost(this.registries, 0.2F, 0.05F)))
+                        .add(LootItem.lootTableItem(Items.SWEET_BERRIES)
+                                        .when(LootItemKilledByPlayerCondition.killedByPlayer())
+                                        .when(LootItemRandomChanceWithEnchantedBonusCondition.randomChanceAndLootingBoost(this.registries, 0.1F, 0.05F)))));
     }
     @Override
     protected Stream<EntityType<?>> getKnownEntityTypes() {

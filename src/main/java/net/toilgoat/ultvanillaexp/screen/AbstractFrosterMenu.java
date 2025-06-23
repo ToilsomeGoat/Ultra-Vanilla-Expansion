@@ -8,13 +8,14 @@ import net.minecraft.world.Container;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.player.StackedContents;
 import net.minecraft.world.entity.player.StackedItemContents;
 import net.minecraft.world.inventory.*;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.*;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.entity.FuelValues;
 import net.toilgoat.ultvanillaexp.block.entity.FrosterFuelValues;
+import net.toilgoat.ultvanillaexp.recipe.AbstractFrostingRecipe;
 import net.toilgoat.ultvanillaexp.screen.custom.FrosterFuelSlot;
 
 import java.util.List;

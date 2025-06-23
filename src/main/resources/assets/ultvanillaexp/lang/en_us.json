@@ -85,5 +85,28 @@
   "block.ultvanillaexp.barley_crop": "Barley Crop",
 
   "item.ultvanillaexp.duck_spawn_egg": "Duck Spawn Egg",
-  "entity.ultvanillaexp.duck": "Duck"
+  "entity.ultvanillaexp.duck": "Duck",
+
+  "item.ultvanillaexp.grizzly_bear_spawn_egg": "Grizzly Bear Spawn Egg",
+  "entity.ultvanillaexp.grizzly_bear": "Grizzly Bear",
+  "entity.minecraft.grizzly_bear": "Grizzly Bear",
+
+  "item.ultvanillaexp.palm_log": "Palm Log",
+  "item.ultvanillaexp.stripped_palm_log": "Stripped Palm Log",
+  "item.ultvanillaexp.palm_wood": "Palm Wood",
+  "item.ultvanillaexp.stripped_palm_wood": "Stripped Palm Wood",
+  "item.ultvanillaexp.palm_planks": "Palm Planks",
+  "item.ultvanillaexp.palm_stairs": "Palm Stairs",
+  "item.ultvanillaexp.palm_slab": "Palm Slab",
+  "item.ultvanillaexp.palm_fence": "Palm Fence",
+  "item.ultvanillaexp.palm_fence_gate": "Palm Fence Gate",
+  "item.ultvanillaexp.palm_door": "Palm Door",
+  "item.ultvanillaexp.palm_trapdoor": "Palm Trapdoor",
+  "item.ultvanillaexp.palm_pressure_plate": "Palm Pressure Plate",
+  "item.ultvanillaexp.palm_button": "Palm Button",
+  "item.ultvanillaexp.palm_leaves": "Palm Leaves",
+  "item.ultvanillaexp.palm_sapling": "Palm Sapling",
+
+  "gui.recipebook.toggleRecipes.frostable": "Frostable"
+
 }

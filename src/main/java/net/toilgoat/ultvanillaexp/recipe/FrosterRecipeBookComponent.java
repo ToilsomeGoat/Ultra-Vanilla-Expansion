@@ -49,7 +49,7 @@ public class FrosterRecipeBookComponent extends RecipeBookComponent<AbstractFros
         @Override
         protected void fillGhostRecipe (GhostSlots p_379383_, RecipeDisplay p_380318_, ContextMap p_380984_){
         p_379383_.setResult(this.menu.getResultSlot(), p_380984_, p_380318_.result());
-        if (p_380318_ instanceof FurnaceRecipeDisplay furnacerecipedisplay) {
+        if (p_380318_ instanceof FrosterRecipeDisplay furnacerecipedisplay) {
             p_379383_.setInput(this.menu.slots.get(0), p_380984_, furnacerecipedisplay.ingredient());
             Slot slot = this.menu.slots.get(1);
             if (slot.getItem().isEmpty()) {
@@ -65,6 +65,6 @@ public class FrosterRecipeBookComponent extends RecipeBookComponent<AbstractFros
 
         @Override
         protected void selectMatchingRecipes (RecipeCollection p_361156_, StackedItemContents p_362080_){
-        p_361156_.selectRecipes(p_362080_, p_378786_ -> p_378786_ instanceof FurnaceRecipeDisplay);
+        p_361156_.selectRecipes(p_362080_, p_378786_ -> p_378786_ instanceof FrosterRecipeDisplay);
     }
 }

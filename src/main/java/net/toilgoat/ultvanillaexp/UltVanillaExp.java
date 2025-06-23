@@ -1,17 +1,32 @@
 package net.toilgoat.ultvanillaexp;
 
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.color.block.BlockColors;
+import net.minecraft.client.color.item.GrassColorSource;
+import net.minecraft.client.color.item.MapColor;
+import net.minecraft.client.renderer.BiomeColors;
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.EntityRenderers;
+import net.minecraft.core.BlockPos;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.level.BlockAndTintGetter;
+import net.minecraft.world.level.FoliageColor;
+import net.minecraft.world.level.block.state.BlockState;
+import net.neoforged.neoforge.client.event.RegisterColorHandlersEvent;
 import net.neoforged.neoforge.client.event.RegisterMenuScreensEvent;
 import net.toilgoat.ultvanillaexp.block.Blocks;
 import net.toilgoat.ultvanillaexp.block.entity.BlockEntities;
+import net.toilgoat.ultvanillaexp.datamaps.DatamapTypes;
 import net.toilgoat.ultvanillaexp.entity.Entities;
 import net.toilgoat.ultvanillaexp.entity.client.DuckRenderer;
+import net.toilgoat.ultvanillaexp.entity.client.GrizzlyBearRenderer;
 import net.toilgoat.ultvanillaexp.item.Items;
 import net.toilgoat.ultvanillaexp.loot.LootModifiers;
+import net.toilgoat.ultvanillaexp.recipe.Recipes;
 import net.toilgoat.ultvanillaexp.screen.MenuTypes;
 import net.toilgoat.ultvanillaexp.screen.custom.FrosterScreen;
+import net.toilgoat.ultvanillaexp.worldgen.tree.PlacerTypes;
 import org.slf4j.Logger;
 
 import com.mojang.logging.LogUtils;
@@ -56,6 +71,8 @@ public class UltVanillaExp
         LootModifiers.register(modEventBus);
         BlockEntities.register(modEventBus);
         MenuTypes.register(modEventBus);
+        Recipes.register(modEventBus);
+        PlacerTypes.register(modEventBus);
 
 
         // Register the item to a creative tab
@@ -80,6 +97,8 @@ public class UltVanillaExp
         if (event.getTabKey() == CreativeModeTabs.NATURAL_BLOCKS){
             event.accept(Blocks.RUBY_ORE);
             event.accept(Blocks.DEEPSLATE_RUBY_ORE);
+            event.accept(Blocks.PALM_LEAVES);
+            event.accept(Blocks.PALM_SAPLING);
         }
 
         if (event.getTabKey() == CreativeModeTabs.FUNCTIONAL_BLOCKS){
@@ -156,12 +175,27 @@ public class UltVanillaExp
             event.accept(Blocks.POLISHED_DIORITE_BRICKS_WALL);
             event.accept(Blocks.POLISHED_DRIPSTONE_BRICKS_WALL);
             event.accept(Blocks.POLISHED_GRANITE_BRICKS_WALL);
+            // PALM
+            event.accept(Blocks.PALM_LOG);
+            event.accept(Blocks.STRIPPED_PALM_LOG);
+            event.accept(Blocks.PALM_WOOD);
+            event.accept(Blocks.STRIPPED_PALM_WOOD);
+            event.accept(Blocks.PALM_PLANKS);
+            event.accept(Blocks.PALM_STAIRS);
+            event.accept(Blocks.PALM_SLAB);
+            event.accept(Blocks.PALM_FENCE);
+            event.accept(Blocks.PALM_FENCE_GATE);
+            event.accept(Blocks.PALM_TRAPDOOR);
+            event.accept(Blocks.PALM_DOOR);
+            event.accept(Blocks.PALM_PRESSURE_PLATE);
+            event.accept(Blocks.PALM_BUTTON);
 
             event.accept(Blocks.WAX_BLOCK);
 
         }
         if (event.getTabKey() == CreativeModeTabs.SPAWN_EGGS) {
             event.accept(Items.DUCK_SPAWN_EGG);
+            event.accept(Items.GRIZZLY_BEAR_SPAWN_EGG);
         }
     }
 
@@ -181,11 +215,27 @@ public class UltVanillaExp
         {
             ItemBlockRenderTypes.setRenderLayer(Blocks.ONION_CROP.get(), RenderType.cutout());
             ItemBlockRenderTypes.setRenderLayer(Blocks.BARLEY_CROP.get(), RenderType.cutout());
+            ItemBlockRenderTypes.setRenderLayer(Blocks.PALM_DOOR.get(), RenderType.cutout());
+            ItemBlockRenderTypes.setRenderLayer(Blocks.PALM_TRAPDOOR.get(), RenderType.cutout());
+            ItemBlockRenderTypes.setRenderLayer(Blocks.PALM_LEAVES.get(), RenderType.cutout());
+            ItemBlockRenderTypes.setRenderLayer(Blocks.PALM_SAPLING.get(), RenderType.cutout());
             EntityRenderers.register(Entities.DUCK.get(), DuckRenderer::new);
+            EntityRenderers.register(Entities.GRIZZLY_BEAR.get(), GrizzlyBearRenderer::new);
         }
         @SubscribeEvent
         public static void registerScreens(RegisterMenuScreensEvent event) {
             event.register(MenuTypes.FROSTER_MENU.get(), FrosterScreen::new);
+        }
+        @SubscribeEvent
+        public static void registerBlockColors(RegisterColorHandlersEvent.Block event) {
+            event.register(
+                    (state, level, pos, tintIndex) -> {
+                        return level != null && pos != null
+                                ? BiomeColors.getAverageFoliageColor(level, pos)
+                                : FoliageColor.FOLIAGE_DEFAULT;
+                    },
+                    Blocks.PALM_LEAVES.get()
+            );
         }
     }
 }

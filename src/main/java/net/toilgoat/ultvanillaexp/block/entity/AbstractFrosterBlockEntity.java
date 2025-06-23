@@ -15,6 +15,7 @@ import net.minecraft.util.Mth;
 import net.minecraft.world.ContainerHelper;
 import net.minecraft.world.WorldlyContainer;
 import net.minecraft.world.entity.ExperienceOrb;
+import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.player.StackedItemContents;
 import net.minecraft.world.inventory.ContainerData;
@@ -27,13 +28,12 @@ import net.minecraft.world.item.crafting.*;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.AbstractFurnaceBlock;
 import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.entity.AbstractFurnaceBlockEntity;
 import net.minecraft.world.level.block.entity.BaseContainerBlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.entity.FuelValues;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
-import net.toilgoat.ultvanillaexp.screen.AbstractFrostingRecipe;
+import net.toilgoat.ultvanillaexp.recipe.AbstractFrostingRecipe;
 
 import javax.annotation.Nullable;
 import java.util.List;
@@ -152,7 +152,7 @@ public abstract class AbstractFrosterBlockEntity extends BaseContainerBlockEntit
                 SingleRecipeInput singlerecipeinput = new SingleRecipeInput(itemstack1);
                 RecipeHolder<? extends AbstractFrostingRecipe> recipeholder;
                 if (flag2) {
-                    recipeholder = (RecipeHolder)furnace.quickCheck.getRecipeFor(singlerecipeinput, level).orElse( null);
+                    recipeholder = furnace.quickCheck.getRecipeFor(singlerecipeinput, level).orElse( null);
                 } else {
                     recipeholder = null;
                 }
@@ -181,7 +181,7 @@ public abstract class AbstractFrosterBlockEntity extends BaseContainerBlockEntit
                     if (furnace.cookingTimer == furnace.cookingTotalTime) {
                         furnace.cookingTimer = 0;
                         furnace.cookingTotalTime = getTotalCookTime(level, furnace);
-                        if (burn(level.registryAccess(), recipeholder, singlerecipeinput, furnace.items, i)) {
+                        if (burn(level.registryAccess(), recipeholder, singlerecipeinput, furnace.items, i, level, pos)) {
                             furnace.setRecipeUsed(recipeholder);
                         }
 
@@ -226,7 +226,7 @@ public abstract class AbstractFrosterBlockEntity extends BaseContainerBlockEntit
             }
         }
 
-        private static boolean burn(RegistryAccess registryAccess, @Nullable RecipeHolder<? extends AbstractFrostingRecipe> recipe, SingleRecipeInput recipeInput, NonNullList<ItemStack> items, int maxStackSize) {
+        private static boolean burn(RegistryAccess registryAccess, @Nullable RecipeHolder<? extends AbstractFrostingRecipe> recipe, SingleRecipeInput recipeInput, NonNullList<ItemStack> items, int maxStackSize, Level level, BlockPos pos) {
             if (recipe != null && canBurn(registryAccess, recipe, recipeInput, items, maxStackSize)) {
                 ItemStack itemstack = (ItemStack)items.get(0);
                 ItemStack itemstack1 = ((AbstractFrostingRecipe)recipe.value()).assemble(recipeInput, registryAccess);
@@ -241,12 +241,42 @@ public abstract class AbstractFrosterBlockEntity extends BaseContainerBlockEntit
                     items.set(1, new ItemStack(Items.WATER_BUCKET));
                 }
 
-                itemstack.shrink(1);
+                ItemStack inputStack = items.get(0);  // Input slot
+                ItemStack remainder = inputStack.getCraftingRemainder(); // The container item
+
+                inputStack.shrink(1);
+
+                if (inputStack.isEmpty()) {
+                    if (!remainder.isEmpty()) {
+                        items.set(0, remainder.copy());
+                    } else {
+                        items.set(0, ItemStack.EMPTY);
+                    }
+                } else {
+                    if (!remainder.isEmpty()) {
+                        ItemStack currentInput = items.get(0);
+                        if (currentInput.isEmpty()) {
+                            items.set(0, remainder.copy());
+                        } else if (!ItemStack.isSameItem(currentInput, remainder) || currentInput.getCount() + remainder.getCount() > currentInput.getMaxStackSize()) {
+                            dropItemStackInWorld(level, pos, remainder.copy());
+                        } else {
+                            currentInput.grow(remainder.getCount());
+                        }
+                    }
+                }
                 return true;
             } else {
                 return false;
             }
         }
+
+    private static void dropItemStackInWorld(Level level, BlockPos pos, ItemStack stack) {
+        if (!level.isClientSide) {
+            ItemEntity entity = new ItemEntity(level, pos.getX() + 0.5, pos.getY() + 1.0, pos.getZ() + 0.5, stack);
+            entity.setDefaultPickUpDelay();
+            level.addFreshEntity(entity);
+        }
+    }
 
         protected int getBurnDuration(FuelValues frosterFuelValues, ItemStack stack) {
             return stack.getBurnTime(this.recipeType, frosterFuelValues);

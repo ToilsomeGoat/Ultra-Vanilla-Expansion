@@ -3,8 +3,8 @@ package net.toilgoat.ultvanillaexp.recipe;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.*;
+import net.toilgoat.ultvanillaexp.block.Blocks;
 import net.toilgoat.ultvanillaexp.item.Items;
-import net.toilgoat.ultvanillaexp.screen.AbstractFrostingRecipe;
 
 public class FrosterRecipe extends AbstractFrostingRecipe {
     public FrosterRecipe(String group, CookingBookCategory category, Ingredient ingredient, ItemStack result, float experience, int cookingTime) {
@@ -13,7 +13,7 @@ public class FrosterRecipe extends AbstractFrostingRecipe {
 
     @Override
     protected Item furnaceIcon() {
-        return Items.ONION.get();
+        return Blocks.FROSTER.get().asItem();
     }
 
     @Override

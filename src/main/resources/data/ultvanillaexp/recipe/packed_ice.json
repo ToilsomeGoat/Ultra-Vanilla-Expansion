@@ -1,0 +1,12 @@
+{
+  "type": "ultvanillaexp:frosting",
+  "category": "misc",
+  "cookingtime": 3000,
+  "experience": 0.5,
+  "group": "packed_ice",
+  "ingredient": "minecraft:ice",
+  "result": {
+    "count": 1,
+    "id": "minecraft:packed_ice"
+  }
+}

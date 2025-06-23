@@ -1,10 +1,18 @@
 package net.toilgoat.ultvanillaexp.block;
 
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.util.valueproviders.UniformInt;
+import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.block.*;
-import net.toilgoat.ultvanillaexp.block.custom.BarleyCrop;
-import net.toilgoat.ultvanillaexp.block.custom.FrosterBlock;
-import net.toilgoat.ultvanillaexp.block.custom.OnionCrop;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.BlockSetType;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.block.state.properties.WoodType;
+import net.minecraft.world.level.material.MapColor;
+import net.minecraft.world.level.material.PushReaction;
+import net.neoforged.neoforge.common.Tags;
+import net.toilgoat.ultvanillaexp.block.custom.*;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
@@ -17,12 +25,18 @@ import net.neoforged.neoforge.registries.DeferredBlock;
 import net.neoforged.neoforge.registries.DeferredRegister;
 import net.toilgoat.ultvanillaexp.UltVanillaExp;
 import net.toilgoat.ultvanillaexp.item.Items;
+import net.toilgoat.ultvanillaexp.worldgen.tree.TreeGrowers;
 
 import java.util.function.Supplier;
+import java.util.function.ToIntFunction;
 
 public class Blocks {
     public static final DeferredRegister.Blocks BLOCKS  =
             DeferredRegister.createBlocks(UltVanillaExp.MODID);
+
+    private static ToIntFunction<BlockState> litBlockEmission(int lightValue) {
+        return (p_50763_) -> (Boolean)p_50763_.getValue(BlockStateProperties.LIT) ? lightValue : 0;
+    }
 
     public static final DeferredBlock<Block> POLISHED_DRIPSTONE = registerBlock("polished_dripstone",
             () -> new Block(BlockBehaviour.Properties.of().setId(ResourceKey.create(Registries.BLOCK, ResourceLocation.parse("ultvanillaexp:polished_dripstone")))
@@ -281,11 +295,156 @@ public class Blocks {
 
     public static final DeferredBlock<Block> FROSTER = registerBlock("froster",
             () -> new FrosterBlock(BlockBehaviour.Properties.of().setId(ResourceKey.create(Registries.BLOCK, ResourceLocation.parse("ultvanillaexp:froster")))
-                    .strength(3f, 3f).instrument(NoteBlockInstrument.BASEDRUM).sound(SoundType.STONE)));
+                    .strength(3f, 3f).requiresCorrectToolForDrops().instrument(NoteBlockInstrument.BASEDRUM).sound(SoundType.STONE).lightLevel(litBlockEmission(13))));
 
+    public static final DeferredBlock<Block> PALM_LEAVES = registerBlock("palm_leaves",
+            () -> new LeavesBlock(BlockBehaviour.Properties.of().setId(ResourceKey.create(Registries.BLOCK, ResourceLocation.parse("ultvanillaexp:palm_leaves")))
+                    .mapColor(MapColor.PLANT).strength(0.2F).randomTicks().sound(SoundType.GRASS)
+                    .noOcclusion().ignitedByLava().pushReaction(PushReaction.DESTROY)) {
+                @Override
+                public boolean isFlammable(BlockState state, BlockGetter level, BlockPos pos, Direction direction) {
+                    return true;
+                }
 
+                @Override
+                public int getFlammability(BlockState state, BlockGetter level, BlockPos pos, Direction direction) {
+                    return 60;
+                }
 
+                @Override
+                public int getFireSpreadSpeed(BlockState state, BlockGetter level, BlockPos pos, Direction direction) {
+                    return 30;
+                }
+            });
 
+    public static final DeferredBlock<Block> PALM_LOG = registerBlock("palm_log",
+            () -> new FlammableRotatedPillarBlock(
+                    BlockBehaviour.Properties.of().setId(ResourceKey.create(Registries.BLOCK, ResourceLocation.parse("ultvanillaexp:palm_log")))
+                            .instrument(NoteBlockInstrument.BASS).strength(2.0F).sound(SoundType.WOOD).ignitedByLava()));
+    public static final DeferredBlock<Block> PALM_WOOD = registerBlock("palm_wood",
+            () -> new FlammableRotatedPillarBlock(
+                    BlockBehaviour.Properties.of().setId(ResourceKey.create(Registries.BLOCK, ResourceLocation.parse("ultvanillaexp:palm_wood")))
+                            .instrument(NoteBlockInstrument.BASS).strength(2.0F).sound(SoundType.WOOD).ignitedByLava()));
+    public static final DeferredBlock<Block> STRIPPED_PALM_LOG = registerBlock("stripped_palm_log",
+            () -> new FlammableRotatedPillarBlock(
+                    BlockBehaviour.Properties.of().setId(ResourceKey.create(Registries.BLOCK, ResourceLocation.parse("ultvanillaexp:stripped_palm_log")))
+                            .instrument(NoteBlockInstrument.BASS).strength(2.0F).sound(SoundType.WOOD).ignitedByLava()));
+    public static final DeferredBlock<Block> STRIPPED_PALM_WOOD = registerBlock("stripped_palm_wood",
+            () -> new FlammableRotatedPillarBlock(
+                    BlockBehaviour.Properties.of().setId(ResourceKey.create(Registries.BLOCK, ResourceLocation.parse("ultvanillaexp:stripped_palm_wood")))
+                            .instrument(NoteBlockInstrument.BASS).strength(2.0F).sound(SoundType.WOOD).ignitedByLava()));
+
+    public static final DeferredBlock<Block> PALM_PLANKS = registerBlock("palm_planks",
+            () -> new Block(BlockBehaviour.Properties.of().setId(ResourceKey.create(Registries.BLOCK, ResourceLocation.parse("ultvanillaexp:palm_planks")))
+                    .instrument(NoteBlockInstrument.BASS).strength(2.0F).sound(SoundType.WOOD).ignitedByLava()) {
+                @Override
+                public boolean isFlammable(BlockState state, BlockGetter level, BlockPos pos, Direction direction) {
+                    return true;
+                }
+
+                @Override
+                public int getFlammability(BlockState state, BlockGetter level, BlockPos pos, Direction direction) {
+                    return 20;
+                }
+
+                @Override
+                public int getFireSpreadSpeed(BlockState state, BlockGetter level, BlockPos pos, Direction direction) {
+                    return 5;
+                }
+            });
+
+    public static final DeferredBlock<StairBlock> PALM_STAIRS = registerBlock("palm_stairs",
+            () -> new StairBlock(Blocks.PALM_PLANKS.get().defaultBlockState(),
+                    BlockBehaviour.Properties.of().setId(ResourceKey.create(Registries.BLOCK, ResourceLocation.parse("ultvanillaexp:palm_stairs")))
+                            .strength(2f)) {
+        @Override
+    public boolean isFlammable(BlockState state, BlockGetter level, BlockPos pos, Direction direction) {
+        return true;
+    }
+
+    @Override
+    public int getFlammability(BlockState state, BlockGetter level, BlockPos pos, Direction direction) {
+        return 20;
+    }
+
+    @Override
+    public int getFireSpreadSpeed(BlockState state, BlockGetter level, BlockPos pos, Direction direction) {
+        return 5;
+    }
+});
+    public static final DeferredBlock<SlabBlock> PALM_SLAB = registerBlock("palm_slab",
+            () -> new SlabBlock(BlockBehaviour.Properties.of().setId(ResourceKey.create(Registries.BLOCK, ResourceLocation.parse("ultvanillaexp:palm_slab")))
+                    .strength(2f)) {
+                @Override
+                public boolean isFlammable(BlockState state, BlockGetter level, BlockPos pos, Direction direction) {
+                    return true;
+                }
+
+                @Override
+                public int getFlammability(BlockState state, BlockGetter level, BlockPos pos, Direction direction) {
+                    return 20;
+                }
+
+                @Override
+                public int getFireSpreadSpeed(BlockState state, BlockGetter level, BlockPos pos, Direction direction) {
+                    return 5;
+                }
+            });
+
+    public static final DeferredBlock<FenceBlock> PALM_FENCE = registerBlock("palm_fence",
+            () -> new FenceBlock(BlockBehaviour.Properties.of().setId(ResourceKey.create(Registries.BLOCK, ResourceLocation.parse("ultvanillaexp:palm_fence")))
+                    .strength(2f).requiresCorrectToolForDrops()) {
+                @Override
+                public boolean isFlammable(BlockState state, BlockGetter level, BlockPos pos, Direction direction) {
+                    return true;
+                }
+
+                @Override
+                public int getFlammability(BlockState state, BlockGetter level, BlockPos pos, Direction direction) {
+                    return 20;
+                }
+
+                @Override
+                public int getFireSpreadSpeed(BlockState state, BlockGetter level, BlockPos pos, Direction direction) {
+                    return 5;
+                }
+            });
+    public static final DeferredBlock<FenceGateBlock> PALM_FENCE_GATE = registerBlock("palm_fence_gate",
+            () -> new FenceGateBlock(WoodType.ACACIA, BlockBehaviour.Properties.of().setId(ResourceKey.create(Registries.BLOCK, ResourceLocation.parse("ultvanillaexp:palm_fence_gate")))
+                    .strength(2f)) {
+                @Override
+                public boolean isFlammable(BlockState state, BlockGetter level, BlockPos pos, Direction direction) {
+                    return true;
+                }
+
+                @Override
+                public int getFlammability(BlockState state, BlockGetter level, BlockPos pos, Direction direction) {
+                    return 20;
+                }
+
+                @Override
+                public int getFireSpreadSpeed(BlockState state, BlockGetter level, BlockPos pos, Direction direction) {
+                    return 5;
+                }
+            });
+
+    public static final DeferredBlock<DoorBlock> PALM_DOOR = registerBlock("palm_door",
+            () -> new DoorBlock(BlockSetType.ACACIA, BlockBehaviour.Properties.of().setId(ResourceKey.create(Registries.BLOCK, ResourceLocation.parse("ultvanillaexp:palm_door"))).strength(2f).noOcclusion()));
+    public static final DeferredBlock<TrapDoorBlock> PALM_TRAPDOOR = registerBlock("palm_trapdoor",
+            () -> new TrapDoorBlock(BlockSetType.ACACIA, BlockBehaviour.Properties.of().setId(ResourceKey.create(Registries.BLOCK, ResourceLocation.parse("ultvanillaexp:palm_trapdoor"))).strength(2f).noOcclusion()));
+
+    public static final DeferredBlock<PressurePlateBlock> PALM_PRESSURE_PLATE = registerBlock("palm_pressure_plate",
+            () -> new PressurePlateBlock(BlockSetType.ACACIA, BlockBehaviour.Properties.of().setId(ResourceKey.create(Registries.BLOCK, ResourceLocation.parse("ultvanillaexp:palm_pressure_plate")))
+                    .strength(2f)));
+    public static final DeferredBlock<ButtonBlock> PALM_BUTTON = registerBlock("palm_button",
+            () -> new ButtonBlock(BlockSetType.ACACIA, 20, BlockBehaviour.Properties.of().setId(ResourceKey.create(Registries.BLOCK, ResourceLocation.parse("ultvanillaexp:palm_button")))
+                    .strength(2f).noCollission()));
+
+    public static final DeferredBlock<Block> PALM_SAPLING = registerBlock("palm_sapling",
+            () -> new SaplingBlocks(TreeGrowers.PALM,
+                    BlockBehaviour.Properties.of().setId(ResourceKey.create(Registries.BLOCK, ResourceLocation.parse("ultvanillaexp:palm_sapling")))
+                            .mapColor(MapColor.PLANT).noCollission().randomTicks().instabreak()
+                            .sound(SoundType.GRASS).pushReaction(PushReaction.DESTROY), () -> net.minecraft.world.level.block.Blocks.SAND));
 
 
 

@@ -49,6 +49,9 @@ public class Items {
     public static final DeferredItem<Item> DUCK_SPAWN_EGG = ITEMS.registerItem("duck_spawn_egg",
             (properties) -> new SpawnEggItem(Entities.DUCK.get(), properties));
 
+    public static final DeferredItem<Item> GRIZZLY_BEAR_SPAWN_EGG = ITEMS.registerItem("grizzly_bear_spawn_egg",
+            (properties) -> new SpawnEggItem(Entities.GRIZZLY_BEAR.get(), properties));
+
     public static final DeferredItem<Item> RAW_DUCK = ITEMS.registerItem("raw_duck", Item::new, new Item.Properties().food(Food.RAW_DUCK, Consumables.RAW_DUCK));
 
     public static final DeferredItem<Item> ROASTED_DUCK = ITEMS.registerItem("roasted_duck", Item::new, new Item.Properties().food(Food.ROASTED_DUCK));

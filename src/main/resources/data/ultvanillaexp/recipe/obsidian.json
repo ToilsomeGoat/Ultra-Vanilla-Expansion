@@ -1,0 +1,12 @@
+{
+  "type": "ultvanillaexp:frosting",
+  "category": "misc",
+  "cookingtime": 300,
+  "experience": 0.35,
+  "group": "obsidian",
+  "ingredient": "minecraft:lava_bucket",
+  "result": {
+    "count": 1,
+    "id": "minecraft:obsidian"
+  }
+}

@@ -90,6 +90,23 @@ public class BlocksLootTableProvider extends BlockLootSubProvider {
         dropSelf(Blocks.POLISHED_DRIPSTONE_BRICKS_WALL.get());
         dropSelf(Blocks.POLISHED_GRANITE_BRICKS_WALL.get());
         dropSelf(Blocks.FROSTER.get());
+        dropSelf(Blocks.PALM_LOG.get());
+        dropSelf(Blocks.PALM_WOOD.get());
+        dropSelf(Blocks.STRIPPED_PALM_LOG.get());
+        dropSelf(Blocks.STRIPPED_PALM_WOOD.get());
+        dropSelf(Blocks.PALM_PLANKS.get());
+        dropSelf(Blocks.PALM_STAIRS.get());
+        dropSelf(Blocks.PALM_SLAB.get());
+        dropSelf(Blocks.PALM_FENCE.get());
+        dropSelf(Blocks.PALM_FENCE_GATE.get());
+        add(Blocks.PALM_DOOR.get(),
+                block -> createDoorTable(Blocks.PALM_DOOR.get()));
+        dropSelf(Blocks.PALM_TRAPDOOR.get());
+        dropSelf(Blocks.PALM_PRESSURE_PLATE.get());
+        dropSelf(Blocks.PALM_BUTTON.get());
+        dropSelf(Blocks.PALM_SAPLING.get());
+        add(Blocks.PALM_LEAVES.get(),
+        block -> createLeavesDrops(block, Blocks.PALM_SAPLING.get(), NORMAL_LEAVES_SAPLING_CHANCES));
 
         LootItemCondition.Builder onionCropCondition = LootItemBlockStatePropertyCondition.hasBlockStateProperties(Blocks.ONION_CROP.get())
                 .setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(OnionCrop.AGE, 3));
@@ -108,6 +125,7 @@ public class BlocksLootTableProvider extends BlockLootSubProvider {
 
         add(Blocks.DEEPSLATE_RUBY_ORE.get(),
                 block -> createOreDrop(Blocks.DEEPSLATE_RUBY_ORE.get(), Items.RUBY.get()));
+
     }
 
     @Override
