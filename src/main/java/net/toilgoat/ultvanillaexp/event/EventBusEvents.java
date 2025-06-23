@@ -2,9 +2,9 @@ package net.toilgoat.ultvanillaexp.event;
 
 import net.minecraft.world.entity.SpawnPlacementTypes;
 import net.minecraft.world.entity.animal.Animal;
+import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.level.levelgen.Heightmap;
 import net.neoforged.bus.api.SubscribeEvent;
-import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.client.event.EntityRenderersEvent;
 import net.neoforged.neoforge.event.entity.EntityAttributeCreationEvent;
 import net.neoforged.neoforge.event.entity.RegisterSpawnPlacementsEvent;
@@ -14,8 +14,8 @@ import net.toilgoat.ultvanillaexp.entity.client.DuckModel;
 import net.toilgoat.ultvanillaexp.entity.client.GrizzlyBearModel;
 import net.toilgoat.ultvanillaexp.entity.custom.DuckEntity;
 import net.toilgoat.ultvanillaexp.entity.custom.GrizzlyBearEntity;
+import net.toilgoat.ultvanillaexp.entity.custom.ScorchedMonster;
 
-@EventBusSubscriber(modid = UltVanillaExp.MODID, bus = EventBusSubscriber.Bus.MOD)
 public class EventBusEvents {
     @SubscribeEvent
     public static void registerLayers(EntityRenderersEvent.RegisterLayerDefinitions event) {
@@ -27,6 +27,7 @@ public class EventBusEvents {
     public static void registerAttributes(EntityAttributeCreationEvent event) {
         event.put(Entities.DUCK.get(), DuckEntity.createAttributes().build());
         event.put(Entities.GRIZZLY_BEAR.get(), GrizzlyBearEntity.createAttributes().build());
+        event.put(Entities.SCORCHED.get(), ScorchedMonster.createAttributes().build());
     }
 
     @SubscribeEvent
@@ -35,5 +36,7 @@ public class EventBusEvents {
                 Animal::checkAnimalSpawnRules, RegisterSpawnPlacementsEvent.Operation.REPLACE);
         event.register(Entities.GRIZZLY_BEAR.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
                 Animal::checkAnimalSpawnRules, RegisterSpawnPlacementsEvent.Operation.REPLACE);
+        event.register(Entities.SCORCHED.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
+                ScorchedMonster::checkScorchedSpawnRules, RegisterSpawnPlacementsEvent.Operation.REPLACE);
     }
 }

@@ -23,6 +23,6 @@ public class Consumables {
 
     static {
         CRYSTALLIZED_HONEY = defaultFood().sound(SoundEvents.HONEY_DRINK).onConsume(new RemoveStatusEffectsConsumeEffect(MobEffects.POISON)).build();
-        RAW_DUCK = defaultFood().onConsume(new ApplyStatusEffectsConsumeEffect(new MobEffectInstance(MobEffects.HUNGER, 600, 0), 0.3F)).build();
+        RAW_DUCK = defaultFood().onConsume(new ApplyStatusEffectsConsumeEffect(new MobEffectInstance(MobEffects.HUNGER, 600, 0), 0.2F)).build();
     }
 }

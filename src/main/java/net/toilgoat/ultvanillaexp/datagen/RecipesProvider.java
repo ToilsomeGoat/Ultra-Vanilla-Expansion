@@ -1,6 +1,5 @@
 package net.toilgoat.ultvanillaexp.datagen;
 
-import com.ibm.icu.util.Output;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.recipes.RecipeCategory;
@@ -10,10 +9,9 @@ import net.minecraft.data.recipes.SimpleCookingRecipeBuilder;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.*;
 import net.minecraft.world.level.ItemLike;
-import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.SuspiciousEffectHolder;
 import net.toilgoat.ultvanillaexp.UltVanillaExp;
 import net.toilgoat.ultvanillaexp.block.Blocks;
-import net.toilgoat.ultvanillaexp.entity.custom.DuckEntity;
 import net.toilgoat.ultvanillaexp.util.Tags;
 
 import java.util.List;
@@ -36,7 +34,7 @@ public class RecipesProvider extends RecipeProvider {
 
         @Override
         public String getName() {
-            return "My Recipes";
+            return "UltVanillaExp Recipes";
         }
     }
     @Override
@@ -335,6 +333,13 @@ public class RecipesProvider extends RecipeProvider {
                 .define('S', Items.IRON_INGOT)
                 .unlockedBy("has_iron_ingot", has(Items.IRON_INGOT)).save(output);
 
+        //Sign
+        signBuilder(net.toilgoat.ultvanillaexp.item.Items.PALM_SIGN.get(), Ingredient.of(Blocks.PALM_PLANKS.get())).group("palm_planks")
+                .unlockedBy("has_palm_planks", has(Blocks.PALM_PLANKS.get())).save(output);
+
+        //Hanging Sign
+        hangingSign(net.toilgoat.ultvanillaexp.item.Items.PALM_HANGING_SIGN.get(), Blocks.STRIPPED_PALM_LOG);
+
         smelting(output, ONION, RecipeCategory.FOOD, net.toilgoat.ultvanillaexp.item.Items.BAKED_ONION.get(), 0.35f, 200, "onion");
         smoking(output, ONION, RecipeCategory.FOOD, net.toilgoat.ultvanillaexp.item.Items.BAKED_ONION.get(), 0.35f, 100, "onion");
         campfireCooking(output, ONION, RecipeCategory.FOOD, net.toilgoat.ultvanillaexp.item.Items.BAKED_ONION.get(), 0.35f, 600, "onion");
@@ -346,8 +351,9 @@ public class RecipesProvider extends RecipeProvider {
         smelting(output, RUBY_ORES, RecipeCategory.MISC, net.toilgoat.ultvanillaexp.item.Items.RUBY.get(), 1.0f, 200, "ruby");
         blasting(output, RUBY_ORES, RecipeCategory.MISC, net.toilgoat.ultvanillaexp.item.Items.RUBY.get(), 1.0f, 100, "ruby");
 
-
-
+        suspiciousStew(Blocks.BLUE_ROSE.get().asItem(), SuspiciousEffectHolder.tryGet(Blocks.BLUE_ROSE.get()));
+        suspiciousStew(Blocks.PAEONIA.get().asItem(), SuspiciousEffectHolder.tryGet(Blocks.PAEONIA.get()));
+        suspiciousStew(Blocks.HIBISCUS.get().asItem(), SuspiciousEffectHolder.tryGet(Blocks.HIBISCUS.get()));
 
     }
     protected void smelting(RecipeOutput recipeOutput, List<ItemLike> pIngredients, RecipeCategory pCategory, ItemLike pResult,

@@ -69,7 +69,15 @@ public class ItemTagProvider extends ItemTagsProvider {
         tag(ItemTags.WOODEN_BUTTONS)
                 .add(Blocks.PALM_BUTTON.get().asItem());
 
+        tag(ItemTags.SAPLINGS)
+                .add(Blocks.PALM_SAPLING.get().asItem());
+
         tag(ItemTags.LEAVES)
                 .add(Blocks.PALM_LEAVES.get().asItem());
+
+        tag(ItemTags.SMALL_FLOWERS)
+                .add(Blocks.BLUE_ROSE.get().asItem())
+                .add(Blocks.PAEONIA.get().asItem())
+                .add(Blocks.HIBISCUS.get().asItem());
     }
 }

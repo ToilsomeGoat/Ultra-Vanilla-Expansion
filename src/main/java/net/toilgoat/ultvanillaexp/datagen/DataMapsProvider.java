@@ -21,9 +21,9 @@ public class DataMapsProvider extends DataMapProvider {
     protected void gather(HolderLookup.Provider provider) {
         this.builder(NeoForgeDataMaps.FURNACE_FUELS)
                 .add(Items.URANIUM.getId(), new FurnaceFuel(3000), false)
-                .add(net.minecraft.world.item.Items.ICE.builtInRegistryHolder(), new FurnaceFuel(600), false)
-                .add(net.minecraft.world.item.Items.PACKED_ICE.builtInRegistryHolder(), new FurnaceFuel(6000), false)
-                .add(net.minecraft.world.item.Items.BLUE_ICE.builtInRegistryHolder(), new FurnaceFuel(60000), false);
+                .add(net.minecraft.world.item.Items.ICE.builtInRegistryHolder(), new FurnaceFuel(200), false)
+                .add(net.minecraft.world.item.Items.PACKED_ICE.builtInRegistryHolder(), new FurnaceFuel(2000), false)
+                .add(net.minecraft.world.item.Items.BLUE_ICE.builtInRegistryHolder(), new FurnaceFuel(20000), false);
 
         this.builder(NeoForgeDataMaps.COMPOSTABLES)
                 .add(Items.ONION.getId(), new Compostable(0.65f),true)

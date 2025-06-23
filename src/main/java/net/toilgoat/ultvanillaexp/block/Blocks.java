@@ -3,6 +3,7 @@ package net.toilgoat.ultvanillaexp.block;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.util.valueproviders.UniformInt;
+import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockState;
@@ -25,6 +26,7 @@ import net.neoforged.neoforge.registries.DeferredBlock;
 import net.neoforged.neoforge.registries.DeferredRegister;
 import net.toilgoat.ultvanillaexp.UltVanillaExp;
 import net.toilgoat.ultvanillaexp.item.Items;
+import net.toilgoat.ultvanillaexp.util.WoodTypes;
 import net.toilgoat.ultvanillaexp.worldgen.tree.TreeGrowers;
 
 import java.util.function.Supplier;
@@ -273,6 +275,25 @@ public class Blocks {
             () -> new Block(BlockBehaviour.Properties.of().setId(ResourceKey.create(Registries.BLOCK, ResourceLocation.parse("ultvanillaexp:wax_block")))
                     .strength(0.6f, 0.6f).instrument(NoteBlockInstrument.FLUTE).sound(SoundType.CORAL_BLOCK)));
 
+    public static final DeferredBlock<Block> HIEROGLYPH_BASKET = registerBlock("hieroglyph_basket",
+            () -> new Block(BlockBehaviour.Properties.of().setId(ResourceKey.create(Registries.BLOCK, ResourceLocation.parse("ultvanillaexp:hieroglyph_basket")))
+                    .mapColor(MapColor.SAND).instrument(NoteBlockInstrument.BASEDRUM).requiresCorrectToolForDrops().strength(0.8F)));
+
+    public static final DeferredBlock<Block> HIEROGLYPH_FOOT = registerBlock("hieroglyph_foot",
+            () -> new Block(BlockBehaviour.Properties.of().setId(ResourceKey.create(Registries.BLOCK, ResourceLocation.parse("ultvanillaexp:hieroglyph_foot")))
+                    .mapColor(MapColor.SAND).instrument(NoteBlockInstrument.BASEDRUM).requiresCorrectToolForDrops().strength(0.8F)));
+
+    public static final DeferredBlock<Block> HIEROGLYPH_REEDS = registerBlock("hieroglyph_reeds",
+            () -> new Block(BlockBehaviour.Properties.of().setId(ResourceKey.create(Registries.BLOCK, ResourceLocation.parse("ultvanillaexp:hieroglyph_reeds")))
+                    .mapColor(MapColor.SAND).instrument(NoteBlockInstrument.BASEDRUM).requiresCorrectToolForDrops().strength(0.8F)));
+
+    public static final DeferredBlock<Block> HIEROGLYPH_SNAKE = registerBlock("hieroglyph_snake",
+            () -> new Block(BlockBehaviour.Properties.of().setId(ResourceKey.create(Registries.BLOCK, ResourceLocation.parse("ultvanillaexp:hieroglyph_snake")))
+                    .mapColor(MapColor.SAND).instrument(NoteBlockInstrument.BASEDRUM).requiresCorrectToolForDrops().strength(0.8F)));
+
+    public static final DeferredBlock<Block> HIEROGLYPH_VULTURE = registerBlock("hieroglyph_vulture",
+            () -> new Block(BlockBehaviour.Properties.of().setId(ResourceKey.create(Registries.BLOCK, ResourceLocation.parse("ultvanillaexp:hieroglyph_vulture")))
+                    .mapColor(MapColor.SAND).instrument(NoteBlockInstrument.BASEDRUM).requiresCorrectToolForDrops().strength(0.8F)));
     //Crop
     public static final DeferredBlock<Block> ONION_CROP = BLOCKS.register("onion_crop",
             () -> new OnionCrop(BlockBehaviour.Properties.ofFullCopy(net.minecraft.world.level.block.Blocks.BEETROOTS)
@@ -298,7 +319,7 @@ public class Blocks {
                     .strength(3f, 3f).requiresCorrectToolForDrops().instrument(NoteBlockInstrument.BASEDRUM).sound(SoundType.STONE).lightLevel(litBlockEmission(13))));
 
     public static final DeferredBlock<Block> PALM_LEAVES = registerBlock("palm_leaves",
-            () -> new LeavesBlock(BlockBehaviour.Properties.of().setId(ResourceKey.create(Registries.BLOCK, ResourceLocation.parse("ultvanillaexp:palm_leaves")))
+            () -> new PalmLeavesBlock(BlockBehaviour.Properties.of().setId(ResourceKey.create(Registries.BLOCK, ResourceLocation.parse("ultvanillaexp:palm_leaves")))
                     .mapColor(MapColor.PLANT).strength(0.2F).randomTicks().sound(SoundType.GRASS)
                     .noOcclusion().ignitedByLava().pushReaction(PushReaction.DESTROY)) {
                 @Override
@@ -410,7 +431,7 @@ public class Blocks {
                 }
             });
     public static final DeferredBlock<FenceGateBlock> PALM_FENCE_GATE = registerBlock("palm_fence_gate",
-            () -> new FenceGateBlock(WoodType.ACACIA, BlockBehaviour.Properties.of().setId(ResourceKey.create(Registries.BLOCK, ResourceLocation.parse("ultvanillaexp:palm_fence_gate")))
+            () -> new FenceGateBlock(WoodTypes.PALM, BlockBehaviour.Properties.of().setId(ResourceKey.create(Registries.BLOCK, ResourceLocation.parse("ultvanillaexp:palm_fence_gate")))
                     .strength(2f)) {
                 @Override
                 public boolean isFlammable(BlockState state, BlockGetter level, BlockPos pos, Direction direction) {
@@ -440,12 +461,60 @@ public class Blocks {
             () -> new ButtonBlock(BlockSetType.ACACIA, 20, BlockBehaviour.Properties.of().setId(ResourceKey.create(Registries.BLOCK, ResourceLocation.parse("ultvanillaexp:palm_button")))
                     .strength(2f).noCollission()));
 
+    public static final DeferredBlock<Block> PALM_SIGN = BLOCKS.register("palm_sign",
+            () -> new StandingSignBlocks(WoodTypes.PALM, BlockBehaviour.Properties.of().setId(ResourceKey.create(Registries.BLOCK, ResourceLocation.parse("ultvanillaexp:palm_sign")))
+                    .mapColor(MapColor.WOOD).forceSolidOn().instrument(NoteBlockInstrument.BASS).noCollission().strength(1.0F).ignitedByLava()));
+    public static final DeferredBlock<Block> PALM_WALL_SIGN = BLOCKS.register("palm_wall_sign",
+            () -> new WallSignBlocks(WoodTypes.PALM, BlockBehaviour.Properties.of().setId(ResourceKey.create(Registries.BLOCK, ResourceLocation.parse("ultvanillaexp:palm_wall_sign")))
+                    .mapColor(MapColor.WOOD).forceSolidOn().instrument(NoteBlockInstrument.BASS).noCollission().strength(1.0F).ignitedByLava()));
+
+    public static final DeferredBlock<Block> PALM_HANGING_SIGN = BLOCKS.register("palm_hanging_sign",
+            () -> new HangingSignBlocks(WoodTypes.PALM, BlockBehaviour.Properties.of().setId(ResourceKey.create(Registries.BLOCK, ResourceLocation.parse("ultvanillaexp:palm_hanging_sign")))
+                    .mapColor(MapColor.WOOD).forceSolidOn().instrument(NoteBlockInstrument.BASS).noCollission().strength(1.0F).ignitedByLava()));
+    public static final DeferredBlock<Block> PALM_WALL_HANGING_SIGN = BLOCKS.register("palm_wall_hanging_sign",
+            () -> new WallHangingSignBlocks(WoodTypes.PALM, BlockBehaviour.Properties.of().setId(ResourceKey.create(Registries.BLOCK, ResourceLocation.parse("ultvanillaexp:palm_wall_hanging_sign")))
+                    .mapColor(MapColor.WOOD).forceSolidOn().instrument(NoteBlockInstrument.BASS).noCollission().strength(1.0F).ignitedByLava()));
+
     public static final DeferredBlock<Block> PALM_SAPLING = registerBlock("palm_sapling",
             () -> new SaplingBlocks(TreeGrowers.PALM,
                     BlockBehaviour.Properties.of().setId(ResourceKey.create(Registries.BLOCK, ResourceLocation.parse("ultvanillaexp:palm_sapling")))
                             .mapColor(MapColor.PLANT).noCollission().randomTicks().instabreak()
                             .sound(SoundType.GRASS).pushReaction(PushReaction.DESTROY), () -> net.minecraft.world.level.block.Blocks.SAND));
 
+    public static final DeferredBlock<FlowerPotBlock> POTTED_PALM_SAPLING = BLOCKS.register("potted_palm_sapling", () ->
+            new FlowerPotBlock(
+                    () -> (FlowerPotBlock) net.minecraft.world.level.block.Blocks.FLOWER_POT, Blocks.PALM_SAPLING, BlockBehaviour.Properties.of().setId(ResourceKey.create(Registries.BLOCK, ResourceLocation.parse("ultvanillaexp:potted_palm_sapling")))
+                    .instabreak().noOcclusion().pushReaction(PushReaction.DESTROY)));
+
+    public static final DeferredBlock<FlowerBlock> BLUE_ROSE = registerBlock("blue_rose",
+            () -> new FlowerBlock(MobEffects.SPEED, 7.0F, BlockBehaviour.Properties.of().setId(ResourceKey.create(Registries.BLOCK, ResourceLocation.parse("ultvanillaexp:blue_rose")))
+                    .mapColor(MapColor.PLANT).noCollission().instabreak().sound(SoundType.GRASS).offsetType(BlockBehaviour.OffsetType.XZ).pushReaction(PushReaction.DESTROY)));
+
+
+    public static final DeferredBlock<FlowerPotBlock> POTTED_BLUE_ROSE = BLOCKS.register("potted_blue_rose", () ->
+            new FlowerPotBlock(
+                    () -> (FlowerPotBlock) net.minecraft.world.level.block.Blocks.FLOWER_POT, Blocks.BLUE_ROSE, BlockBehaviour.Properties.of().setId(ResourceKey.create(Registries.BLOCK, ResourceLocation.parse("ultvanillaexp:potted_blue_rose")))
+                    .instabreak().noOcclusion().pushReaction(PushReaction.DESTROY)));
+
+    public static final DeferredBlock<FlowerBlock> PAEONIA = registerBlock("paeonia",
+            () -> new FlowerBlock(MobEffects.SLOWNESS, 5.0F, BlockBehaviour.Properties.of().setId(ResourceKey.create(Registries.BLOCK, ResourceLocation.parse("ultvanillaexp:paeonia")))
+                    .mapColor(MapColor.PLANT).noCollission().instabreak().sound(SoundType.GRASS).offsetType(BlockBehaviour.OffsetType.XZ).pushReaction(PushReaction.DESTROY)));
+
+
+    public static final DeferredBlock<FlowerPotBlock> POTTED_PAEONIA = BLOCKS.register("potted_paeonia", () ->
+            new FlowerPotBlock(
+                    () -> (FlowerPotBlock) net.minecraft.world.level.block.Blocks.FLOWER_POT, Blocks.PAEONIA, BlockBehaviour.Properties.of().setId(ResourceKey.create(Registries.BLOCK, ResourceLocation.parse("ultvanillaexp:potted_paeonia")))
+                    .instabreak().noOcclusion().pushReaction(PushReaction.DESTROY)));
+
+    public static final DeferredBlock<FlowerBlock> HIBISCUS = registerBlock("hibiscus",
+            () -> new FlowerBlock(MobEffects.SLOW_FALLING, 5.0F, BlockBehaviour.Properties.of().setId(ResourceKey.create(Registries.BLOCK, ResourceLocation.parse("ultvanillaexp:hibiscus")))
+                    .mapColor(MapColor.PLANT).noCollission().instabreak().sound(SoundType.GRASS).offsetType(BlockBehaviour.OffsetType.XZ).pushReaction(PushReaction.DESTROY)));
+
+
+    public static final DeferredBlock<FlowerPotBlock> POTTED_HIBISCUS = BLOCKS.register("potted_hibiscus", () ->
+            new FlowerPotBlock(
+                    () -> (FlowerPotBlock) net.minecraft.world.level.block.Blocks.FLOWER_POT, Blocks.HIBISCUS, BlockBehaviour.Properties.of().setId(ResourceKey.create(Registries.BLOCK, ResourceLocation.parse("ultvanillaexp:potted_hibiscus")))
+                    .instabreak().noOcclusion().pushReaction(PushReaction.DESTROY)));
 
 
     private static <T extends Block> DeferredBlock<T> registerBlock(String name, Supplier<T> block) {

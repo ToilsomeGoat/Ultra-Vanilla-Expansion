@@ -1,0 +1,16 @@
+{
+  "name": "ultvanillaexp:oasis_floor",
+  "fallback": "minecraft:empty",
+  "elements": [
+    {
+      "weight": 1,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "projection": "rigid",
+        "location": "ultvanillaexp:oasis_floor",
+        "processors": "minecraft:empty",
+        "override_liquid_settings": "apply_waterlogging"
+      }
+    }
+  ]
+}

@@ -67,6 +67,12 @@
   "item.ultvanillaexp.polished_dripstone_bricks_wall": "Polished Dripstone Brick Wall",
   "item.ultvanillaexp.polished_granite_bricks_wall": "Polished Granite Brick Wall",
 
+  "item.ultvanillaexp.hieroglyph_basket": "Basket Hieroglyph",
+  "item.ultvanillaexp.hieroglyph_foot": "Foot Hieroglyph",
+  "item.ultvanillaexp.hieroglyph_reeds": "Reeds Hieroglyph",
+  "item.ultvanillaexp.hieroglyph_snake": "Snake Hieroglyph",
+  "item.ultvanillaexp.hieroglyph_vulture": "Vulture Hieroglyph",
+
   "item.ultvanillaexp.onion": "Onion",
   "item.ultvanillaexp.baked_onion": "Baked Onion",
   "item.ultvanillaexp.barley": "Barley",
@@ -91,6 +97,10 @@
   "entity.ultvanillaexp.grizzly_bear": "Grizzly Bear",
   "entity.minecraft.grizzly_bear": "Grizzly Bear",
 
+  "item.ultvanillaexp.scorched_spawn_egg": "Scorched Spawn Egg",
+  "entity.ultvanillaexp.scorched": "Scorched",
+  "entity.minecraft.scorched": "Scorched",
+
   "item.ultvanillaexp.palm_log": "Palm Log",
   "item.ultvanillaexp.stripped_palm_log": "Stripped Palm Log",
   "item.ultvanillaexp.palm_wood": "Palm Wood",
@@ -104,9 +114,31 @@
   "item.ultvanillaexp.palm_trapdoor": "Palm Trapdoor",
   "item.ultvanillaexp.palm_pressure_plate": "Palm Pressure Plate",
   "item.ultvanillaexp.palm_button": "Palm Button",
+  "item.ultvanillaexp.palm_sign": "Palm Sign",
+  "item.ultvanillaexp.palm_hanging_sign": "Palm Hanging Sign",
   "item.ultvanillaexp.palm_leaves": "Palm Leaves",
   "item.ultvanillaexp.palm_sapling": "Palm Sapling",
 
-  "gui.recipebook.toggleRecipes.frostable": "Frostable"
+  "item.ultvanillaexp.blue_rose": "Blue Rose",
+  "item.ultvanillaexp.paeonia": "Paeonia",
+  "item.ultvanillaexp.hibiscus": "Hibiscus",
 
+  "gui.recipebook.toggleRecipes.frostable": "Frostable",
+
+  "item.minecraft.potion.effect.blindness": "Potion of Blindness",
+  "item.minecraft.potion.effect.hunger": "Potion of Hunger",
+  "item.minecraft.potion.effect.nausea": "Potion of Nausea",
+  "item.minecraft.potion.effect.wither": "Potion of Wither",
+  "item.minecraft.splash_potion.effect.blindness": "Splash Potion of Blindness",
+  "item.minecraft.splash_potion.effect.hunger": "Splash Potion of Hunger",
+  "item.minecraft.splash_potion.effect.nausea": "Splash Potion of Nausea",
+  "item.minecraft.splash_potion.effect.wither": "Splash Potion of Wither",
+  "item.minecraft.lingering_potion.effect.blindness": "Lingering Potion of Blindness",
+  "item.minecraft.lingering_potion.effect.hunger": "Lingering Potion of Hunger",
+  "item.minecraft.lingering_potion.effect.nausea": "Lingering Potion of Nausea",
+  "item.minecraft.lingering_potion.effect.wither": "Lingering Potion of Wither",
+  "item.minecraft.tipped_arrow.effect.blindness": "Arrow of Blindness",
+  "item.minecraft.tipped_arrow.effect.hunger": "Arrow of Hunger",
+  "item.minecraft.tipped_arrow.effect.nausea": "Arrow of Nausea",
+  "item.minecraft.tipped_arrow.effect.wither": "Arrow of Wither"
 }

@@ -22,5 +22,7 @@ public class EntityTypeTagProvider extends EntityTypeTagsProvider {
     protected void addTags(HolderLookup.Provider provider) {
         tag(EntityTypeTags.FALL_DAMAGE_IMMUNE)
                 .add(Entities.DUCK.get());
+        tag(EntityTypeTags.SKELETONS)
+                .add(Entities.SCORCHED.get());
     }
 }

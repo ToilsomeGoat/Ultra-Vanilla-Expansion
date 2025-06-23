@@ -7,6 +7,7 @@ import net.minecraft.client.data.models.model.ModelTemplate;
 import net.minecraft.client.data.models.model.ModelTemplates;
 import net.minecraft.client.data.models.model.TexturedModel;
 import net.minecraft.core.Holder;
+import net.minecraft.data.BlockFamily;
 import net.minecraft.data.PackOutput;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
@@ -16,6 +17,7 @@ import net.toilgoat.ultvanillaexp.block.custom.BarleyCrop;
 import net.toilgoat.ultvanillaexp.block.custom.OnionCrop;
 import net.toilgoat.ultvanillaexp.item.Items;
 
+import java.util.Map;
 import java.util.stream.Stream;
 
 public class ModelsProvider extends ModelProvider {
@@ -35,11 +37,11 @@ public class ModelsProvider extends ModelProvider {
         itemModels.generateFlatItem(Items.RUBY.get(), ModelTemplates.FLAT_ITEM);
         itemModels.generateFlatItem(Items.BARLEY.get(), ModelTemplates.FLAT_ITEM);
         itemModels.generateFlatItem(Items.BARLEY_STEW.get(), ModelTemplates.FLAT_ITEM);
-        itemModels.generateSpawnEgg(Items.DUCK_SPAWN_EGG.get(), 0x8a5c2a, 0x36434d);
-        itemModels.generateSpawnEgg(Items.GRIZZLY_BEAR_SPAWN_EGG.get(), 0x28211d, 0x643a36);
+        itemModels.generateFlatItem(Items.DUCK_SPAWN_EGG.get(), ModelTemplates.FLAT_ITEM);
+        itemModels.generateFlatItem(Items.GRIZZLY_BEAR_SPAWN_EGG.get(), ModelTemplates.FLAT_ITEM);
+        itemModels.generateFlatItem(Items.SCORCHED_SPAWN_EGG.get(), ModelTemplates.FLAT_ITEM);
         itemModels.generateFlatItem(Items.RAW_DUCK.get(), ModelTemplates.FLAT_ITEM);
         itemModels.generateFlatItem(Items.ROASTED_DUCK.get(), ModelTemplates.FLAT_ITEM);
-        itemModels.generateFlatItem(Blocks.PALM_SAPLING.get().asItem(), ModelTemplates.FLAT_ITEM);
 
         //BLOCKS
         blockModels.createTrivialCube(Blocks.CRACKED_POLISHED_ANDESITE_BRICKS.get());
@@ -122,10 +124,19 @@ public class ModelsProvider extends ModelProvider {
         blockModels.createTrivialCube(Blocks.DEEPSLATE_RUBY_ORE.get());
         blockModels.createFurnace(Blocks.FROSTER.get(), TexturedModel.ORIENTABLE);
 
+        blockModels.createTrivialBlock(Blocks.HIEROGLYPH_BASKET.get(), TexturedModel.COLUMN);
+        blockModels.createTrivialBlock(Blocks.HIEROGLYPH_FOOT.get(), TexturedModel.COLUMN);
+        blockModels.createTrivialBlock(Blocks.HIEROGLYPH_REEDS.get(), TexturedModel.COLUMN);
+        blockModels.createTrivialBlock(Blocks.HIEROGLYPH_SNAKE.get(), TexturedModel.COLUMN);
+        blockModels.createTrivialBlock(Blocks.HIEROGLYPH_VULTURE.get(), TexturedModel.COLUMN);
+
+
+
         blockModels.woodProvider(Blocks.PALM_LOG.get()).logWithHorizontal(Blocks.PALM_LOG.get()).wood(Blocks.PALM_WOOD.get());
         blockModels.woodProvider(Blocks.STRIPPED_PALM_LOG.get()).logWithHorizontal(Blocks.STRIPPED_PALM_LOG.get()).wood(Blocks.STRIPPED_PALM_WOOD.get());
 
-        blockModels.family(Blocks.PALM_PLANKS.get())
+        BlockFamily family = new BlockFamily.Builder(Blocks.PALM_PLANKS.get())
+                .sign(Blocks.PALM_SIGN.get(), Blocks.PALM_WALL_SIGN.get())
                 .stairs(Blocks.PALM_STAIRS.get())
                 .slab(Blocks.PALM_SLAB.get())
                 .fence(Blocks.PALM_FENCE.get())
@@ -133,11 +144,23 @@ public class ModelsProvider extends ModelProvider {
                 .button(Blocks.PALM_BUTTON.get())
                 .pressurePlate(Blocks.PALM_PRESSURE_PLATE.get())
                 .door(Blocks.PALM_DOOR.get())
-                .trapdoor(Blocks.PALM_TRAPDOOR.get());
+                .trapdoor(Blocks.PALM_TRAPDOOR.get())
+                .getFamily();
+
+        blockModels.family(Blocks.PALM_PLANKS.get()).generateFor(family);
+
+
+        blockModels.createHangingSign(Blocks.STRIPPED_PALM_LOG.get(), Blocks.PALM_HANGING_SIGN.get(), Blocks.PALM_WALL_HANGING_SIGN.get());
 
         blockModels.createTintedLeaves(Blocks.PALM_LEAVES.get(), TexturedModel.LEAVES,-12012264);
 
-        blockModels.createCrossBlock(Blocks.PALM_SAPLING.get(), BlockModelGenerators.PlantType.TINTED);
+        blockModels.createPlantWithDefaultItem(Blocks.PALM_SAPLING.get(), Blocks.POTTED_PALM_SAPLING.get(), BlockModelGenerators.PlantType.TINTED);
+
+        blockModels.createPlantWithDefaultItem(Blocks.BLUE_ROSE.get(), Blocks.POTTED_BLUE_ROSE.get(), BlockModelGenerators.PlantType.NOT_TINTED);
+
+        blockModels.createPlantWithDefaultItem(Blocks.PAEONIA.get(), Blocks.POTTED_PAEONIA.get(), BlockModelGenerators.PlantType.NOT_TINTED);
+
+        blockModels.createPlantWithDefaultItem(Blocks.HIBISCUS.get(), Blocks.POTTED_HIBISCUS.get(), BlockModelGenerators.PlantType.NOT_TINTED);
     }
     @Override
     protected Stream<? extends Holder<Block>> getKnownBlocks() {

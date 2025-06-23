@@ -89,6 +89,11 @@ public class BlocksLootTableProvider extends BlockLootSubProvider {
         dropSelf(Blocks.POLISHED_DIORITE_BRICKS_WALL.get());
         dropSelf(Blocks.POLISHED_DRIPSTONE_BRICKS_WALL.get());
         dropSelf(Blocks.POLISHED_GRANITE_BRICKS_WALL.get());
+        dropSelf(Blocks.HIEROGLYPH_BASKET.get());
+        dropSelf(Blocks.HIEROGLYPH_FOOT.get());
+        dropSelf(Blocks.HIEROGLYPH_REEDS.get());
+        dropSelf(Blocks.HIEROGLYPH_SNAKE.get());
+        dropSelf(Blocks.HIEROGLYPH_VULTURE.get());
         dropSelf(Blocks.FROSTER.get());
         dropSelf(Blocks.PALM_LOG.get());
         dropSelf(Blocks.PALM_WOOD.get());
@@ -104,7 +109,17 @@ public class BlocksLootTableProvider extends BlockLootSubProvider {
         dropSelf(Blocks.PALM_TRAPDOOR.get());
         dropSelf(Blocks.PALM_PRESSURE_PLATE.get());
         dropSelf(Blocks.PALM_BUTTON.get());
+        add(Blocks.PALM_SIGN.get(),
+                block -> createSingleItemTable(Items.PALM_SIGN.get()));
+        add(Blocks.PALM_WALL_SIGN.get(),
+                block -> createSingleItemTable(Items.PALM_SIGN.get()));
+        add(Blocks.PALM_HANGING_SIGN.get(),
+                block -> createSingleItemTable(Items.PALM_HANGING_SIGN.get()));
+        add(Blocks.PALM_WALL_HANGING_SIGN.get(),
+                block -> createSingleItemTable(Items.PALM_HANGING_SIGN.get()));
         dropSelf(Blocks.PALM_SAPLING.get());
+        add(Blocks.POTTED_PALM_SAPLING.get(),
+                block -> createPotFlowerItemTable(Blocks.PALM_SAPLING.get()));
         add(Blocks.PALM_LEAVES.get(),
         block -> createLeavesDrops(block, Blocks.PALM_SAPLING.get(), NORMAL_LEAVES_SAPLING_CHANCES));
 
@@ -126,6 +141,15 @@ public class BlocksLootTableProvider extends BlockLootSubProvider {
         add(Blocks.DEEPSLATE_RUBY_ORE.get(),
                 block -> createOreDrop(Blocks.DEEPSLATE_RUBY_ORE.get(), Items.RUBY.get()));
 
+        dropSelf(Blocks.BLUE_ROSE.get());
+        add(Blocks.POTTED_BLUE_ROSE.get(),
+                block -> createPotFlowerItemTable(Blocks.BLUE_ROSE.get()));
+        dropSelf(Blocks.PAEONIA.get());
+        add(Blocks.POTTED_PAEONIA.get(),
+                block -> createPotFlowerItemTable(Blocks.PAEONIA.get()));
+        dropSelf(Blocks.HIBISCUS.get());
+        add(Blocks.POTTED_HIBISCUS.get(),
+                block -> createPotFlowerItemTable(Blocks.HIBISCUS.get()));
     }
 
     @Override

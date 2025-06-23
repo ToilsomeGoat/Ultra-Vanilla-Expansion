@@ -43,22 +43,8 @@ public class DuckEntity extends Animal {
     public float oFlap;
     public float flapping = 1.0F;
     private float nextFlap = 1.0F;
-    private static final EntityDataAccessor<BlockPos> TRAVEL_POS = SynchedEntityData.defineId(DuckEntity.class, EntityDataSerializers.BLOCK_POS);
-    private static final EntityDataAccessor<Boolean> TRAVELLING = SynchedEntityData.defineId(DuckEntity.class, EntityDataSerializers.BOOLEAN);
-    void setTravelPos(BlockPos travelPos) {
-        this.entityData.set(TRAVEL_POS, travelPos);
-    }
-    boolean isTravelling() {
-        return this.entityData.get(TRAVELLING);
-    }
-
-    void setTravelling(boolean isTravelling) {
-        this.entityData.set(TRAVELLING, isTravelling);
-    }
-
-    BlockPos getTravelPos() {
-        return this.entityData.get(TRAVEL_POS);
-    }
+    @Nullable
+    BlockPos travelPos;
 
     public DuckEntity(EntityType<? extends Animal> entityType, Level level) {
         super(entityType, level);
@@ -68,36 +54,20 @@ public class DuckEntity extends Animal {
     }
 
     @Override
-    protected void defineSynchedData(SynchedEntityData.Builder p_326064_) {
-        super.defineSynchedData(p_326064_);
-        p_326064_.define(TRAVEL_POS, BlockPos.ZERO);
-        p_326064_.define(TRAVELLING, false);
-    }
-
-    @Override
     public void addAdditionalSaveData(CompoundTag compound) {
         super.addAdditionalSaveData(compound);
-        compound.putInt("TravelPosX", this.getTravelPos().getX());
-        compound.putInt("TravelPosY", this.getTravelPos().getY());
-        compound.putInt("TravelPosZ", this.getTravelPos().getZ());
     }
 
-    /**
-     * (abstract) Protected helper method to read subclass entity data from NBT.
-     */
+
     @Override
     public void readAdditionalSaveData(CompoundTag compound) {
-        int l = compound.getInt("TravelPosX");
-        int i1 = compound.getInt("TravelPosY");
-        int j1 = compound.getInt("TravelPosZ");
-        this.setTravelPos(new BlockPos(l, i1, j1));
+        super.readAdditionalSaveData(compound);
     }
 
     @Override
     public SpawnGroupData finalizeSpawn(
             ServerLevelAccessor p_30153_, DifficultyInstance p_30154_, EntitySpawnReason p_361581_, @Nullable SpawnGroupData p_30156_
     ) {
-        this.setTravelPos(BlockPos.ZERO);
         return super.finalizeSpawn(p_30153_, p_30154_, p_361581_, p_30156_);
     }
 
@@ -125,7 +95,7 @@ public class DuckEntity extends Animal {
     }
 
     public void travel(Vec3 p_218530_) {
-        if (this.isControlledByLocalInstance() && this.isInWater()) {
+        if (this.isInWater()) {
             this.moveRelative(this.getSpeed(), p_218530_);
             this.move(MoverType.SELF, this.getDeltaMovement());
             this.setDeltaMovement(this.getDeltaMovement().scale(0.9));
@@ -141,13 +111,13 @@ public class DuckEntity extends Animal {
         this.oFlapSpeed = this.flapSpeed;
         this.flapSpeed += (this.onGround() ? -1.0F : 4.0F) * 0.3F;
         this.flapSpeed = Mth.clamp(this.flapSpeed, 0.0F, 1.0F);
-        if (!this.onGround() && !this.isInWaterOrBubble() && this.flapping < 1.0F) {
+        if (!this.onGround() && !this.isInWater() && this.flapping < 1.0F) {
             this.flapping = 1.0F;
         }
 
         this.flapping *= 0.9F;
         Vec3 vec3 = this.getDeltaMovement();
-        if (!this.onGround() && !this.isInWaterOrBubble() && vec3.y < (double)0.0F) {
+        if (!this.onGround() && !this.isInWater() && vec3.y < (double)0.0F) {
             this.setDeltaMovement(vec3.multiply((double)1.0F, 0.6, (double)1.0F));
         }
 
@@ -181,7 +151,7 @@ public class DuckEntity extends Animal {
     @Override
     public void tick() {
         if (this.level().isClientSide()) {
-            this.swimAnimationState.animateWhen(this.isInWaterOrBubble() && !this.walkAnimation.isMoving(), this.tickCount);
+            this.swimAnimationState.animateWhen(this.isInWater() && !this.walkAnimation.isMoving(), this.tickCount);
         }
 
         super.tick();
@@ -241,7 +211,7 @@ public class DuckEntity extends Animal {
 
         @Override
         public boolean canContinueToUse() {
-            return this.Duck.isInWater() && !this.Duck.isTravelling() && this.tryTicks <= 1200 && this.isValidTarget(this.Duck.level(), this.blockPos);
+            return this.Duck.isInWater() && this.tryTicks <= 1200 && this.isValidTarget(this.Duck.level(), this.blockPos);
         }
 
         @Override
@@ -294,35 +264,36 @@ public class DuckEntity extends Animal {
             if ((double)l + this.duck.getY() > (double)(this.duck.level().getSeaLevel() - 1)) {
                 l = 0;
             }
-
-            BlockPos blockpos = BlockPos.containing((double)k + this.duck.getX(), (double)l + this.duck.getY(), (double)i1 + this.duck.getZ());
-            this.duck.setTravelPos(blockpos);
-            this.duck.setTravelling(true);
+            this.duck.travelPos = BlockPos.containing((double)k + this.duck.getX(), (double)l + this.duck.getY(), (double)i1 + this.duck.getZ());
             this.stuck = false;
         }
 
         @Override
         public void tick() {
-            if (this.duck.getNavigation().isDone()) {
-                Vec3 vec3 = Vec3.atBottomCenterOf(this.duck.getTravelPos());
+            BlockPos target = this.duck.travelPos;
+            if (target == null) {
+                this.stuck = true;
+                return;
+            }
+            else if (this.duck.getNavigation().isDone()) {
+                Vec3 vec3 = Vec3.atBottomCenterOf(target);
                 Vec3 vec31 = DefaultRandomPos.getPosTowards(this.duck, 16, 3, vec3, (float) (Math.PI / 10));
                 if (vec31 == null) {
                     vec31 = DefaultRandomPos.getPosTowards(this.duck, 8, 7, vec3, (float) (Math.PI / 2));
                 }
-
-                if (vec31 != null) {
-                    int i = Mth.floor(vec31.x);
-                    int j = Mth.floor(vec31.z);
-                    int k = 34;
-                    if (!this.duck.level().hasChunksAt(i - 34, j - 34, i + 34, j + 34)) {
-                        vec31 = null;
-                    }
-                }
-
                 if (vec31 == null) {
                     this.stuck = true;
                     return;
                 }
+
+                int i = Mth.floor(vec31.x);
+                int j = Mth.floor(vec31.z);
+
+                if (!this.duck.level().hasChunksAt(i - 34, j - 34, i + 34, j + 34)) {
+                        this.stuck = true;
+                        return;
+                    }
+
 
                 this.duck.getNavigation().moveTo(vec31.x, vec31.y, vec31.z, this.speedModifier);
             }
@@ -335,7 +306,7 @@ public class DuckEntity extends Animal {
 
         @Override
         public void stop() {
-            this.duck.setTravelling(false);
+            this.duck.travelPos = null;
             super.stop();
         }
     }

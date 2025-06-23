@@ -1,7 +1,7 @@
 {
   "type": "ultvanillaexp:frosting",
   "category": "misc",
-  "cookingtime": 30000,
+  "cookingtime": 3000,
   "experience": 1.0,
   "group": "blue_ice",
   "ingredient": "minecraft:packed_ice",

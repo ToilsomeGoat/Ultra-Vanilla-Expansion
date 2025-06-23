@@ -53,23 +53,9 @@ public abstract class AbstractFrosterBlock extends BaseEntityBlock{
             return (BlockState)this.defaultBlockState().setValue(FACING, context.getHorizontalDirection().getOpposite());
         }
 
-        protected void onRemove(BlockState state, Level level, BlockPos pos, BlockState newState, boolean isMoving) {
-            if (!state.is(newState.getBlock())) {
-                BlockEntity blockentity = level.getBlockEntity(pos);
-                if (blockentity instanceof AbstractFrosterBlockEntity) {
-                    if (level instanceof ServerLevel) {
-                        Containers.dropContents(level, pos, (AbstractFrosterBlockEntity)blockentity);
-                        ((AbstractFrosterBlockEntity)blockentity).getRecipesToAwardAndPopExperience((ServerLevel)level, Vec3.atCenterOf(pos));
-                    }
-
-                    super.onRemove(state, level, pos, newState, isMoving);
-                    level.updateNeighbourForOutputSignal(pos, this);
-                } else {
-                    super.onRemove(state, level, pos, newState, isMoving);
-                }
-            }
-
-        }
+    protected void affectNeighborsAfterRemoval(BlockState p_393619_, ServerLevel p_394633_, BlockPos p_393784_, boolean p_393627_) {
+        Containers.updateNeighboursAfterDestroy(p_393619_, p_394633_, p_393784_);
+    }
 
         protected boolean hasAnalogOutputSignal(BlockState state) {
             return true;

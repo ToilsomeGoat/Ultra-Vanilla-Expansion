@@ -3,9 +3,7 @@ package net.toilgoat.ultvanillaexp.item;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.item.BlockItem;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.SpawnEggItem;
+import net.minecraft.world.item.*;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
@@ -52,9 +50,18 @@ public class Items {
     public static final DeferredItem<Item> GRIZZLY_BEAR_SPAWN_EGG = ITEMS.registerItem("grizzly_bear_spawn_egg",
             (properties) -> new SpawnEggItem(Entities.GRIZZLY_BEAR.get(), properties));
 
+    public static final DeferredItem<Item> SCORCHED_SPAWN_EGG = ITEMS.registerItem("scorched_spawn_egg",
+            (properties) -> new SpawnEggItem(Entities.SCORCHED.get(), properties));
+
     public static final DeferredItem<Item> RAW_DUCK = ITEMS.registerItem("raw_duck", Item::new, new Item.Properties().food(Food.RAW_DUCK, Consumables.RAW_DUCK));
 
     public static final DeferredItem<Item> ROASTED_DUCK = ITEMS.registerItem("roasted_duck", Item::new, new Item.Properties().food(Food.ROASTED_DUCK));
+
+    public static final DeferredItem<Item> PALM_SIGN = ITEMS.registerItem("palm_sign",
+            (properties) -> new SignItem(Blocks.PALM_SIGN.get(), Blocks.PALM_WALL_SIGN.get(), properties.stacksTo(16)));
+
+    public static final DeferredItem<Item> PALM_HANGING_SIGN = ITEMS.registerItem("palm_hanging_sign",
+            (properties) -> new HangingSignItem(Blocks.PALM_HANGING_SIGN.get(), Blocks.PALM_WALL_HANGING_SIGN.get(), properties.stacksTo(16)));
 
 
 

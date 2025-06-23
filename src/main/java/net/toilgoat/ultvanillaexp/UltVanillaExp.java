@@ -1,42 +1,40 @@
 package net.toilgoat.ultvanillaexp;
 
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.color.block.BlockColors;
-import net.minecraft.client.color.item.GrassColorSource;
-import net.minecraft.client.color.item.MapColor;
 import net.minecraft.client.renderer.BiomeColors;
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.Sheets;
 import net.minecraft.client.renderer.entity.EntityRenderers;
-import net.minecraft.core.BlockPos;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.level.BlockAndTintGetter;
 import net.minecraft.world.level.FoliageColor;
-import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.FlowerPotBlock;
 import net.neoforged.neoforge.client.event.RegisterColorHandlersEvent;
 import net.neoforged.neoforge.client.event.RegisterMenuScreensEvent;
 import net.toilgoat.ultvanillaexp.block.Blocks;
 import net.toilgoat.ultvanillaexp.block.entity.BlockEntities;
-import net.toilgoat.ultvanillaexp.datamaps.DatamapTypes;
 import net.toilgoat.ultvanillaexp.entity.Entities;
 import net.toilgoat.ultvanillaexp.entity.client.DuckRenderer;
 import net.toilgoat.ultvanillaexp.entity.client.GrizzlyBearRenderer;
+import net.toilgoat.ultvanillaexp.entity.client.ScorchedRenderer;
+import net.toilgoat.ultvanillaexp.event.ClientEvents;
+import net.toilgoat.ultvanillaexp.event.EventBusEvents;
+import net.toilgoat.ultvanillaexp.event.Events;
 import net.toilgoat.ultvanillaexp.item.Items;
+import net.toilgoat.ultvanillaexp.item.potion.Potion;
 import net.toilgoat.ultvanillaexp.loot.LootModifiers;
 import net.toilgoat.ultvanillaexp.recipe.Recipes;
 import net.toilgoat.ultvanillaexp.screen.MenuTypes;
 import net.toilgoat.ultvanillaexp.screen.custom.FrosterScreen;
+import net.toilgoat.ultvanillaexp.structure.Features;
+import net.toilgoat.ultvanillaexp.util.WoodTypes;
 import net.toilgoat.ultvanillaexp.worldgen.tree.PlacerTypes;
 import org.slf4j.Logger;
 
 import com.mojang.logging.LogUtils;
 
 import net.minecraft.world.item.CreativeModeTabs;
-import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.ModContainer;
-import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.config.ModConfig;
 import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
@@ -59,6 +57,14 @@ public class UltVanillaExp
     public UltVanillaExp(IEventBus modEventBus, ModContainer modContainer) {
         // Register the commonSetup method for modloading
         modEventBus.addListener(this::commonSetup);
+        modEventBus.addListener(ClientModEvents::onClientSetup);
+        modEventBus.addListener(ClientModEvents::registerScreens);
+        modEventBus.addListener(ClientModEvents::registerBlockColors);
+        modEventBus.addListener(EventBusEvents::registerLayers);
+        modEventBus.addListener(EventBusEvents::registerAttributes);
+        modEventBus.addListener(EventBusEvents::registerSpawnPlacements);
+        modEventBus.addListener(ClientEvents::registerBlockEntityRenderers);
+        NeoForge.EVENT_BUS.register(Events.class);
 
         // Register ourselves for server and other game events we are interested in.
         // Note that this is necessary if and only if we want *this* class (ExampleMod) to respond directly to events.
@@ -66,6 +72,7 @@ public class UltVanillaExp
         NeoForge.EVENT_BUS.register(this);
 
         Items.register(modEventBus);
+        Potion.register(modEventBus);
         Blocks.register(modEventBus);
         Entities.register(modEventBus);
         LootModifiers.register(modEventBus);
@@ -73,6 +80,7 @@ public class UltVanillaExp
         MenuTypes.register(modEventBus);
         Recipes.register(modEventBus);
         PlacerTypes.register(modEventBus);
+        Features.register(modEventBus);
 
 
         // Register the item to a creative tab
@@ -83,7 +91,11 @@ public class UltVanillaExp
     }
 
     private void commonSetup(final FMLCommonSetupEvent event) {
-
+        event.enqueueWork(() -> {
+            ((FlowerPotBlock) net.minecraft.world.level.block.Blocks.FLOWER_POT).addPlant(Blocks.BLUE_ROSE.getId(), Blocks.POTTED_BLUE_ROSE);
+            ((FlowerPotBlock) net.minecraft.world.level.block.Blocks.FLOWER_POT).addPlant(Blocks.PALM_SAPLING.getId(), Blocks.POTTED_PALM_SAPLING);
+            ((FlowerPotBlock) net.minecraft.world.level.block.Blocks.FLOWER_POT).addPlant(Blocks.PAEONIA.getId(), Blocks.POTTED_PAEONIA);
+            ((FlowerPotBlock) net.minecraft.world.level.block.Blocks.FLOWER_POT).addPlant(Blocks.HIBISCUS.getId(), Blocks.POTTED_HIBISCUS);});
     }
 
     private void addCreative(BuildCreativeModeTabContentsEvent event)
@@ -99,10 +111,15 @@ public class UltVanillaExp
             event.accept(Blocks.DEEPSLATE_RUBY_ORE);
             event.accept(Blocks.PALM_LEAVES);
             event.accept(Blocks.PALM_SAPLING);
+            event.accept(Blocks.BLUE_ROSE);
+            event.accept(Blocks.PAEONIA);
+            event.accept(Blocks.HIBISCUS);
         }
 
         if (event.getTabKey() == CreativeModeTabs.FUNCTIONAL_BLOCKS){
             event.accept(Blocks.FROSTER);
+            event.accept(Items.PALM_SIGN);
+            event.accept(Items.PALM_HANGING_SIGN);
         }
 
         if (event.getTabKey() == CreativeModeTabs.FOOD_AND_DRINKS) {
@@ -175,6 +192,13 @@ public class UltVanillaExp
             event.accept(Blocks.POLISHED_DIORITE_BRICKS_WALL);
             event.accept(Blocks.POLISHED_DRIPSTONE_BRICKS_WALL);
             event.accept(Blocks.POLISHED_GRANITE_BRICKS_WALL);
+            //HIEROGLYPHS
+            event.accept(Blocks.HIEROGLYPH_BASKET);
+            event.accept(Blocks.HIEROGLYPH_FOOT);
+            event.accept(Blocks.HIEROGLYPH_REEDS);
+            event.accept(Blocks.HIEROGLYPH_SNAKE);
+            event.accept(Blocks.HIEROGLYPH_VULTURE);
+
             // PALM
             event.accept(Blocks.PALM_LOG);
             event.accept(Blocks.STRIPPED_PALM_LOG);
@@ -196,6 +220,7 @@ public class UltVanillaExp
         if (event.getTabKey() == CreativeModeTabs.SPAWN_EGGS) {
             event.accept(Items.DUCK_SPAWN_EGG);
             event.accept(Items.GRIZZLY_BEAR_SPAWN_EGG);
+            event.accept(Items.SCORCHED_SPAWN_EGG);
         }
     }
 
@@ -208,19 +233,31 @@ public class UltVanillaExp
     }
 
     // You can use EventBusSubscriber to automatically register all static methods in the class annotated with @SubscribeEvent
-    @EventBusSubscriber(modid = MODID, bus = EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
     public static class ClientModEvents {
         @SubscribeEvent
         public static void onClientSetup(FMLClientSetupEvent event)
         {
+            Sheets.addWoodType(WoodTypes.PALM);
             ItemBlockRenderTypes.setRenderLayer(Blocks.ONION_CROP.get(), RenderType.cutout());
             ItemBlockRenderTypes.setRenderLayer(Blocks.BARLEY_CROP.get(), RenderType.cutout());
             ItemBlockRenderTypes.setRenderLayer(Blocks.PALM_DOOR.get(), RenderType.cutout());
             ItemBlockRenderTypes.setRenderLayer(Blocks.PALM_TRAPDOOR.get(), RenderType.cutout());
             ItemBlockRenderTypes.setRenderLayer(Blocks.PALM_LEAVES.get(), RenderType.cutout());
+            ItemBlockRenderTypes.setRenderLayer(Blocks.PALM_SIGN.get(), RenderType.cutout());
+            ItemBlockRenderTypes.setRenderLayer(Blocks.PALM_WALL_SIGN.get(), RenderType.cutout());
+            ItemBlockRenderTypes.setRenderLayer(Blocks.PALM_HANGING_SIGN.get(), RenderType.cutout());
+            ItemBlockRenderTypes.setRenderLayer(Blocks.PALM_WALL_HANGING_SIGN.get(), RenderType.cutout());
             ItemBlockRenderTypes.setRenderLayer(Blocks.PALM_SAPLING.get(), RenderType.cutout());
+            ItemBlockRenderTypes.setRenderLayer(Blocks.POTTED_PALM_SAPLING.get(), RenderType.cutout());
+            ItemBlockRenderTypes.setRenderLayer(Blocks.BLUE_ROSE.get(), RenderType.cutout());
+            ItemBlockRenderTypes.setRenderLayer(Blocks.POTTED_BLUE_ROSE.get(), RenderType.cutout());
+            ItemBlockRenderTypes.setRenderLayer(Blocks.PAEONIA.get(), RenderType.cutout());
+            ItemBlockRenderTypes.setRenderLayer(Blocks.POTTED_PAEONIA.get(), RenderType.cutout());
+            ItemBlockRenderTypes.setRenderLayer(Blocks.HIBISCUS.get(), RenderType.cutout());
+            ItemBlockRenderTypes.setRenderLayer(Blocks.POTTED_HIBISCUS.get(), RenderType.cutout());
             EntityRenderers.register(Entities.DUCK.get(), DuckRenderer::new);
             EntityRenderers.register(Entities.GRIZZLY_BEAR.get(), GrizzlyBearRenderer::new);
+            EntityRenderers.register(Entities.SCORCHED.get(), ScorchedRenderer::new);
         }
         @SubscribeEvent
         public static void registerScreens(RegisterMenuScreensEvent event) {
@@ -229,11 +266,10 @@ public class UltVanillaExp
         @SubscribeEvent
         public static void registerBlockColors(RegisterColorHandlersEvent.Block event) {
             event.register(
-                    (state, level, pos, tintIndex) -> {
-                        return level != null && pos != null
-                                ? BiomeColors.getAverageFoliageColor(level, pos)
-                                : FoliageColor.FOLIAGE_DEFAULT;
-                    },
+                    (state, level, pos, tintIndex)
+                            -> level != null && pos != null
+                            ? BiomeColors.getAverageFoliageColor(level, pos)
+                            : FoliageColor.FOLIAGE_DEFAULT,
                     Blocks.PALM_LEAVES.get()
             );
         }

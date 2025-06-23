@@ -74,6 +74,11 @@ public class BlockTagProvider extends BlockTagsProvider {
                 .add(Blocks.POLISHED_DIORITE_BRICKS_WALL.get())
                 .add(Blocks.POLISHED_DRIPSTONE_BRICKS_WALL.get())
                 .add(Blocks.POLISHED_GRANITE_BRICKS_WALL.get())
+                .add(Blocks.HIEROGLYPH_BASKET.get())
+                .add(Blocks.HIEROGLYPH_FOOT.get())
+                .add(Blocks.HIEROGLYPH_REEDS.get())
+                .add(Blocks.HIEROGLYPH_SNAKE.get())
+                .add(Blocks.HIEROGLYPH_VULTURE.get())
 
                 .add(Blocks.FROSTER.get());
 
@@ -133,8 +138,15 @@ public class BlockTagProvider extends BlockTagsProvider {
                 .add(Blocks.RUBY_ORE.get())
                 .add(Blocks.DEEPSLATE_RUBY_ORE.get());
 
+        tag(BlockTags.SAPLINGS)
+                .add(Blocks.PALM_SAPLING.get());
+
         tag(BlockTags.LEAVES)
                 .add(Blocks.PALM_LEAVES.get());
 
+        tag(BlockTags.FLOWERS)
+                .add(Blocks.BLUE_ROSE.get())
+                .add(Blocks.PAEONIA.get())
+                .add(Blocks.HIBISCUS.get());
     }
 }

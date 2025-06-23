@@ -1,6 +1,7 @@
 package net.toilgoat.ultvanillaexp.block.entity;
 
 import com.google.common.collect.Lists;
+import com.mojang.serialization.Codec;
 import it.unimi.dsi.fastutil.objects.ObjectIterator;
 import it.unimi.dsi.fastutil.objects.Reference2IntMap;
 import it.unimi.dsi.fastutil.objects.Reference2IntOpenHashMap;
@@ -37,6 +38,7 @@ import net.toilgoat.ultvanillaexp.recipe.AbstractFrostingRecipe;
 
 import javax.annotation.Nullable;
 import java.util.List;
+import java.util.Map;
 
 
 public abstract class AbstractFrosterBlockEntity extends BaseContainerBlockEntity implements WorldlyContainer, RecipeCraftingHolder, StackedContentsCompatible {
@@ -53,7 +55,7 @@ public abstract class AbstractFrosterBlockEntity extends BaseContainerBlockEntit
         public static final int NUM_DATA_VALUES = 4;
         public static final int BURN_TIME_STANDARD = 200;
         public static final int BURN_COOL_SPEED = 2;
-        private final RecipeType<? extends AbstractFrostingRecipe> recipeType;
+        private static final Codec<Map<ResourceKey<Recipe<?>>, Integer>> RECIPES_USED_CODEC;
         protected NonNullList<ItemStack> items;
         int litTimeRemaining;
         int litTotalTime;
@@ -62,6 +64,7 @@ public abstract class AbstractFrosterBlockEntity extends BaseContainerBlockEntit
         protected final ContainerData dataAccess;
         private final Reference2IntOpenHashMap<ResourceKey<Recipe<?>>> recipesUsed;
         private final RecipeManager.CachedCheck<SingleRecipeInput, ? extends AbstractFrostingRecipe> quickCheck;
+        private final RecipeType<? extends AbstractFrostingRecipe> recipeType;
 
         protected AbstractFrosterBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState blockState, RecipeType<? extends AbstractFrostingRecipe> recipeType) {
             super(type, pos, blockState);
@@ -109,21 +112,16 @@ public abstract class AbstractFrosterBlockEntity extends BaseContainerBlockEntit
             return this.litTimeRemaining > 0;
         }
 
-        protected void loadAdditional(CompoundTag p_155025_, HolderLookup.Provider p_323468_) {
-            super.loadAdditional(p_155025_, p_323468_);
-            this.items = NonNullList.withSize(this.getContainerSize(), ItemStack.EMPTY);
-            ContainerHelper.loadAllItems(p_155025_, this.items, p_323468_);
-            this.cookingTimer = p_155025_.getInt("cooking_time_spent");
-            this.cookingTotalTime = p_155025_.getInt("cooking_total_time");
-            this.litTimeRemaining = p_155025_.getInt("lit_time_remaining");
-            this.litTotalTime = p_155025_.getInt("lit_total_time");
-            CompoundTag compoundtag = p_155025_.getCompound("RecipesUsed");
-
-            for(String s : compoundtag.getAllKeys()) {
-                this.recipesUsed.put(ResourceKey.create(Registries.RECIPE, ResourceLocation.parse(s)), compoundtag.getInt(s));
-            }
-
-        }
+    protected void loadAdditional(CompoundTag p_155025_, HolderLookup.Provider p_323468_) {
+        super.loadAdditional(p_155025_, p_323468_);
+        this.items = NonNullList.withSize(this.getContainerSize(), ItemStack.EMPTY);
+        ContainerHelper.loadAllItems(p_155025_, this.items, p_323468_);
+        this.cookingTimer = p_155025_.getIntOr("cooking_time_spent", 0);
+        this.cookingTotalTime = p_155025_.getIntOr("cooking_total_time", 0);
+        this.litTimeRemaining = p_155025_.getIntOr("lit_time_remaining", 0);
+        this.litTotalTime = p_155025_.getIntOr("lit_total_time", 0);
+        this.recipesUsed.putAll((Map)p_155025_.read("RecipesUsed", RECIPES_USED_CODEC).orElse(Map.of()));
+    }
 
         protected void saveAdditional(CompoundTag p_187452_, HolderLookup.Provider p_323656_) {
             super.saveAdditional(p_187452_, p_323656_);
@@ -132,9 +130,7 @@ public abstract class AbstractFrosterBlockEntity extends BaseContainerBlockEntit
             p_187452_.putInt("lit_time_remaining", this.litTimeRemaining);
             p_187452_.putInt("lit_total_time", this.litTotalTime);
             ContainerHelper.saveAllItems(p_187452_, this.items, p_323656_);
-            CompoundTag compoundtag = new CompoundTag();
-            this.recipesUsed.forEach((p_380898_, p_380899_) -> compoundtag.putInt(p_380898_.location().toString(), p_380899_));
-            p_187452_.put("RecipesUsed", compoundtag);
+            p_187452_.store("RecipesUsed", RECIPES_USED_CODEC, this.recipesUsed);
         }
 
         public static void serverTick(ServerLevel level, BlockPos pos, BlockState state, AbstractFrosterBlockEntity furnace) {
@@ -403,5 +399,8 @@ public abstract class AbstractFrosterBlockEntity extends BaseContainerBlockEntit
             }
 
         }
+    static {
+        RECIPES_USED_CODEC = Codec.unboundedMap(Recipe.KEY_CODEC, Codec.INT);
+    }
 
 }

@@ -42,7 +42,7 @@ public class DuckRenderer extends MobRenderer<DuckEntity, DuckRenderState, DuckM
         super.extractRenderState(entity, reusedState, partialTick);
         reusedState.flap = Mth.lerp(partialTick, entity.oFlap, entity.flap);
         reusedState.flapSpeed = Mth.lerp(partialTick, entity.oFlapSpeed, entity.flapSpeed);
-        reusedState.isSwimming = entity.isInWaterOrBubble();
+        reusedState.isSwimming = entity.isInWater();
     }
 }
 
