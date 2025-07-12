@@ -101,6 +101,10 @@
   "entity.ultvanillaexp.scorched": "Scorched",
   "entity.minecraft.scorched": "Scorched",
 
+  "item.ultvanillaexp.deserted_trader_spawn_egg": "Deserted Trader Spawn Egg",
+  "entity.ultvanillaexp.deserted_trader": "Deserted Trader",
+  "entity.minecraft.deserted_trader": "Deserted Trader",
+
   "item.ultvanillaexp.palm_log": "Palm Log",
   "item.ultvanillaexp.stripped_palm_log": "Stripped Palm Log",
   "item.ultvanillaexp.palm_wood": "Palm Wood",

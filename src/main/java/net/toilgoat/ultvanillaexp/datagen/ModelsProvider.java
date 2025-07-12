@@ -40,6 +40,7 @@ public class ModelsProvider extends ModelProvider {
         itemModels.generateFlatItem(Items.DUCK_SPAWN_EGG.get(), ModelTemplates.FLAT_ITEM);
         itemModels.generateFlatItem(Items.GRIZZLY_BEAR_SPAWN_EGG.get(), ModelTemplates.FLAT_ITEM);
         itemModels.generateFlatItem(Items.SCORCHED_SPAWN_EGG.get(), ModelTemplates.FLAT_ITEM);
+        itemModels.generateFlatItem(Items.DESERTED_TRADER_SPAWN_EGG.get(), ModelTemplates.FLAT_ITEM);
         itemModels.generateFlatItem(Items.RAW_DUCK.get(), ModelTemplates.FLAT_ITEM);
         itemModels.generateFlatItem(Items.ROASTED_DUCK.get(), ModelTemplates.FLAT_ITEM);
 

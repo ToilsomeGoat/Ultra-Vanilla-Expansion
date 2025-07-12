@@ -74,6 +74,7 @@ public class EntitiesLootTableProvider extends EntityLootSubProvider {
                                         .apply(SetPotionFunction.setPotion(Potion.HUNGER)))
                                 .when(LootItemKilledByPlayerCondition.killedByPlayer()))
         );
+        this.add(Entities.DESERTED_TRADER.get(), LootTable.lootTable());
     }
     @Override
     protected Stream<EntityType<?>> getKnownEntityTypes() {

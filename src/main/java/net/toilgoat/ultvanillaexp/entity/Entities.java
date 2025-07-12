@@ -9,6 +9,7 @@ import net.minecraft.world.entity.MobCategory;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.registries.DeferredRegister;
 import net.toilgoat.ultvanillaexp.UltVanillaExp;
+import net.toilgoat.ultvanillaexp.entity.custom.DesertedTrader;
 import net.toilgoat.ultvanillaexp.entity.custom.DuckEntity;
 import net.toilgoat.ultvanillaexp.entity.custom.GrizzlyBearEntity;
 import net.toilgoat.ultvanillaexp.entity.custom.ScorchedMonster;
@@ -22,6 +23,7 @@ public class Entities {
     public static ResourceKey<EntityType<?>> DUCK_KEY = ResourceKey.create(Registries.ENTITY_TYPE, ResourceLocation.withDefaultNamespace("duck"));
     public static ResourceKey<EntityType<?>> GRIZZLY_BEAR_KEY = ResourceKey.create(Registries.ENTITY_TYPE, ResourceLocation.withDefaultNamespace("grizzly_bear"));
     public static ResourceKey<EntityType<?>> SCORCHED_KEY = ResourceKey.create(Registries.ENTITY_TYPE, ResourceLocation.withDefaultNamespace("scorched"));
+    public static ResourceKey<EntityType<?>> DESERTED_TRADER_KEY = ResourceKey.create(Registries.ENTITY_TYPE, ResourceLocation.withDefaultNamespace("deserted_trader"));
 
     public static final Supplier<EntityType<DuckEntity>> DUCK =
             ENTITY_TYPES.register("duck", () -> EntityType.Builder.of(DuckEntity::new, MobCategory.CREATURE)
@@ -34,6 +36,10 @@ public class Entities {
     public static final Supplier<EntityType<ScorchedMonster>> SCORCHED =
             ENTITY_TYPES.register("scorched", () -> EntityType.Builder.of(ScorchedMonster::new, MobCategory.MONSTER)
                     .sized(0.6F, 1.99F).eyeHeight(1.74F).ridingOffset(-0.7F).clientTrackingRange(8).build(SCORCHED_KEY));
+
+    public static final Supplier<EntityType<DesertedTrader>> DESERTED_TRADER =
+            ENTITY_TYPES.register("deserted_trader", () -> EntityType.Builder.of(DesertedTrader::new, MobCategory.CREATURE)
+                    .sized(0.6F, 1.95F).eyeHeight(1.62F).clientTrackingRange(10).build(DESERTED_TRADER_KEY));
 
     public static void register(IEventBus eventBus) {
         ENTITY_TYPES.register(eventBus);

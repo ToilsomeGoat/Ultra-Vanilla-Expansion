@@ -12,6 +12,7 @@ import net.neoforged.neoforge.client.event.RegisterMenuScreensEvent;
 import net.toilgoat.ultvanillaexp.block.Blocks;
 import net.toilgoat.ultvanillaexp.block.entity.BlockEntities;
 import net.toilgoat.ultvanillaexp.entity.Entities;
+import net.toilgoat.ultvanillaexp.entity.client.DesertedTraderRenderer;
 import net.toilgoat.ultvanillaexp.entity.client.DuckRenderer;
 import net.toilgoat.ultvanillaexp.entity.client.GrizzlyBearRenderer;
 import net.toilgoat.ultvanillaexp.entity.client.ScorchedRenderer;
@@ -25,6 +26,8 @@ import net.toilgoat.ultvanillaexp.recipe.Recipes;
 import net.toilgoat.ultvanillaexp.screen.MenuTypes;
 import net.toilgoat.ultvanillaexp.screen.custom.FrosterScreen;
 import net.toilgoat.ultvanillaexp.structure.Features;
+import net.toilgoat.ultvanillaexp.structure.StructurePieceTypes;
+import net.toilgoat.ultvanillaexp.structure.processors.Processors;
 import net.toilgoat.ultvanillaexp.util.WoodTypes;
 import net.toilgoat.ultvanillaexp.worldgen.tree.PlacerTypes;
 import org.slf4j.Logger;
@@ -81,6 +84,7 @@ public class UltVanillaExp
         Recipes.register(modEventBus);
         PlacerTypes.register(modEventBus);
         Features.register(modEventBus);
+        StructurePieceTypes.register(modEventBus);
 
 
         // Register the item to a creative tab
@@ -221,6 +225,7 @@ public class UltVanillaExp
             event.accept(Items.DUCK_SPAWN_EGG);
             event.accept(Items.GRIZZLY_BEAR_SPAWN_EGG);
             event.accept(Items.SCORCHED_SPAWN_EGG);
+            event.accept(Items.DESERTED_TRADER_SPAWN_EGG);
         }
     }
 
@@ -258,6 +263,7 @@ public class UltVanillaExp
             EntityRenderers.register(Entities.DUCK.get(), DuckRenderer::new);
             EntityRenderers.register(Entities.GRIZZLY_BEAR.get(), GrizzlyBearRenderer::new);
             EntityRenderers.register(Entities.SCORCHED.get(), ScorchedRenderer::new);
+            EntityRenderers.register(Entities.DESERTED_TRADER.get(), DesertedTraderRenderer::new);
         }
         @SubscribeEvent
         public static void registerScreens(RegisterMenuScreensEvent event) {

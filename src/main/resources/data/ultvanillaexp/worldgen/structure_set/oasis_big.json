@@ -2,13 +2,13 @@
   "structures": [
     {
       "structure": "ultvanillaexp:oasis_big",
-      "weight": 3
+      "weight": 1
     }
   ],
   "placement": {
     "type": "minecraft:random_spread",
     "spacing": 35,
-    "separation": 12,
+    "separation": 15,
     "salt": 0
   }
 }

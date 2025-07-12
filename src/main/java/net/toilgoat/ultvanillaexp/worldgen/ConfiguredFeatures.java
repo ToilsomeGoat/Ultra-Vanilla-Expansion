@@ -1,18 +1,11 @@
 package net.toilgoat.ultvanillaexp.worldgen;
 
-import net.minecraft.core.Holder;
-import net.minecraft.core.HolderSet;
 import net.minecraft.data.worldgen.features.FeatureUtils;
-import net.minecraft.data.worldgen.placement.PlacementUtils;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.util.valueproviders.ConstantInt;
 import net.minecraft.world.level.levelgen.feature.configurations.*;
 import net.minecraft.world.level.levelgen.feature.featuresize.TwoLayersFeatureSize;
-import net.minecraft.world.level.levelgen.feature.foliageplacers.AcaciaFoliagePlacer;
 import net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvider;
-import net.minecraft.world.level.levelgen.feature.trunkplacers.BendingTrunkPlacer;
-import net.minecraft.world.level.levelgen.feature.trunkplacers.ForkingTrunkPlacer;
-import net.minecraft.world.level.levelgen.placement.PlacementModifier;
 import net.minecraft.world.level.levelgen.structure.templatesystem.RuleTest;
 import net.minecraft.world.level.levelgen.structure.templatesystem.TagMatchTest;
 import net.toilgoat.ultvanillaexp.UltVanillaExp;
@@ -39,6 +32,7 @@ public class ConfiguredFeatures {
     public static final ResourceKey<ConfiguredFeature<?, ?>> PAEONIA_KEY = registerKey("paeonia");
     public static final ResourceKey<ConfiguredFeature<?, ?>> HIBISCUS_KEY = registerKey("hibiscus");
     public static final ResourceKey<ConfiguredFeature<?, ?>> DESERT_DUNGEON_KEY = registerKey("desert_dungeon");
+    public static final ResourceKey<ConfiguredFeature<?, ?>> DESERTED_TRADER_KEY = registerKey("deserted_trader");
 
     public static void bootstrap(BootstrapContext<ConfiguredFeature<?, ?>> context) {
         RuleTest stoneReplaceables = new TagMatchTest(BlockTags.STONE_ORE_REPLACEABLES);
@@ -66,6 +60,8 @@ public class ConfiguredFeatures {
                 new PalmFoliagePlacer(ConstantInt.of(0), ConstantInt.of(0)),
 
                 new TwoLayersFeatureSize(1, 0, 1)).dirt(BlockStateProvider.simple(net.minecraft.world.level.block.Blocks.SAND)).build());
+
+        register(context, DESERTED_TRADER_KEY, Features.DESERTED_TRADER.get(), NoneFeatureConfiguration.NONE);
 
         register(context, DESERT_DUNGEON_KEY, Features.DESERT_DUNGEON.get(), NoneFeatureConfiguration.NONE);
 
