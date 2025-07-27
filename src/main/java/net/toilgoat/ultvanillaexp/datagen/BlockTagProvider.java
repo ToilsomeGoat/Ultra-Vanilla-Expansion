@@ -79,6 +79,10 @@ public class BlockTagProvider extends BlockTagsProvider {
                 .add(Blocks.HIEROGLYPH_REEDS.get())
                 .add(Blocks.HIEROGLYPH_SNAKE.get())
                 .add(Blocks.HIEROGLYPH_VULTURE.get())
+                .add(Blocks.ENGRAVED_PRISMARINE_BRICKS_GUARDIAN.get())
+                .add(Blocks.ENGRAVED_PRISMARINE_BRICKS_LASER.get())
+                .add(Blocks.ENGRAVED_PRISMARINE_BRICKS_DROWNED.get())
+                .add(Blocks.ENGRAVED_PRISMARINE_BRICKS_SUNKEN.get())
 
                 .add(Blocks.FROSTER.get());
 
@@ -148,5 +152,20 @@ public class BlockTagProvider extends BlockTagsProvider {
                 .add(Blocks.BLUE_ROSE.get())
                 .add(Blocks.PAEONIA.get())
                 .add(Blocks.HIBISCUS.get());
+
+        tag(BlockTags.COMBINATION_STEP_SOUND_BLOCKS)
+                .add(Blocks.ACACIA_LEAVES_CARPET.get())
+                .add(Blocks.AZALEA_LEAVES_CARPET.get())
+                .add(Blocks.FLOWERING_AZALEA_LEAVES_CARPET.get())
+                .add(Blocks.BIRCH_LEAVES_CARPET.get())
+                .add(Blocks.CHERRY_LEAVES_CARPET.get())
+                .add(Blocks.DARK_OAK_LEAVES_CARPET.get())
+                .add(Blocks.JUNGLE_LEAVES_CARPET.get())
+                .add(Blocks.MANGROVE_LEAVES_CARPET.get())
+                .add(Blocks.PALE_OAK_LEAVES_CARPET.get())
+                .add(Blocks.PALM_LEAVES_CARPET.get())
+                .add(Blocks.OAK_LEAVES_CARPET.get());
+
+
     }
 }

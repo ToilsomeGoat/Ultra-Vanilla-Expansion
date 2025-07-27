@@ -26,6 +26,7 @@ public class PlacedFeatures {
     public static final ResourceKey<PlacedFeature> HIBISCUS_PLACED_KEY = registerKey("hibiscus_placed");
     public static final ResourceKey<PlacedFeature> PAEONIA_PLACED_KEY = registerKey("paeonia_placed");
     public static final ResourceKey<PlacedFeature> DESERT_DUNGEON_PLACED_KEY = registerKey("desert_dungeon_placed");
+    public static final ResourceKey<PlacedFeature> FROZEN_DUNGEON_PLACED_KEY = registerKey("frozen_dungeon_placed");
 
     public static void bootstrap(BootstrapContext<PlacedFeature> context) {
         var configuredFeatures = context.lookup(Registries.CONFIGURED_FEATURE);
@@ -37,7 +38,7 @@ public class PlacedFeatures {
                 OrePlacements.commonOrePlacement(5, HeightRangePlacement.triangle(VerticalAnchor.absolute(-65), VerticalAnchor.absolute(-40))));
 
         register(context, PALM_TREE_PLACED_KEY, configuredFeatures.getOrThrow(ConfiguredFeatures.PALM_KEY),
-                VegetationPlacements.treePlacement(PlacementUtils.countExtra(2, 0.1f, 1),
+                VegetationPlacements.treePlacement(PlacementUtils.countExtra(0, 0.1f, 0),
                         Blocks.PALM_SAPLING.get()));
 
         register(context, DESERT_DUNGEON_PLACED_KEY,
@@ -49,6 +50,15 @@ public class PlacedFeatures {
                         HeightRangePlacement.uniform(VerticalAnchor.absolute(-20), VerticalAnchor.absolute(60))
                 )
         );
+        register(context, FROZEN_DUNGEON_PLACED_KEY,
+                configuredFeatures.getOrThrow(ConfiguredFeatures.FROZEN_DUNGEON_KEY),
+                List.of(
+                        CountPlacement.of(2),
+                        InSquarePlacement.spread(),
+                        HeightRangePlacement.uniform(VerticalAnchor.absolute(-20), VerticalAnchor.absolute(60))
+                )
+        );
+
 
         register(context, HIBISCUS_PLACED_KEY, configuredFeatures.getOrThrow(ConfiguredFeatures.HIBISCUS_KEY),
                 List.of(RarityFilter.onAverageOnceEvery(7), CountPlacement.of(ClampedInt.of(UniformInt.of(-3, 1), 0, 1)), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP, BiomeFilter.biome()));

@@ -7,6 +7,7 @@ import net.minecraft.world.flag.FeatureFlags;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.storage.loot.LootPool;
 import net.minecraft.world.level.storage.loot.LootTable;
+import net.minecraft.world.level.storage.loot.entries.AlternativesEntry;
 import net.minecraft.world.level.storage.loot.entries.LootItem;
 import net.minecraft.world.level.storage.loot.functions.EnchantedCountIncreaseFunction;
 import net.minecraft.world.level.storage.loot.functions.SetItemCountFunction;
@@ -75,6 +76,46 @@ public class EntitiesLootTableProvider extends EntityLootSubProvider {
                                 .when(LootItemKilledByPlayerCondition.killedByPlayer()))
         );
         this.add(Entities.DESERTED_TRADER.get(), LootTable.lootTable());
+        this.add(Entities.FROSTBITTEN.get(), LootTable.lootTable());
+        this.add(Entities.SUNKEN.get(), LootTable.lootTable()
+                .withPool(
+                        LootPool.lootPool()
+                                .setRolls(ConstantValue.exactly(1.0F))
+                                .add(
+                                        AlternativesEntry.alternatives(
+                                                LootItem.lootTableItem(Items.BRAIN_CORAL_FAN)
+                                                        .when(LootItemKilledByPlayerCondition.killedByPlayer())
+                                                        .when(LootItemRandomChanceWithEnchantedBonusCondition.randomChanceAndLootingBoost(this.registries, 0.2F, 0.02F)),
+                                                LootItem.lootTableItem(Items.BUBBLE_CORAL_FAN)
+                                                        .when(LootItemKilledByPlayerCondition.killedByPlayer())
+                                                        .when(LootItemRandomChanceWithEnchantedBonusCondition.randomChanceAndLootingBoost(this.registries, 0.2F, 0.02F)),
+                                                LootItem.lootTableItem(Items.FIRE_CORAL_FAN)
+                                                        .when(LootItemKilledByPlayerCondition.killedByPlayer())
+                                                        .when(LootItemRandomChanceWithEnchantedBonusCondition.randomChanceAndLootingBoost(this.registries, 0.2F, 0.02F)),
+                                                LootItem.lootTableItem(Items.HORN_CORAL_FAN)
+                                                        .when(LootItemKilledByPlayerCondition.killedByPlayer())
+                                                        .when(LootItemRandomChanceWithEnchantedBonusCondition.randomChanceAndLootingBoost(this.registries, 0.2F, 0.02F)),
+                                                LootItem.lootTableItem(Items.TUBE_CORAL_FAN)
+                                                        .when(LootItemKilledByPlayerCondition.killedByPlayer())
+                                                        .when(LootItemRandomChanceWithEnchantedBonusCondition.randomChanceAndLootingBoost(this.registries, 0.2F, 0.02F))
+
+                                        )
+                                )
+                )
+                .withPool(
+                        LootPool.lootPool()
+                                .setRolls(ConstantValue.exactly(1.0F))
+                                .add(
+                                        LootItem.lootTableItem(Items.COPPER_INGOT)
+                                                .when(LootItemKilledByPlayerCondition.killedByPlayer())
+                                                .when(LootItemRandomChanceWithEnchantedBonusCondition.randomChanceAndLootingBoost(this.registries, 0.2F, 0.02F))
+                                )
+                )
+                .withPool(LootPool.lootPool()
+                        .setRolls(ConstantValue.exactly(1.0F))
+                        .add(LootItem.lootTableItem(Items.BONE)
+                                .apply(SetItemCountFunction.setCount(UniformGenerator.between(0.0F, 2.0F)))
+                                .apply(EnchantedCountIncreaseFunction.lootingMultiplier(this.registries, UniformGenerator.between(0.0F, 1.0F))))));;
     }
     @Override
     protected Stream<EntityType<?>> getKnownEntityTypes() {

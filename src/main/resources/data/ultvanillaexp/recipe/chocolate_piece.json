@@ -1,0 +1,12 @@
+{
+  "type": "ultvanillaexp:frosting",
+  "category": "food",
+  "cookingtime": 300,
+  "experience": 0.35,
+  "group": "chocolate",
+  "ingredient": "ultvanillaexp:melted_cocoa",
+  "result": {
+    "count": 1,
+    "id": "ultvanillaexp:chocolate_piece"
+  }
+}

@@ -41,6 +41,7 @@ public class RecipesProvider extends RecipeProvider {
     protected void buildRecipes() {
         List<ItemLike> RUBY_ORES = List.of(Blocks.RUBY_ORE, Blocks.DEEPSLATE_RUBY_ORE);
         List<ItemLike> ONION = List.of(net.toilgoat.ultvanillaexp.item.Items.ONION);
+        List<ItemLike> PEANUT = List.of(net.toilgoat.ultvanillaexp.item.Items.PEANUT);
         List<ItemLike> RAW_DUCK = List.of(net.toilgoat.ultvanillaexp.item.Items.RAW_DUCK);
 
         polishedBuilder(RecipeCategory.BUILDING_BLOCKS, Blocks.POLISHED_CALCITE.get(), Ingredient.of(net.minecraft.world.level.block.Blocks.CALCITE))
@@ -111,6 +112,18 @@ public class RecipesProvider extends RecipeProvider {
         wall(RecipeCategory.BUILDING_BLOCKS, Blocks.POLISHED_DRIPSTONE_BRICKS_WALL.get(), Blocks.POLISHED_DRIPSTONE_BRICKS.get());
         wall(RecipeCategory.BUILDING_BLOCKS, Blocks.POLISHED_GRANITE_BRICKS_WALL.get(), Blocks.POLISHED_GRANITE_BRICKS.get());
 
+        //Carpet
+        carpet(Blocks.ACACIA_LEAVES_CARPET.get(), net.minecraft.world.level.block.Blocks.ACACIA_LEAVES);
+        carpet(Blocks.AZALEA_LEAVES_CARPET.get(), net.minecraft.world.level.block.Blocks.AZALEA_LEAVES);
+        carpet(Blocks.FLOWERING_AZALEA_LEAVES_CARPET.get(), net.minecraft.world.level.block.Blocks.FLOWERING_AZALEA_LEAVES);
+        carpet(Blocks.BIRCH_LEAVES_CARPET.get(), net.minecraft.world.level.block.Blocks.BIRCH_LEAVES);
+        carpet(Blocks.CHERRY_LEAVES_CARPET.get(), net.minecraft.world.level.block.Blocks.CHERRY_LEAVES);
+        carpet(Blocks.DARK_OAK_LEAVES_CARPET.get(), net.minecraft.world.level.block.Blocks.DARK_OAK_LEAVES);
+        carpet(Blocks.JUNGLE_LEAVES_CARPET.get(), net.minecraft.world.level.block.Blocks.JUNGLE_LEAVES);
+        carpet(Blocks.MANGROVE_LEAVES_CARPET.get(), net.minecraft.world.level.block.Blocks.MANGROVE_LEAVES);
+        carpet(Blocks.PALE_OAK_LEAVES_CARPET.get(), net.minecraft.world.level.block.Blocks.PALE_OAK_LEAVES);
+        carpet(Blocks.PALM_LEAVES_CARPET.get(), Blocks.PALM_LEAVES.get());
+        carpet(Blocks.OAK_LEAVES_CARPET.get(), net.minecraft.world.level.block.Blocks.OAK_LEAVES);
         //Fence
         fenceBuilder(Blocks.PALM_FENCE.get(), Ingredient.of(Blocks.PALM_PLANKS.get())).group("palm_planks")
                 .unlockedBy("has_palm_planks", has(Blocks.PALM_PLANKS.get())).save(output);
@@ -315,6 +328,30 @@ public class RecipesProvider extends RecipeProvider {
                 .requires(Items.BOWL)
                 .unlockedBy("has_barley", has(net.toilgoat.ultvanillaexp.item.Items.BARLEY)).save(output, "ultvanillaexp:barley_stew_from_red_mushroom");
 
+        SimpleCookingRecipeBuilder.smelting(
+                        Ingredient.of(Items.COCOA_BEANS),
+                        RecipeCategory.MISC,
+                        net.toilgoat.ultvanillaexp.item.Items.MELTED_COCOA,
+                        0.1f,
+                        200
+                )
+                .unlockedBy("has_cocoa_beans", this.has(Items.COCOA_BEANS))
+                // This overload of #save allows us to specify a name.
+                .save(this.output);
+
+        shaped(RecipeCategory.FOOD, net.toilgoat.ultvanillaexp.item.Items.DARK_CHOCOLATE.get())
+                .pattern("SS")
+                .pattern("SS")
+                .define('S', net.toilgoat.ultvanillaexp.item.Items.CHOCOLATE_PIECE.get())
+                .unlockedBy("has_chocolate_piece", has(net.toilgoat.ultvanillaexp.item.Items.CHOCOLATE_PIECE)).save(output);
+
+        shapeless(RecipeCategory.FOOD, net.toilgoat.ultvanillaexp.item.Items.MILK_CHOCOLATE.get())
+                .requires(net.toilgoat.ultvanillaexp.item.Items.CHOCOLATE_PIECE)
+                .requires(net.toilgoat.ultvanillaexp.item.Items.CHOCOLATE_PIECE)
+                .requires(Items.SUGAR)
+                .requires(Items.MILK_BUCKET)
+                .unlockedBy("has_chocolate_piece", has(net.toilgoat.ultvanillaexp.item.Items.CHOCOLATE_PIECE)).save(output);
+
         shaped(RecipeCategory.BUILDING_BLOCKS, Blocks.WAX_BLOCK.get())
                 .pattern("SS")
                 .pattern("SS")
@@ -343,6 +380,10 @@ public class RecipesProvider extends RecipeProvider {
         smelting(output, ONION, RecipeCategory.FOOD, net.toilgoat.ultvanillaexp.item.Items.BAKED_ONION.get(), 0.35f, 200, "onion");
         smoking(output, ONION, RecipeCategory.FOOD, net.toilgoat.ultvanillaexp.item.Items.BAKED_ONION.get(), 0.35f, 100, "onion");
         campfireCooking(output, ONION, RecipeCategory.FOOD, net.toilgoat.ultvanillaexp.item.Items.BAKED_ONION.get(), 0.35f, 600, "onion");
+
+        smelting(output, PEANUT, RecipeCategory.FOOD, net.toilgoat.ultvanillaexp.item.Items.ROASTED_PEANUT.get(), 0.35f, 200, "onion");
+        smoking(output, PEANUT, RecipeCategory.FOOD, net.toilgoat.ultvanillaexp.item.Items.ROASTED_PEANUT.get(), 0.35f, 100, "onion");
+        campfireCooking(output, PEANUT, RecipeCategory.FOOD, net.toilgoat.ultvanillaexp.item.Items.ROASTED_PEANUT.get(), 0.35f, 600, "onion");
 
         smelting(output, RAW_DUCK, RecipeCategory.FOOD, net.toilgoat.ultvanillaexp.item.Items.ROASTED_DUCK.get(), 0.35f, 200, "raw_duck");
         smoking(output, RAW_DUCK, RecipeCategory.FOOD, net.toilgoat.ultvanillaexp.item.Items.ROASTED_DUCK.get(), 0.35f, 100, "raw_duck");

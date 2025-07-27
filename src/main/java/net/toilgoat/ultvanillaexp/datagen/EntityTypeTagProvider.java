@@ -23,6 +23,7 @@ public class EntityTypeTagProvider extends EntityTypeTagsProvider {
         tag(EntityTypeTags.FALL_DAMAGE_IMMUNE)
                 .add(Entities.DUCK.get());
         tag(EntityTypeTags.SKELETONS)
-                .add(Entities.SCORCHED.get());
+                .add(Entities.SCORCHED.get())
+                .add(Entities.SUNKEN.get());
     }
 }

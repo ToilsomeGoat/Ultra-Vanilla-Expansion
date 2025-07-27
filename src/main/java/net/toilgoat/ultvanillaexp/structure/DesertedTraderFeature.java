@@ -66,7 +66,6 @@ public class DesertedTraderFeature extends Feature<NoneFeatureConfiguration> {
             if (camel != null) {
                 camel.setPersistenceRequired();
                 camel.setLeashedTo(trader, true);
-                System.out.println("[DesertedTraderFeature] Leashed camel at " + camelPos + " to trader.");
             }
         }
 

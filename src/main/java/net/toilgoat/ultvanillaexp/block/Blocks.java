@@ -9,10 +9,8 @@ import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockSetType;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
-import net.minecraft.world.level.block.state.properties.WoodType;
 import net.minecraft.world.level.material.MapColor;
 import net.minecraft.world.level.material.PushReaction;
-import net.neoforged.neoforge.common.Tags;
 import net.toilgoat.ultvanillaexp.block.custom.*;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
@@ -38,6 +36,14 @@ public class Blocks {
 
     private static ToIntFunction<BlockState> litBlockEmission(int lightValue) {
         return (p_50763_) -> (Boolean)p_50763_.getValue(BlockStateProperties.LIT) ? lightValue : 0;
+    }
+
+    private static boolean always(BlockState state, BlockGetter blockGetter, BlockPos pos) {
+        return true;
+    }
+
+    private static boolean never(BlockState state, BlockGetter blockGetter, BlockPos pos) {
+        return false;
     }
 
     public static final DeferredBlock<Block> POLISHED_DRIPSTONE = registerBlock("polished_dripstone",
@@ -271,6 +277,220 @@ public class Blocks {
                     .strength(1.5f, 6.0f).requiresCorrectToolForDrops().instrument(NoteBlockInstrument.BASEDRUM).sound(SoundType.STONE)));
 
 
+    //Carpet
+    public static final DeferredBlock<LeavesCarpetBlock> ACACIA_LEAVES_CARPET = registerBlock("acacia_leaves_carpet",
+            () -> new LeavesCarpetBlock(BlockBehaviour.Properties.of().setId(ResourceKey.create(Registries.BLOCK, ResourceLocation.parse("ultvanillaexp:acacia_leaves_carpet")))
+                    .mapColor(MapColor.PLANT).strength(0.2F).randomTicks().sound(SoundType.GRASS).noOcclusion().isSuffocating(Blocks::never).isViewBlocking(Blocks::never).ignitedByLava().pushReaction(PushReaction.DESTROY).isRedstoneConductor(Blocks::never)
+                    .noOcclusion().ignitedByLava().pushReaction(PushReaction.DESTROY)) {
+                @Override
+                public boolean isFlammable(BlockState state, BlockGetter level, BlockPos pos, Direction direction) {
+                    return true;
+                }
+
+                @Override
+                public int getFlammability(BlockState state, BlockGetter level, BlockPos pos, Direction direction) {
+                    return 60;
+                }
+
+                @Override
+                public int getFireSpreadSpeed(BlockState state, BlockGetter level, BlockPos pos, Direction direction) {
+                    return 30;
+                }
+            });
+    public static final DeferredBlock<LeavesCarpetBlock> AZALEA_LEAVES_CARPET = registerBlock("azalea_leaves_carpet",
+            () -> new LeavesCarpetBlock(BlockBehaviour.Properties.of().setId(ResourceKey.create(Registries.BLOCK, ResourceLocation.parse("ultvanillaexp:azalea_leaves_carpet")))
+                    .mapColor(MapColor.PLANT).strength(0.2F).randomTicks().sound(SoundType.GRASS).noOcclusion().isSuffocating(Blocks::never).isViewBlocking(Blocks::never).ignitedByLava().pushReaction(PushReaction.DESTROY).isRedstoneConductor(Blocks::never)
+                    .noOcclusion().ignitedByLava().pushReaction(PushReaction.DESTROY)) {
+                @Override
+                public boolean isFlammable(BlockState state, BlockGetter level, BlockPos pos, Direction direction) {
+                    return true;
+                }
+
+                @Override
+                public int getFlammability(BlockState state, BlockGetter level, BlockPos pos, Direction direction) {
+                    return 60;
+                }
+
+                @Override
+                public int getFireSpreadSpeed(BlockState state, BlockGetter level, BlockPos pos, Direction direction) {
+                    return 30;
+                }
+            });
+    public static final DeferredBlock<LeavesCarpetBlock> FLOWERING_AZALEA_LEAVES_CARPET = registerBlock("flowering_azalea_leaves_carpet",
+            () -> new LeavesCarpetBlock(BlockBehaviour.Properties.of().setId(ResourceKey.create(Registries.BLOCK, ResourceLocation.parse("ultvanillaexp:flowering_azalea_leaves_carpet")))
+                    .mapColor(MapColor.PLANT).strength(0.2F).randomTicks().sound(SoundType.GRASS).noOcclusion().isSuffocating(Blocks::never).isViewBlocking(Blocks::never).ignitedByLava().pushReaction(PushReaction.DESTROY).isRedstoneConductor(Blocks::never)
+                    .noOcclusion().ignitedByLava().pushReaction(PushReaction.DESTROY)) {
+                @Override
+                public boolean isFlammable(BlockState state, BlockGetter level, BlockPos pos, Direction direction) {
+                    return true;
+                }
+
+                @Override
+                public int getFlammability(BlockState state, BlockGetter level, BlockPos pos, Direction direction) {
+                    return 60;
+                }
+
+                @Override
+                public int getFireSpreadSpeed(BlockState state, BlockGetter level, BlockPos pos, Direction direction) {
+                    return 30;
+                }
+            });
+    public static final DeferredBlock<LeavesCarpetBlock> BIRCH_LEAVES_CARPET = registerBlock("birch_leaves_carpet",
+            () -> new LeavesCarpetBlock(BlockBehaviour.Properties.of().setId(ResourceKey.create(Registries.BLOCK, ResourceLocation.parse("ultvanillaexp:birch_leaves_carpet")))
+                    .mapColor(MapColor.PLANT).strength(0.2F).randomTicks().sound(SoundType.GRASS).noOcclusion().isSuffocating(Blocks::never).isViewBlocking(Blocks::never).ignitedByLava().pushReaction(PushReaction.DESTROY).isRedstoneConductor(Blocks::never)
+                    .noOcclusion().ignitedByLava().pushReaction(PushReaction.DESTROY)) {
+                @Override
+                public boolean isFlammable(BlockState state, BlockGetter level, BlockPos pos, Direction direction) {
+                    return true;
+                }
+
+                @Override
+                public int getFlammability(BlockState state, BlockGetter level, BlockPos pos, Direction direction) {
+                    return 60;
+                }
+
+                @Override
+                public int getFireSpreadSpeed(BlockState state, BlockGetter level, BlockPos pos, Direction direction) {
+                    return 30;
+                }
+            });
+    public static final DeferredBlock<CarpetBlock> CHERRY_LEAVES_CARPET = registerBlock("cherry_leaves_carpet",
+            () -> new CarpetBlock(BlockBehaviour.Properties.of().setId(ResourceKey.create(Registries.BLOCK, ResourceLocation.parse("ultvanillaexp:cherry_leaves_carpet")))
+                    .mapColor(MapColor.PLANT).strength(0.2F).randomTicks().sound(SoundType.CHERRY_LEAVES).noOcclusion().isSuffocating(Blocks::never).isViewBlocking(Blocks::never).ignitedByLava().pushReaction(PushReaction.DESTROY).isRedstoneConductor(Blocks::never)
+                    .noOcclusion().ignitedByLava().pushReaction(PushReaction.DESTROY)) {
+                @Override
+                public boolean isFlammable(BlockState state, BlockGetter level, BlockPos pos, Direction direction) {
+                    return true;
+                }
+
+                @Override
+                public int getFlammability(BlockState state, BlockGetter level, BlockPos pos, Direction direction) {
+                    return 60;
+                }
+
+                @Override
+                public int getFireSpreadSpeed(BlockState state, BlockGetter level, BlockPos pos, Direction direction) {
+                    return 30;
+                }
+            });
+    public static final DeferredBlock<CarpetBlock> DARK_OAK_LEAVES_CARPET = registerBlock("dark_oak_leaves_carpet",
+            () -> new CarpetBlock(BlockBehaviour.Properties.of().setId(ResourceKey.create(Registries.BLOCK, ResourceLocation.parse("ultvanillaexp:dark_oak_leaves_carpet")))
+                    .mapColor(MapColor.PLANT).strength(0.2F).randomTicks().sound(SoundType.GRASS).noOcclusion().isSuffocating(Blocks::never).isViewBlocking(Blocks::never).ignitedByLava().pushReaction(PushReaction.DESTROY).isRedstoneConductor(Blocks::never)
+                    .noOcclusion().ignitedByLava().pushReaction(PushReaction.DESTROY)) {
+                @Override
+                public boolean isFlammable(BlockState state, BlockGetter level, BlockPos pos, Direction direction) {
+                    return true;
+                }
+
+                @Override
+                public int getFlammability(BlockState state, BlockGetter level, BlockPos pos, Direction direction) {
+                    return 60;
+                }
+
+                @Override
+                public int getFireSpreadSpeed(BlockState state, BlockGetter level, BlockPos pos, Direction direction) {
+                    return 30;
+                }
+            });
+    public static final DeferredBlock<CarpetBlock> JUNGLE_LEAVES_CARPET = registerBlock("jungle_leaves_carpet",
+            () -> new CarpetBlock(BlockBehaviour.Properties.of().setId(ResourceKey.create(Registries.BLOCK, ResourceLocation.parse("ultvanillaexp:jungle_leaves_carpet")))
+                    .mapColor(MapColor.PLANT).strength(0.2F).randomTicks().sound(SoundType.GRASS).noOcclusion().isSuffocating(Blocks::never).isViewBlocking(Blocks::never).ignitedByLava().pushReaction(PushReaction.DESTROY).isRedstoneConductor(Blocks::never)
+                    .noOcclusion().ignitedByLava().pushReaction(PushReaction.DESTROY)) {
+                @Override
+                public boolean isFlammable(BlockState state, BlockGetter level, BlockPos pos, Direction direction) {
+                    return true;
+                }
+
+                @Override
+                public int getFlammability(BlockState state, BlockGetter level, BlockPos pos, Direction direction) {
+                    return 60;
+                }
+
+                @Override
+                public int getFireSpreadSpeed(BlockState state, BlockGetter level, BlockPos pos, Direction direction) {
+                    return 30;
+                }
+            });
+    public static final DeferredBlock<CarpetBlock> MANGROVE_LEAVES_CARPET = registerBlock("mangrove_leaves_carpet",
+            () -> new CarpetBlock(BlockBehaviour.Properties.of().setId(ResourceKey.create(Registries.BLOCK, ResourceLocation.parse("ultvanillaexp:mangrove_leaves_carpet")))
+                    .mapColor(MapColor.PLANT).strength(0.2F).randomTicks().sound(SoundType.GRASS).noOcclusion().isSuffocating(Blocks::never).isViewBlocking(Blocks::never).ignitedByLava().pushReaction(PushReaction.DESTROY).isRedstoneConductor(Blocks::never)
+                    .noOcclusion().ignitedByLava().pushReaction(PushReaction.DESTROY)) {
+                @Override
+                public boolean isFlammable(BlockState state, BlockGetter level, BlockPos pos, Direction direction) {
+                    return true;
+                }
+
+                @Override
+                public int getFlammability(BlockState state, BlockGetter level, BlockPos pos, Direction direction) {
+                    return 60;
+                }
+
+                @Override
+                public int getFireSpreadSpeed(BlockState state, BlockGetter level, BlockPos pos, Direction direction) {
+                    return 30;
+                }
+            });
+    public static final DeferredBlock<CarpetBlock> OAK_LEAVES_CARPET = registerBlock("oak_leaves_carpet",
+            () -> new CarpetBlock(BlockBehaviour.Properties.of().setId(ResourceKey.create(Registries.BLOCK, ResourceLocation.parse("ultvanillaexp:oak_leaves_carpet")))
+                    .mapColor(MapColor.PLANT).strength(0.2F).randomTicks().sound(SoundType.GRASS).noOcclusion().isSuffocating(Blocks::never).isViewBlocking(Blocks::never).ignitedByLava().pushReaction(PushReaction.DESTROY).isRedstoneConductor(Blocks::never)
+                    .noOcclusion().ignitedByLava().pushReaction(PushReaction.DESTROY)) {
+                @Override
+                public boolean isFlammable(BlockState state, BlockGetter level, BlockPos pos, Direction direction) {
+                    return true;
+                }
+
+                @Override
+                public int getFlammability(BlockState state, BlockGetter level, BlockPos pos, Direction direction) {
+                    return 60;
+                }
+
+                @Override
+                public int getFireSpreadSpeed(BlockState state, BlockGetter level, BlockPos pos, Direction direction) {
+                    return 30;
+                }
+            });
+    public static final DeferredBlock<CarpetBlock> PALE_OAK_LEAVES_CARPET = registerBlock("pale_oak_leaves_carpet",
+            () -> new CarpetBlock(BlockBehaviour.Properties.of().setId(ResourceKey.create(Registries.BLOCK, ResourceLocation.parse("ultvanillaexp:pale_oak_leaves_carpet")))
+                    .mapColor(MapColor.PLANT).strength(0.2F).randomTicks().sound(SoundType.GRASS).noOcclusion().isSuffocating(Blocks::never).isViewBlocking(Blocks::never).ignitedByLava().pushReaction(PushReaction.DESTROY).isRedstoneConductor(Blocks::never)
+                    .noOcclusion().ignitedByLava().pushReaction(PushReaction.DESTROY)) {
+                @Override
+                public boolean isFlammable(BlockState state, BlockGetter level, BlockPos pos, Direction direction) {
+                    return true;
+                }
+
+                @Override
+                public int getFlammability(BlockState state, BlockGetter level, BlockPos pos, Direction direction) {
+                    return 60;
+                }
+
+                @Override
+                public int getFireSpreadSpeed(BlockState state, BlockGetter level, BlockPos pos, Direction direction) {
+                    return 30;
+                }
+            });
+    public static final DeferredBlock<CarpetBlock> PALM_LEAVES_CARPET = registerBlock("palm_leaves_carpet",
+            () -> new CarpetBlock(BlockBehaviour.Properties.of().setId(ResourceKey.create(Registries.BLOCK, ResourceLocation.parse("ultvanillaexp:palm_leaves_carpet")))
+                    .mapColor(MapColor.PLANT).strength(0.2F).randomTicks().sound(SoundType.GRASS).noOcclusion().isSuffocating(Blocks::never).isViewBlocking(Blocks::never).ignitedByLava().pushReaction(PushReaction.DESTROY).isRedstoneConductor(Blocks::never)
+                    .noOcclusion().ignitedByLava().pushReaction(PushReaction.DESTROY)) {
+                @Override
+                public boolean isFlammable(BlockState state, BlockGetter level, BlockPos pos, Direction direction) {
+                    return true;
+                }
+
+                @Override
+                public int getFlammability(BlockState state, BlockGetter level, BlockPos pos, Direction direction) {
+                    return 60;
+                }
+
+                @Override
+                public int getFireSpreadSpeed(BlockState state, BlockGetter level, BlockPos pos, Direction direction) {
+                    return 30;
+                }
+            });
+
+
+
+
     public static final DeferredBlock<Block> WAX_BLOCK = registerBlock("wax_block",
             () -> new Block(BlockBehaviour.Properties.of().setId(ResourceKey.create(Registries.BLOCK, ResourceLocation.parse("ultvanillaexp:wax_block")))
                     .strength(0.6f, 0.6f).instrument(NoteBlockInstrument.FLUTE).sound(SoundType.CORAL_BLOCK)));
@@ -294,14 +514,36 @@ public class Blocks {
     public static final DeferredBlock<Block> HIEROGLYPH_VULTURE = registerBlock("hieroglyph_vulture",
             () -> new Block(BlockBehaviour.Properties.of().setId(ResourceKey.create(Registries.BLOCK, ResourceLocation.parse("ultvanillaexp:hieroglyph_vulture")))
                     .mapColor(MapColor.SAND).instrument(NoteBlockInstrument.BASEDRUM).requiresCorrectToolForDrops().strength(0.8F)));
+
+    public static final DeferredBlock<Block> ENGRAVED_PRISMARINE_BRICKS_GUARDIAN = registerBlock("engraved_prismarine_bricks_guardian",
+            () -> new Block(BlockBehaviour.Properties.of().setId(ResourceKey.create(Registries.BLOCK, ResourceLocation.parse("ultvanillaexp:engraved_prismarine_bricks_guardian")))
+                    .mapColor(MapColor.DIAMOND).instrument(NoteBlockInstrument.BASEDRUM).requiresCorrectToolForDrops().strength(1.5F, 6.0F)));
+
+    public static final DeferredBlock<Block> ENGRAVED_PRISMARINE_BRICKS_LASER = registerBlock("engraved_prismarine_bricks_laser",
+            () -> new Block(BlockBehaviour.Properties.of().setId(ResourceKey.create(Registries.BLOCK, ResourceLocation.parse("engraved_prismarine_bricks_laser")))
+                    .mapColor(MapColor.DIAMOND).instrument(NoteBlockInstrument.BASEDRUM).requiresCorrectToolForDrops().strength(1.5F, 6.0F)));
+
+    public static final DeferredBlock<Block> ENGRAVED_PRISMARINE_BRICKS_DROWNED = registerBlock("engraved_prismarine_bricks_drowned",
+            () -> new Block(BlockBehaviour.Properties.of().setId(ResourceKey.create(Registries.BLOCK, ResourceLocation.parse("ultvanillaexp:engraved_prismarine_bricks_drowned")))
+                    .mapColor(MapColor.DIAMOND).instrument(NoteBlockInstrument.BASEDRUM).requiresCorrectToolForDrops().strength(1.5F, 6.0F)));
+
+    public static final DeferredBlock<Block> ENGRAVED_PRISMARINE_BRICKS_SUNKEN = registerBlock("engraved_prismarine_bricks_sunken",
+            () -> new Block(BlockBehaviour.Properties.of().setId(ResourceKey.create(Registries.BLOCK, ResourceLocation.parse("ultvanillaexp:engraved_prismarine_bricks_sunken")))
+                    .mapColor(MapColor.DIAMOND).instrument(NoteBlockInstrument.BASEDRUM).requiresCorrectToolForDrops().strength(1.5F, 6.0F)));
+
     //Crop
-    public static final DeferredBlock<Block> ONION_CROP = BLOCKS.register("onion_crop",
-            () -> new OnionCrop(BlockBehaviour.Properties.ofFullCopy(net.minecraft.world.level.block.Blocks.BEETROOTS)
-                    .setId(ResourceKey.create(Registries.BLOCK, ResourceLocation.parse("ultvanillaexp:onion_crop")))));
 
     public static final DeferredBlock<Block> BARLEY_CROP = BLOCKS.register("barley_crop",
             () -> new BarleyCrop(BlockBehaviour.Properties.ofFullCopy(net.minecraft.world.level.block.Blocks.BEETROOTS)
                     .setId(ResourceKey.create(Registries.BLOCK, ResourceLocation.parse("ultvanillaexp:barley_crop")))));
+
+    public static final DeferredBlock<Block> ONION_CROP = BLOCKS.register("onion_crop",
+            () -> new OnionCrop(BlockBehaviour.Properties.ofFullCopy(net.minecraft.world.level.block.Blocks.BEETROOTS)
+                    .setId(ResourceKey.create(Registries.BLOCK, ResourceLocation.parse("ultvanillaexp:onion_crop")))));
+
+    public static final DeferredBlock<Block> PEANUT_CROP = BLOCKS.register("peanut_crop",
+            () -> new PeanutCrop(BlockBehaviour.Properties.ofFullCopy(net.minecraft.world.level.block.Blocks.BEETROOTS)
+                    .setId(ResourceKey.create(Registries.BLOCK, ResourceLocation.parse("ultvanillaexp:peanut_crop")))));
 
     //Ore
     public static final DeferredBlock<Block> RUBY_ORE = registerBlock("ruby_ore",
@@ -320,7 +562,7 @@ public class Blocks {
 
     public static final DeferredBlock<Block> PALM_LEAVES = registerBlock("palm_leaves",
             () -> new PalmLeavesBlock(BlockBehaviour.Properties.of().setId(ResourceKey.create(Registries.BLOCK, ResourceLocation.parse("ultvanillaexp:palm_leaves")))
-                    .mapColor(MapColor.PLANT).strength(0.2F).randomTicks().sound(SoundType.GRASS)
+                    .mapColor(MapColor.PLANT).strength(0.2F).randomTicks().sound(SoundType.GRASS).noOcclusion().isValidSpawn(net.minecraft.world.level.block.Blocks::ocelotOrParrot).isSuffocating(Blocks::never).isViewBlocking(Blocks::never).ignitedByLava().pushReaction(PushReaction.DESTROY).isRedstoneConductor(Blocks::never)
                     .noOcclusion().ignitedByLava().pushReaction(PushReaction.DESTROY)) {
                 @Override
                 public boolean isFlammable(BlockState state, BlockGetter level, BlockPos pos, Direction direction) {

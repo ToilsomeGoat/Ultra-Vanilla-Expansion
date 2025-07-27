@@ -1,6 +1,7 @@
 package net.toilgoat.ultvanillaexp.worldgen;
 
 import net.minecraft.core.HolderSet;
+import net.minecraft.data.worldgen.placement.CavePlacements;
 import net.minecraft.tags.BiomeTags;
 import net.minecraft.util.random.WeightedList;
 import net.minecraft.world.entity.EntityType;
@@ -11,10 +12,14 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.level.levelgen.structure.placement.StructurePlacement;
+import net.neoforged.neoforge.common.Tags;
 import net.neoforged.neoforge.common.world.BiomeModifier;
 import net.neoforged.neoforge.registries.NeoForgeRegistries;
 import net.toilgoat.ultvanillaexp.UltVanillaExp;
 import net.toilgoat.ultvanillaexp.entity.Entities;
+
+import java.util.Set;
 
 public class BiomeModifiers {
 
@@ -23,6 +28,8 @@ public class BiomeModifiers {
     public static final ResourceKey<BiomeModifier> ADD_RUBY_ORE_BIG = registerKey("add_ruby_ore_big");
     public static final ResourceKey<BiomeModifier> ADD_PALM_TREE = registerKey("add_palm_tree");
     public static final ResourceKey<BiomeModifier> ADD_DESERT_DUNGEON = registerKey("add_desert_dungeon");
+    public static final ResourceKey<BiomeModifier> ADD_FROZEN_DUNGEON = registerKey("add_frozen_dungeon");
+    public static final ResourceKey<BiomeModifier> REMOVE_DUNGEONS = registerKey("remove_dungeons");
     public static final ResourceKey<BiomeModifier> ADD_PAEONIA = registerKey("add_paeonia");
     public static final ResourceKey<BiomeModifier> ADD_HIBISCUS = registerKey("add_hibiscus");
     public static final ResourceKey<BiomeModifier> SPAWN_DUCK_RIVER = registerKey("spawn_duck_river");
@@ -31,6 +38,9 @@ public class BiomeModifiers {
     public static final ResourceKey<BiomeModifier> SPAWN_GRIZZLY_BEAR_FOREST = registerKey("spawn_grizzly_bear_forest");
     public static final ResourceKey<BiomeModifier> SPAWN_GRIZZLY_BEAR_BIRCH_FOREST = registerKey("spawn_grizzly_bear_birch_forest");
     public static final ResourceKey<BiomeModifier> SPAWN_SCORCHED = registerKey("spawn_scorched");
+    public static final ResourceKey<BiomeModifier> SPAWN_SUNKEN_OCEAN = registerKey("spawn_sunken_ocean");
+    public static final ResourceKey<BiomeModifier> SPAWN_SUNKEN_WARM_OCEAN = registerKey("spawn_sunken_warm_ocean");
+    public static final ResourceKey<BiomeModifier> SPAWN_FROSTBITTEN = registerKey("spawn_frostbitten");
 
     public static void bootstrap(BootstrapContext<BiomeModifier> context) {
         var placedFeatures = context.lookup(Registries.PLACED_FEATURE);
@@ -56,6 +66,18 @@ public class BiomeModifiers {
                 HolderSet.direct(biomes.getOrThrow(Biomes.DESERT)),
                 HolderSet.direct(placedFeatures.getOrThrow(PlacedFeatures.DESERT_DUNGEON_PLACED_KEY)),
                 GenerationStep.Decoration.UNDERGROUND_STRUCTURES));
+        context.register(ADD_FROZEN_DUNGEON, new net.neoforged.neoforge.common.world.BiomeModifiers.AddFeaturesBiomeModifier(
+                HolderSet.direct(biomes.getOrThrow(Biomes.SNOWY_PLAINS), biomes.getOrThrow(Biomes.ICE_SPIKES), biomes.getOrThrow(Biomes.FROZEN_RIVER)),
+                HolderSet.direct(placedFeatures.getOrThrow(PlacedFeatures.FROZEN_DUNGEON_PLACED_KEY)),
+                GenerationStep.Decoration.UNDERGROUND_STRUCTURES));
+        context.register(REMOVE_DUNGEONS, new net.neoforged.neoforge.common.world.BiomeModifiers.RemoveFeaturesBiomeModifier(
+                        HolderSet.direct(biomes.getOrThrow(Biomes.DESERT), biomes.getOrThrow(Biomes.SNOWY_PLAINS), biomes.getOrThrow(Biomes.ICE_SPIKES), biomes.getOrThrow(Biomes.FROZEN_RIVER)),
+                        HolderSet.direct(placedFeatures.getOrThrow(CavePlacements.MONSTER_ROOM)),
+                        Set.of(
+                                GenerationStep.Decoration.UNDERGROUND_STRUCTURES
+                        )
+                )
+        );
         context.register(ADD_PAEONIA, new net.neoforged.neoforge.common.world.BiomeModifiers.AddFeaturesBiomeModifier(
                 HolderSet.direct(biomes.getOrThrow(Biomes.FOREST)),
                 HolderSet.direct(placedFeatures.getOrThrow(PlacedFeatures.PAEONIA_PLACED_KEY)),
@@ -105,6 +127,27 @@ public class BiomeModifiers {
                         HolderSet.direct(biomes.getOrThrow(Biomes.DESERT)),
                         WeightedList.<MobSpawnSettings.SpawnerData>builder()
                                 .add(new MobSpawnSettings.SpawnerData(Entities.SCORCHED.get(), 4, 4), 80)
+                                .build()
+                ));
+        context.register(SPAWN_SUNKEN_OCEAN,
+                new net.neoforged.neoforge.common.world.BiomeModifiers.AddSpawnsBiomeModifier(
+                        biomes.getOrThrow(BiomeTags.IS_OCEAN),
+                        WeightedList.<MobSpawnSettings.SpawnerData>builder()
+                                .add(new MobSpawnSettings.SpawnerData(Entities.SUNKEN.get(), 1, 1), 5)
+                                .build()
+                ));
+        context.register(SPAWN_SUNKEN_WARM_OCEAN,
+                new net.neoforged.neoforge.common.world.BiomeModifiers.AddSpawnsBiomeModifier(
+                        HolderSet.direct(biomes.getOrThrow(Biomes.WARM_OCEAN)),
+                        WeightedList.<MobSpawnSettings.SpawnerData>builder()
+                                .add(new MobSpawnSettings.SpawnerData(Entities.SUNKEN.get(), 1, 1), 80)
+                                .build()
+                ));
+        context.register(SPAWN_FROSTBITTEN,
+                new net.neoforged.neoforge.common.world.BiomeModifiers.AddSpawnsBiomeModifier(
+                        HolderSet.direct(biomes.getOrThrow(Biomes.SNOWY_PLAINS), biomes.getOrThrow(Biomes.ICE_SPIKES), biomes.getOrThrow(Biomes.FROZEN_RIVER)),
+                        WeightedList.<MobSpawnSettings.SpawnerData>builder()
+                                .add(new MobSpawnSettings.SpawnerData(Entities.FROSTBITTEN.get(), 2, 4), 80)
                                 .build()
                 ));
     }

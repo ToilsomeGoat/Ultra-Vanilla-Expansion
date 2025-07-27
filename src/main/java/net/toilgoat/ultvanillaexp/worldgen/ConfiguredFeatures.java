@@ -32,6 +32,7 @@ public class ConfiguredFeatures {
     public static final ResourceKey<ConfiguredFeature<?, ?>> PAEONIA_KEY = registerKey("paeonia");
     public static final ResourceKey<ConfiguredFeature<?, ?>> HIBISCUS_KEY = registerKey("hibiscus");
     public static final ResourceKey<ConfiguredFeature<?, ?>> DESERT_DUNGEON_KEY = registerKey("desert_dungeon");
+    public static final ResourceKey<ConfiguredFeature<?, ?>> FROZEN_DUNGEON_KEY = registerKey("frozen_dungeon");
     public static final ResourceKey<ConfiguredFeature<?, ?>> DESERTED_TRADER_KEY = registerKey("deserted_trader");
 
     public static void bootstrap(BootstrapContext<ConfiguredFeature<?, ?>> context) {
@@ -61,9 +62,11 @@ public class ConfiguredFeatures {
 
                 new TwoLayersFeatureSize(1, 0, 1)).dirt(BlockStateProvider.simple(net.minecraft.world.level.block.Blocks.SAND)).build());
 
-        register(context, DESERTED_TRADER_KEY, Features.DESERTED_TRADER.get(), NoneFeatureConfiguration.NONE);
-
         register(context, DESERT_DUNGEON_KEY, Features.DESERT_DUNGEON.get(), NoneFeatureConfiguration.NONE);
+
+        register(context, FROZEN_DUNGEON_KEY, Features.FROZEN_DUNGEON.get(), NoneFeatureConfiguration.NONE);
+
+        register(context, DESERTED_TRADER_KEY, Features.DESERTED_TRADER.get(), NoneFeatureConfiguration.NONE);
 
         register(context, HIBISCUS_KEY, Feature.RANDOM_PATCH,
                 FeatureUtils.simplePatchConfiguration(

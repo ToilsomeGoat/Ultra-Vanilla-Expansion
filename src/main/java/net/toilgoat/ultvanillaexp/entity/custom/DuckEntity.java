@@ -99,7 +99,10 @@ public class DuckEntity extends Animal {
             this.moveRelative(this.getSpeed(), p_218530_);
             this.move(MoverType.SELF, this.getDeltaMovement());
             this.setDeltaMovement(this.getDeltaMovement().scale(0.9));
-        } else {
+        }  else if (this.isInWater() && this.isSprinting()) {
+        this.setDeltaMovement(this.getDeltaMovement().add(0.0, 0.04, 0.0));
+    }
+        else {
             super.travel(p_218530_);
         }
 

@@ -15,6 +15,7 @@ import net.toilgoat.ultvanillaexp.UltVanillaExp;
 import net.toilgoat.ultvanillaexp.block.Blocks;
 import net.toilgoat.ultvanillaexp.block.custom.BarleyCrop;
 import net.toilgoat.ultvanillaexp.block.custom.OnionCrop;
+import net.toilgoat.ultvanillaexp.block.custom.PeanutCrop;
 import net.toilgoat.ultvanillaexp.item.Items;
 
 import java.util.Map;
@@ -34,12 +35,19 @@ public class ModelsProvider extends ModelProvider {
         itemModels.generateFlatItem(Items.BEESWAX.get(), ModelTemplates.FLAT_ITEM);
         itemModels.generateFlatItem(Items.CRYSTALLIZED_HONEY.get(), ModelTemplates.FLAT_ITEM);
         itemModels.generateFlatItem(Items.BAKED_ONION.get(), ModelTemplates.FLAT_ITEM);
+        itemModels.generateFlatItem(Items.ROASTED_PEANUT.get(), ModelTemplates.FLAT_ITEM);
         itemModels.generateFlatItem(Items.RUBY.get(), ModelTemplates.FLAT_ITEM);
         itemModels.generateFlatItem(Items.BARLEY.get(), ModelTemplates.FLAT_ITEM);
         itemModels.generateFlatItem(Items.BARLEY_STEW.get(), ModelTemplates.FLAT_ITEM);
+        itemModels.generateFlatItem(Items.MELTED_COCOA.get(), ModelTemplates.FLAT_ITEM);
+        itemModels.generateFlatItem(Items.CHOCOLATE_PIECE.get(), ModelTemplates.FLAT_ITEM);
+        itemModels.generateFlatItem(Items.DARK_CHOCOLATE.get(), ModelTemplates.FLAT_ITEM);
+        itemModels.generateFlatItem(Items.MILK_CHOCOLATE.get(), ModelTemplates.FLAT_ITEM);
         itemModels.generateFlatItem(Items.DUCK_SPAWN_EGG.get(), ModelTemplates.FLAT_ITEM);
         itemModels.generateFlatItem(Items.GRIZZLY_BEAR_SPAWN_EGG.get(), ModelTemplates.FLAT_ITEM);
         itemModels.generateFlatItem(Items.SCORCHED_SPAWN_EGG.get(), ModelTemplates.FLAT_ITEM);
+        itemModels.generateFlatItem(Items.SUNKEN_SPAWN_EGG.get(), ModelTemplates.FLAT_ITEM);
+        itemModels.generateFlatItem(Items.FROSTBITTEN_SPAWN_EGG.get(), ModelTemplates.FLAT_ITEM);
         itemModels.generateFlatItem(Items.DESERTED_TRADER_SPAWN_EGG.get(), ModelTemplates.FLAT_ITEM);
         itemModels.generateFlatItem(Items.RAW_DUCK.get(), ModelTemplates.FLAT_ITEM);
         itemModels.generateFlatItem(Items.ROASTED_DUCK.get(), ModelTemplates.FLAT_ITEM);
@@ -118,8 +126,9 @@ public class ModelsProvider extends ModelProvider {
                 .slab(Blocks.POLISHED_GRANITE_BRICKS_SLAB.get())
                 .wall(Blocks.POLISHED_GRANITE_BRICKS_WALL.get());
 
-        blockModels.createCropBlock(Blocks.ONION_CROP.get(), OnionCrop.AGE,  0, 1, 2, 3);
         blockModels.createCropBlock(Blocks.BARLEY_CROP.get(), BarleyCrop.AGE,  0, 1, 2, 3);
+        blockModels.createCropBlock(Blocks.ONION_CROP.get(), OnionCrop.AGE,  0, 1, 2, 3);
+        blockModels.createCropBlock(Blocks.PEANUT_CROP.get(), PeanutCrop.AGE,  0, 1, 2, 3);
 
         blockModels.createTrivialCube(Blocks.RUBY_ORE.get());
         blockModels.createTrivialCube(Blocks.DEEPSLATE_RUBY_ORE.get());
@@ -131,7 +140,10 @@ public class ModelsProvider extends ModelProvider {
         blockModels.createTrivialBlock(Blocks.HIEROGLYPH_SNAKE.get(), TexturedModel.COLUMN);
         blockModels.createTrivialBlock(Blocks.HIEROGLYPH_VULTURE.get(), TexturedModel.COLUMN);
 
-
+        blockModels.createTrivialBlock(Blocks.ENGRAVED_PRISMARINE_BRICKS_GUARDIAN.get(), TexturedModel.COLUMN);
+        blockModels.createTrivialBlock(Blocks.ENGRAVED_PRISMARINE_BRICKS_LASER.get(), TexturedModel.COLUMN);
+        blockModels.createTrivialBlock(Blocks.ENGRAVED_PRISMARINE_BRICKS_DROWNED.get(), TexturedModel.COLUMN);
+        blockModels.createTrivialBlock(Blocks.ENGRAVED_PRISMARINE_BRICKS_SUNKEN.get(), TexturedModel.COLUMN);
 
         blockModels.woodProvider(Blocks.PALM_LOG.get()).logWithHorizontal(Blocks.PALM_LOG.get()).wood(Blocks.PALM_WOOD.get());
         blockModels.woodProvider(Blocks.STRIPPED_PALM_LOG.get()).logWithHorizontal(Blocks.STRIPPED_PALM_LOG.get()).wood(Blocks.STRIPPED_PALM_WOOD.get());
@@ -154,6 +166,20 @@ public class ModelsProvider extends ModelProvider {
         blockModels.createHangingSign(Blocks.STRIPPED_PALM_LOG.get(), Blocks.PALM_HANGING_SIGN.get(), Blocks.PALM_WALL_HANGING_SIGN.get());
 
         blockModels.createTintedLeaves(Blocks.PALM_LEAVES.get(), TexturedModel.LEAVES,-12012264);
+
+        blockModels.createTrivialBlock(Blocks.AZALEA_LEAVES_CARPET.get(), TexturedModel.CARPET);
+        blockModels.createTrivialBlock(Blocks.FLOWERING_AZALEA_LEAVES_CARPET.get(), TexturedModel.CARPET);
+        blockModels.createTrivialBlock(Blocks.CHERRY_LEAVES_CARPET.get(), TexturedModel.CARPET);
+        blockModels.createTrivialBlock(Blocks.PALE_OAK_LEAVES_CARPET.get(), TexturedModel.CARPET);
+
+
+        blockModels.createTintedLeaves(Blocks.ACACIA_LEAVES_CARPET.get(), TexturedModel.CARPET,-12012264);
+        blockModels.createTintedLeaves(Blocks.BIRCH_LEAVES_CARPET.get(), TexturedModel.CARPET,-12012264);
+        blockModels.createTintedLeaves(Blocks.DARK_OAK_LEAVES_CARPET.get(), TexturedModel.CARPET,-12012264);
+        blockModels.createTintedLeaves(Blocks.JUNGLE_LEAVES_CARPET.get(), TexturedModel.CARPET,-12012264);
+        blockModels.createTintedLeaves(Blocks.MANGROVE_LEAVES_CARPET.get(), TexturedModel.CARPET,-12012264);
+        blockModels.createTintedLeaves(Blocks.OAK_LEAVES_CARPET.get(), TexturedModel.CARPET,-12012264);
+        blockModels.createTintedLeaves(Blocks.PALM_LEAVES_CARPET.get(), TexturedModel.CARPET,-12012264);
 
         blockModels.createPlantWithDefaultItem(Blocks.PALM_SAPLING.get(), Blocks.POTTED_PALM_SAPLING.get(), BlockModelGenerators.PlantType.TINTED);
 

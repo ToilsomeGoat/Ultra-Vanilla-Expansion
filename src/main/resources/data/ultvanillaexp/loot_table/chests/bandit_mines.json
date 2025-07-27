@@ -41,13 +41,13 @@
               "add": false,
               "count": {
                 "type": "minecraft:uniform",
-                "max": 5,
-                "min": 2
+                "max": 10,
+                "min": 5
               },
               "function": "minecraft:set_count"
             }
           ],
-          "name": "minecraft:potato",
+          "name": "ultvanillaexp:peanut",
           "weight": 5
         },
         {

@@ -12,10 +12,7 @@ import net.neoforged.neoforge.client.event.RegisterMenuScreensEvent;
 import net.toilgoat.ultvanillaexp.block.Blocks;
 import net.toilgoat.ultvanillaexp.block.entity.BlockEntities;
 import net.toilgoat.ultvanillaexp.entity.Entities;
-import net.toilgoat.ultvanillaexp.entity.client.DesertedTraderRenderer;
-import net.toilgoat.ultvanillaexp.entity.client.DuckRenderer;
-import net.toilgoat.ultvanillaexp.entity.client.GrizzlyBearRenderer;
-import net.toilgoat.ultvanillaexp.entity.client.ScorchedRenderer;
+import net.toilgoat.ultvanillaexp.entity.client.*;
 import net.toilgoat.ultvanillaexp.event.ClientEvents;
 import net.toilgoat.ultvanillaexp.event.EventBusEvents;
 import net.toilgoat.ultvanillaexp.event.Events;
@@ -27,7 +24,6 @@ import net.toilgoat.ultvanillaexp.screen.MenuTypes;
 import net.toilgoat.ultvanillaexp.screen.custom.FrosterScreen;
 import net.toilgoat.ultvanillaexp.structure.Features;
 import net.toilgoat.ultvanillaexp.structure.StructurePieceTypes;
-import net.toilgoat.ultvanillaexp.structure.processors.Processors;
 import net.toilgoat.ultvanillaexp.util.WoodTypes;
 import net.toilgoat.ultvanillaexp.worldgen.tree.PlacerTypes;
 import org.slf4j.Logger;
@@ -129,13 +125,19 @@ public class UltVanillaExp
         if (event.getTabKey() == CreativeModeTabs.FOOD_AND_DRINKS) {
             event.accept(Items.GREEN_APPLE);
             event.accept(Items.CRYSTALLIZED_HONEY);
-            event.accept(Items.ONION);
-            event.accept(Items.BAKED_ONION);
             event.accept(Items.BARLEY);
             event.accept(Items.BARLEY_SEEDS);
             event.accept(Items.BARLEY_STEW);
+            event.accept(Items.ONION);
+            event.accept(Items.BAKED_ONION);
+            event.accept(Items.PEANUT);
+            event.accept(Items.ROASTED_PEANUT);
             event.accept(Items.RAW_DUCK);
             event.accept(Items.ROASTED_DUCK);
+            event.accept(Items.MELTED_COCOA);
+            event.accept(Items.CHOCOLATE_PIECE);
+            event.accept(Items.DARK_CHOCOLATE);
+            event.accept(Items.MILK_CHOCOLATE);
         }
 
         if (event.getTabKey() == CreativeModeTabs.BUILDING_BLOCKS) {
@@ -202,7 +204,11 @@ public class UltVanillaExp
             event.accept(Blocks.HIEROGLYPH_REEDS);
             event.accept(Blocks.HIEROGLYPH_SNAKE);
             event.accept(Blocks.HIEROGLYPH_VULTURE);
-
+            //ENGRAVED PRISMARINE BRICKS
+            event.accept(Blocks.ENGRAVED_PRISMARINE_BRICKS_GUARDIAN);
+            event.accept(Blocks.ENGRAVED_PRISMARINE_BRICKS_LASER);
+            event.accept(Blocks.ENGRAVED_PRISMARINE_BRICKS_DROWNED);
+            event.accept(Blocks.ENGRAVED_PRISMARINE_BRICKS_SUNKEN);
             // PALM
             event.accept(Blocks.PALM_LOG);
             event.accept(Blocks.STRIPPED_PALM_LOG);
@@ -218,13 +224,27 @@ public class UltVanillaExp
             event.accept(Blocks.PALM_PRESSURE_PLATE);
             event.accept(Blocks.PALM_BUTTON);
 
+            event.accept(Blocks.ACACIA_LEAVES_CARPET);
+            event.accept(Blocks.AZALEA_LEAVES_CARPET);
+            event.accept(Blocks.FLOWERING_AZALEA_LEAVES_CARPET);
+            event.accept(Blocks.BIRCH_LEAVES_CARPET);
+            event.accept(Blocks.CHERRY_LEAVES_CARPET);
+            event.accept(Blocks.DARK_OAK_LEAVES_CARPET);
+            event.accept(Blocks.JUNGLE_LEAVES_CARPET);
+            event.accept(Blocks.MANGROVE_LEAVES_CARPET);
+            event.accept(Blocks.PALE_OAK_LEAVES_CARPET);
+            event.accept(Blocks.PALM_LEAVES_CARPET);
+            event.accept(Blocks.OAK_LEAVES_CARPET);
+
             event.accept(Blocks.WAX_BLOCK);
 
         }
         if (event.getTabKey() == CreativeModeTabs.SPAWN_EGGS) {
             event.accept(Items.DUCK_SPAWN_EGG);
             event.accept(Items.GRIZZLY_BEAR_SPAWN_EGG);
+            event.accept(Items.FROSTBITTEN_SPAWN_EGG);
             event.accept(Items.SCORCHED_SPAWN_EGG);
+            event.accept(Items.SUNKEN_SPAWN_EGG);
             event.accept(Items.DESERTED_TRADER_SPAWN_EGG);
         }
     }
@@ -243,8 +263,9 @@ public class UltVanillaExp
         public static void onClientSetup(FMLClientSetupEvent event)
         {
             Sheets.addWoodType(WoodTypes.PALM);
-            ItemBlockRenderTypes.setRenderLayer(Blocks.ONION_CROP.get(), RenderType.cutout());
             ItemBlockRenderTypes.setRenderLayer(Blocks.BARLEY_CROP.get(), RenderType.cutout());
+            ItemBlockRenderTypes.setRenderLayer(Blocks.ONION_CROP.get(), RenderType.cutout());
+            ItemBlockRenderTypes.setRenderLayer(Blocks.PEANUT_CROP.get(), RenderType.cutout());
             ItemBlockRenderTypes.setRenderLayer(Blocks.PALM_DOOR.get(), RenderType.cutout());
             ItemBlockRenderTypes.setRenderLayer(Blocks.PALM_TRAPDOOR.get(), RenderType.cutout());
             ItemBlockRenderTypes.setRenderLayer(Blocks.PALM_LEAVES.get(), RenderType.cutout());
@@ -260,9 +281,24 @@ public class UltVanillaExp
             ItemBlockRenderTypes.setRenderLayer(Blocks.POTTED_PAEONIA.get(), RenderType.cutout());
             ItemBlockRenderTypes.setRenderLayer(Blocks.HIBISCUS.get(), RenderType.cutout());
             ItemBlockRenderTypes.setRenderLayer(Blocks.POTTED_HIBISCUS.get(), RenderType.cutout());
+            ItemBlockRenderTypes.setRenderLayer(Blocks.ACACIA_LEAVES_CARPET.get(), RenderType.cutout());
+            ItemBlockRenderTypes.setRenderLayer(Blocks.AZALEA_LEAVES_CARPET.get(), RenderType.cutout());
+            ItemBlockRenderTypes.setRenderLayer(Blocks.FLOWERING_AZALEA_LEAVES_CARPET.get(), RenderType.cutout());
+            ItemBlockRenderTypes.setRenderLayer(Blocks.BIRCH_LEAVES_CARPET.get(), RenderType.cutout());
+            ItemBlockRenderTypes.setRenderLayer(Blocks.CHERRY_LEAVES_CARPET.get(), RenderType.cutout());
+            ItemBlockRenderTypes.setRenderLayer(Blocks.DARK_OAK_LEAVES_CARPET.get(), RenderType.cutout());
+            ItemBlockRenderTypes.setRenderLayer(Blocks.JUNGLE_LEAVES_CARPET.get(), RenderType.cutout());
+            ItemBlockRenderTypes.setRenderLayer(Blocks.MANGROVE_LEAVES_CARPET.get(), RenderType.cutout());
+            ItemBlockRenderTypes.setRenderLayer(Blocks.PALE_OAK_LEAVES_CARPET.get(), RenderType.cutout());
+            ItemBlockRenderTypes.setRenderLayer(Blocks.PALM_LEAVES_CARPET.get(), RenderType.cutout());
+            ItemBlockRenderTypes.setRenderLayer(Blocks.OAK_LEAVES_CARPET.get(), RenderType.cutout());
+
+
             EntityRenderers.register(Entities.DUCK.get(), DuckRenderer::new);
             EntityRenderers.register(Entities.GRIZZLY_BEAR.get(), GrizzlyBearRenderer::new);
             EntityRenderers.register(Entities.SCORCHED.get(), ScorchedRenderer::new);
+            EntityRenderers.register(Entities.SUNKEN.get(), SunkenRenderer::new);
+            EntityRenderers.register(Entities.FROSTBITTEN.get(), FrostbittenRenderer::new);
             EntityRenderers.register(Entities.DESERTED_TRADER.get(), DesertedTraderRenderer::new);
         }
         @SubscribeEvent
@@ -276,7 +312,14 @@ public class UltVanillaExp
                             -> level != null && pos != null
                             ? BiomeColors.getAverageFoliageColor(level, pos)
                             : FoliageColor.FOLIAGE_DEFAULT,
-                    Blocks.PALM_LEAVES.get()
+                    Blocks.PALM_LEAVES.get(),
+                    Blocks.ACACIA_LEAVES_CARPET.get(),
+                    Blocks.BIRCH_LEAVES_CARPET.get(),
+                    Blocks.DARK_OAK_LEAVES_CARPET.get(),
+                    Blocks.JUNGLE_LEAVES_CARPET.get(),
+                    Blocks.MANGROVE_LEAVES_CARPET.get(),
+                    Blocks.PALM_LEAVES_CARPET.get(),
+                    Blocks.OAK_LEAVES_CARPET.get()
             );
         }
     }

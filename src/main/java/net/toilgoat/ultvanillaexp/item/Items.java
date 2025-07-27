@@ -35,12 +35,25 @@ public class Items {
 
     public static final DeferredItem<Item> BAKED_ONION = ITEMS.registerItem("baked_onion", Item::new, new Item.Properties().food(Food.BAKED_ONION));
 
+    public static final DeferredItem<Item> PEANUT = ITEMS.registerItem("peanut",
+            (properties) -> new BlockItem(Blocks.PEANUT_CROP.get(), properties.food(Food.PEANUT)));
+
+    public static final DeferredItem<Item> ROASTED_PEANUT= ITEMS.registerItem("roasted_peanut", Item::new, new Item.Properties().food(Food.ROASTED_PEANUT));
+
     public static final DeferredItem<Item> BARLEY = ITEMS.registerItem("barley", Item::new, new Item.Properties());
 
     public static final DeferredItem<Item> BARLEY_SEEDS = ITEMS.registerItem("barley_seeds",
             (properties) -> new BlockItem(Blocks.BARLEY_CROP.get(), properties));
 
     public static final DeferredItem<Item> BARLEY_STEW = ITEMS.registerItem("barley_stew", Item::new, new Item.Properties().food(Food.BARLEY_STEW).stacksTo(1).usingConvertsTo(net.minecraft.world.item.Items.BOWL));
+
+    public static final DeferredItem<Item> MELTED_COCOA = ITEMS.registerItem("melted_cocoa", Item::new, new Item.Properties().food(Food.MELTED_COCOA));
+
+    public static final DeferredItem<Item> CHOCOLATE_PIECE = ITEMS.registerItem("chocolate_piece", Item::new, new Item.Properties().food(Food.CHOCOLATE_PIECE));
+
+    public static final DeferredItem<Item> DARK_CHOCOLATE = ITEMS.registerItem("dark_chocolate", Item::new, new Item.Properties().food(Food.DARK_CHOCOLATE, Consumables.DARK_CHOCOLATE));
+
+    public static final DeferredItem<Item> MILK_CHOCOLATE = ITEMS.registerItem("milk_chocolate", Item::new, new Item.Properties().food(Food.MILK_CHOCOLATE, Consumables.MILK_CHOCOLATE));
 
     public static final DeferredItem<Item> RUBY = ITEMS.registerItem("ruby", Item::new, new Item.Properties());
 
@@ -52,6 +65,12 @@ public class Items {
 
     public static final DeferredItem<Item> SCORCHED_SPAWN_EGG = ITEMS.registerItem("scorched_spawn_egg",
             (properties) -> new SpawnEggItem(Entities.SCORCHED.get(), properties));
+
+    public static final DeferredItem<Item> SUNKEN_SPAWN_EGG = ITEMS.registerItem("sunken_spawn_egg",
+            (properties) -> new SpawnEggItem(Entities.SUNKEN.get(), properties));
+
+    public static final DeferredItem<Item> FROSTBITTEN_SPAWN_EGG = ITEMS.registerItem("frostbitten_spawn_egg",
+            (properties) -> new SpawnEggItem(Entities.FROSTBITTEN.get(), properties));
 
     public static final DeferredItem<Item> DESERTED_TRADER_SPAWN_EGG = ITEMS.registerItem("deserted_trader_spawn_egg",
             (properties) -> new SpawnEggItem(Entities.DESERTED_TRADER.get(), properties));

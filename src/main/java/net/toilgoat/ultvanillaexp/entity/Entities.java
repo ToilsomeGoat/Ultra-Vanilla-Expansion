@@ -9,10 +9,7 @@ import net.minecraft.world.entity.MobCategory;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.registries.DeferredRegister;
 import net.toilgoat.ultvanillaexp.UltVanillaExp;
-import net.toilgoat.ultvanillaexp.entity.custom.DesertedTrader;
-import net.toilgoat.ultvanillaexp.entity.custom.DuckEntity;
-import net.toilgoat.ultvanillaexp.entity.custom.GrizzlyBearEntity;
-import net.toilgoat.ultvanillaexp.entity.custom.ScorchedMonster;
+import net.toilgoat.ultvanillaexp.entity.custom.*;
 
 import java.util.function.Supplier;
 
@@ -23,6 +20,8 @@ public class Entities {
     public static ResourceKey<EntityType<?>> DUCK_KEY = ResourceKey.create(Registries.ENTITY_TYPE, ResourceLocation.withDefaultNamespace("duck"));
     public static ResourceKey<EntityType<?>> GRIZZLY_BEAR_KEY = ResourceKey.create(Registries.ENTITY_TYPE, ResourceLocation.withDefaultNamespace("grizzly_bear"));
     public static ResourceKey<EntityType<?>> SCORCHED_KEY = ResourceKey.create(Registries.ENTITY_TYPE, ResourceLocation.withDefaultNamespace("scorched"));
+    public static ResourceKey<EntityType<?>> SUNKEN_KEY = ResourceKey.create(Registries.ENTITY_TYPE, ResourceLocation.withDefaultNamespace("sunken"));
+    public static ResourceKey<EntityType<?>> FROSTBITTEN_KEY = ResourceKey.create(Registries.ENTITY_TYPE, ResourceLocation.withDefaultNamespace("frostbitten"));
     public static ResourceKey<EntityType<?>> DESERTED_TRADER_KEY = ResourceKey.create(Registries.ENTITY_TYPE, ResourceLocation.withDefaultNamespace("deserted_trader"));
 
     public static final Supplier<EntityType<DuckEntity>> DUCK =
@@ -36,6 +35,14 @@ public class Entities {
     public static final Supplier<EntityType<ScorchedMonster>> SCORCHED =
             ENTITY_TYPES.register("scorched", () -> EntityType.Builder.of(ScorchedMonster::new, MobCategory.MONSTER)
                     .sized(0.6F, 1.99F).eyeHeight(1.74F).ridingOffset(-0.7F).clientTrackingRange(8).build(SCORCHED_KEY));
+
+    public static final Supplier<EntityType<SunkenMonster>> SUNKEN =
+            ENTITY_TYPES.register("sunken", () -> EntityType.Builder.of(SunkenMonster::new, MobCategory.MONSTER)
+                    .sized(0.6F, 1.99F).eyeHeight(1.74F).ridingOffset(-0.7F).clientTrackingRange(8).build(SUNKEN_KEY));
+
+    public static final Supplier<EntityType<FrostbittenMonster>> FROSTBITTEN =
+            ENTITY_TYPES.register("frostbitten", () -> EntityType.Builder.of(FrostbittenMonster::new, MobCategory.MONSTER)
+                    .sized(0.6F, 1.95F).eyeHeight(1.74F).passengerAttachments(2.0125F).ridingOffset(-0.7F).clientTrackingRange(8).build(FROSTBITTEN_KEY));
 
     public static final Supplier<EntityType<DesertedTrader>> DESERTED_TRADER =
             ENTITY_TYPES.register("deserted_trader", () -> EntityType.Builder.of(DesertedTrader::new, MobCategory.CREATURE)

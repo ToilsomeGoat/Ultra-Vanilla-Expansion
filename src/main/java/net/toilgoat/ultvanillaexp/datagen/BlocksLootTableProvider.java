@@ -94,6 +94,10 @@ public class BlocksLootTableProvider extends BlockLootSubProvider {
         dropSelf(Blocks.HIEROGLYPH_REEDS.get());
         dropSelf(Blocks.HIEROGLYPH_SNAKE.get());
         dropSelf(Blocks.HIEROGLYPH_VULTURE.get());
+        dropSelf(Blocks.ENGRAVED_PRISMARINE_BRICKS_GUARDIAN.get());
+        dropSelf(Blocks.ENGRAVED_PRISMARINE_BRICKS_LASER.get());
+        dropSelf(Blocks.ENGRAVED_PRISMARINE_BRICKS_DROWNED.get());
+        dropSelf(Blocks.ENGRAVED_PRISMARINE_BRICKS_SUNKEN.get());
         dropSelf(Blocks.FROSTER.get());
         dropSelf(Blocks.PALM_LOG.get());
         dropSelf(Blocks.PALM_WOOD.get());
@@ -122,18 +126,44 @@ public class BlocksLootTableProvider extends BlockLootSubProvider {
                 block -> createPotFlowerItemTable(Blocks.PALM_SAPLING.get()));
         add(Blocks.PALM_LEAVES.get(),
         block -> createLeavesDrops(block, Blocks.PALM_SAPLING.get(), NORMAL_LEAVES_SAPLING_CHANCES));
+        add(Blocks.ACACIA_LEAVES_CARPET.get(),
+                block -> createShearsOrSilkTouchOnlyDrop(Blocks.ACACIA_LEAVES_CARPET.get()));
+        add(Blocks.AZALEA_LEAVES_CARPET.get(),
+                block -> createShearsOrSilkTouchOnlyDrop(Blocks.AZALEA_LEAVES_CARPET.get()));
+        add(Blocks.FLOWERING_AZALEA_LEAVES_CARPET.get(),
+                block -> createShearsOrSilkTouchOnlyDrop(Blocks.FLOWERING_AZALEA_LEAVES_CARPET.get()));
+        add(Blocks.BIRCH_LEAVES_CARPET.get(),
+                block -> createShearsOrSilkTouchOnlyDrop(Blocks.BIRCH_LEAVES_CARPET.get()));
+        add(Blocks.CHERRY_LEAVES_CARPET.get(),
+                block -> createShearsOrSilkTouchOnlyDrop(Blocks.CHERRY_LEAVES_CARPET.get()));
+        add(Blocks.DARK_OAK_LEAVES_CARPET.get(),
+                block -> createShearsOrSilkTouchOnlyDrop(Blocks.DARK_OAK_LEAVES_CARPET.get()));
+        add(Blocks.JUNGLE_LEAVES_CARPET.get(),
+                block -> createShearsOrSilkTouchOnlyDrop(Blocks.JUNGLE_LEAVES_CARPET.get()));
+        add(Blocks.MANGROVE_LEAVES_CARPET.get(),
+                block -> createShearsOrSilkTouchOnlyDrop(Blocks.MANGROVE_LEAVES_CARPET.get()));
+        add(Blocks.PALE_OAK_LEAVES_CARPET.get(),
+                block -> createShearsOrSilkTouchOnlyDrop(Blocks.PALE_OAK_LEAVES_CARPET.get()));
+        add(Blocks.PALM_LEAVES_CARPET.get(),
+                block -> createShearsOrSilkTouchOnlyDrop(Blocks.PALM_LEAVES_CARPET.get()));
+        add(Blocks.OAK_LEAVES_CARPET.get(),
+                block -> createShearsOrSilkTouchOnlyDrop(Blocks.OAK_LEAVES_CARPET.get()));
+
+        //Crop
+        LootItemCondition.Builder barleyCropCondition = LootItemBlockStatePropertyCondition.hasBlockStateProperties(Blocks.BARLEY_CROP.get())
+                .setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(OnionCrop.AGE, 3));
+        this.add(Blocks.BARLEY_CROP.get(), this.createCropDrops(Blocks.BARLEY_CROP.get(),
+                Items.BARLEY.get(), Items.BARLEY_SEEDS.get(), barleyCropCondition));
 
         LootItemCondition.Builder onionCropCondition = LootItemBlockStatePropertyCondition.hasBlockStateProperties(Blocks.ONION_CROP.get())
                 .setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(OnionCrop.AGE, 3));
-
         this.add(Blocks.ONION_CROP.get(), this.createCropDrops(Blocks.ONION_CROP.get(),
                 Items.ONION.get(), Items.ONION.get(), onionCropCondition));
 
-        LootItemCondition.Builder barleyCropCondition = LootItemBlockStatePropertyCondition.hasBlockStateProperties(Blocks.BARLEY_CROP.get())
+        LootItemCondition.Builder peanutCropCondition = LootItemBlockStatePropertyCondition.hasBlockStateProperties(Blocks.PEANUT_CROP.get())
                 .setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(OnionCrop.AGE, 3));
-
-        this.add(Blocks.BARLEY_CROP.get(), this.createCropDrops(Blocks.BARLEY_CROP.get(),
-                Items.BARLEY.get(), Items.BARLEY_SEEDS.get(), barleyCropCondition));
+        this.add(Blocks.PEANUT_CROP.get(), this.createCropDrops(Blocks.PEANUT_CROP.get(),
+                Items.PEANUT.get(), Items.PEANUT.get(), peanutCropCondition));
 
         add(Blocks.RUBY_ORE.get(),
                 block -> createOreDrop(Blocks.RUBY_ORE.get(), Items.RUBY.get()));

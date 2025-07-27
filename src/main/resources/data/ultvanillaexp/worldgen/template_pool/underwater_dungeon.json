@@ -1,0 +1,186 @@
+{
+  "name": "ultvanillaexp:underwater_dungeon",
+  "fallback": "minecraft:empty",
+  "elements": [
+    {
+      "weight": 4,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "projection": "rigid",
+        "location": "ultvanillaexp:underwater_dungeon/underwater_dungeon_drowned_1",
+        "processors": "minecraft:empty",
+        "override_liquid_settings": "apply_waterlogging"
+      }
+    },
+    {
+      "weight": 4,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "projection": "rigid",
+        "location": "ultvanillaexp:underwater_dungeon/underwater_dungeon_drowned_2",
+        "processors": "minecraft:empty",
+        "override_liquid_settings": "apply_waterlogging"
+      }
+    },
+    {
+      "weight": 4,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "projection": "rigid",
+        "location": "ultvanillaexp:underwater_dungeon/underwater_dungeon_drowned_3",
+        "processors": "minecraft:empty",
+        "override_liquid_settings": "apply_waterlogging"
+      }
+    },
+    {
+      "weight": 4,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "projection": "rigid",
+        "location": "ultvanillaexp:underwater_dungeon/underwater_dungeon_drowned_4",
+        "processors": "minecraft:empty",
+        "override_liquid_settings": "apply_waterlogging"
+      }
+    },
+    {
+      "weight": 4,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "projection": "rigid",
+        "location": "ultvanillaexp:underwater_dungeon/underwater_dungeon_drowned_5",
+        "processors": "minecraft:empty",
+        "override_liquid_settings": "apply_waterlogging"
+      }
+    },
+    {
+      "weight": 4,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "projection": "rigid",
+        "location": "ultvanillaexp:underwater_dungeon/underwater_dungeon_drowned_6",
+        "processors": "minecraft:empty",
+        "override_liquid_settings": "apply_waterlogging"
+      }
+    },
+    {
+      "weight": 4,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "projection": "rigid",
+        "location": "ultvanillaexp:underwater_dungeon/underwater_dungeon_drowned_7",
+        "processors": "minecraft:empty",
+        "override_liquid_settings": "apply_waterlogging"
+      }
+    },
+    {
+      "weight": 4,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "projection": "rigid",
+        "location": "ultvanillaexp:underwater_dungeon/underwater_dungeon_drowned_8",
+        "processors": "minecraft:empty",
+        "override_liquid_settings": "apply_waterlogging"
+      }
+    },
+    {
+      "weight": 2,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "projection": "rigid",
+        "location": "ultvanillaexp:underwater_dungeon/underwater_dungeon_drowned_9",
+        "processors": "minecraft:empty",
+        "override_liquid_settings": "apply_waterlogging"
+      }
+    },
+    {
+      "weight": 2,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "projection": "rigid",
+        "location": "ultvanillaexp:underwater_dungeon/underwater_dungeon_sunken_1",
+        "processors": "minecraft:empty",
+        "override_liquid_settings": "apply_waterlogging"
+      }
+    },
+    {
+      "weight": 2,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "projection": "rigid",
+        "location": "ultvanillaexp:underwater_dungeon/underwater_dungeon_sunken_2",
+        "processors": "minecraft:empty",
+        "override_liquid_settings": "apply_waterlogging"
+      }
+    },
+    {
+      "weight": 2,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "projection": "rigid",
+        "location": "ultvanillaexp:underwater_dungeon/underwater_dungeon_sunken_3",
+        "processors": "minecraft:empty",
+        "override_liquid_settings": "apply_waterlogging"
+      }
+    },
+    {
+      "weight": 2,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "projection": "rigid",
+        "location": "ultvanillaexp:underwater_dungeon/underwater_dungeon_sunken_4",
+        "processors": "minecraft:empty",
+        "override_liquid_settings": "apply_waterlogging"
+      }
+    },
+    {
+      "weight": 2,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "projection": "rigid",
+        "location": "ultvanillaexp:underwater_dungeon/underwater_dungeon_sunken_5",
+        "processors": "minecraft:empty",
+        "override_liquid_settings": "apply_waterlogging"
+      }
+    },
+    {
+      "weight": 2,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "projection": "rigid",
+        "location": "ultvanillaexp:underwater_dungeon/underwater_dungeon_sunken_6",
+        "processors": "minecraft:empty",
+        "override_liquid_settings": "apply_waterlogging"
+      }
+    },
+    {
+      "weight": 2,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "projection": "rigid",
+        "location": "ultvanillaexp:underwater_dungeon/underwater_dungeon_sunken_7",
+        "processors": "minecraft:empty",
+        "override_liquid_settings": "apply_waterlogging"
+      }
+    },
+    {
+      "weight": 2,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "projection": "rigid",
+        "location": "ultvanillaexp:underwater_dungeon/underwater_dungeon_sunken_8",
+        "processors": "minecraft:empty",
+        "override_liquid_settings": "apply_waterlogging"
+      }
+    },
+    {
+      "weight": 1,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "projection": "rigid",
+        "location": "ultvanillaexp:underwater_dungeon/underwater_dungeon_sunken_9",
+        "processors": "minecraft:empty",
+        "override_liquid_settings": "apply_waterlogging"
+      }
+    }
+  ]
+}

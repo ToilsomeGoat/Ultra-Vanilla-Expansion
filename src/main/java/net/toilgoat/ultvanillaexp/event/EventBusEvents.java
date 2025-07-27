@@ -21,10 +21,8 @@ import net.toilgoat.ultvanillaexp.block.Blocks;
 import net.toilgoat.ultvanillaexp.entity.Entities;
 import net.toilgoat.ultvanillaexp.entity.client.DuckModel;
 import net.toilgoat.ultvanillaexp.entity.client.GrizzlyBearModel;
-import net.toilgoat.ultvanillaexp.entity.custom.DesertedTrader;
-import net.toilgoat.ultvanillaexp.entity.custom.DuckEntity;
-import net.toilgoat.ultvanillaexp.entity.custom.GrizzlyBearEntity;
-import net.toilgoat.ultvanillaexp.entity.custom.ScorchedMonster;
+import net.toilgoat.ultvanillaexp.entity.client.SunkenModel;
+import net.toilgoat.ultvanillaexp.entity.custom.*;
 
 import java.util.List;
 
@@ -33,6 +31,7 @@ public class EventBusEvents {
     public static void registerLayers(EntityRenderersEvent.RegisterLayerDefinitions event) {
         event.registerLayerDefinition(DuckModel.LAYER_LOCATION, DuckModel::createBodyLayer);
         event.registerLayerDefinition(GrizzlyBearModel.LAYER_LOCATION, GrizzlyBearModel::createBodyLayer);
+        event.registerLayerDefinition(SunkenModel.LAYER_LOCATION, SunkenModel::createBodyLayer);
     }
 
     @SubscribeEvent
@@ -40,6 +39,8 @@ public class EventBusEvents {
         event.put(Entities.DUCK.get(), DuckEntity.createAttributes().build());
         event.put(Entities.GRIZZLY_BEAR.get(), GrizzlyBearEntity.createAttributes().build());
         event.put(Entities.SCORCHED.get(), ScorchedMonster.createAttributes().build());
+        event.put(Entities.SUNKEN.get(), SunkenMonster.createAttributes().build());
+        event.put(Entities.FROSTBITTEN.get(), FrostbittenMonster.createAttributes().build());
         event.put(Entities.DESERTED_TRADER.get(), DesertedTrader.createAttributes().build());
     }
 
@@ -51,5 +52,9 @@ public class EventBusEvents {
                 Animal::checkAnimalSpawnRules, RegisterSpawnPlacementsEvent.Operation.REPLACE);
         event.register(Entities.SCORCHED.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
                 ScorchedMonster::checkScorchedSpawnRules, RegisterSpawnPlacementsEvent.Operation.REPLACE);
+        event.register(Entities.FROSTBITTEN.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
+                Monster::checkMonsterSpawnRules, RegisterSpawnPlacementsEvent.Operation.REPLACE);
+        event.register(Entities.SUNKEN.get(), SpawnPlacementTypes.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
+                SunkenMonster::checkSunkenSpawnRules, RegisterSpawnPlacementsEvent.Operation.REPLACE);
     }
 }

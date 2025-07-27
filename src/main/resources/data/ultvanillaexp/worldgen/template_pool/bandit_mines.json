@@ -1,5 +1,5 @@
 {
-  "name": "ultvanillaexp:bandit_mines",
+  "name": "ultvanillaexp:underwater_dungeon",
   "fallback": "minecraft:empty",
   "elements": [
     {
@@ -7,7 +7,7 @@
       "element": {
         "element_type": "minecraft:single_pool_element",
         "projection": "rigid",
-        "location": "ultvanillaexp:bandit_mines",
+        "location": "ultvanillaexp:underwater_dungeon_drowned_1",
         "processors": "minecraft:empty",
         "override_liquid_settings": "apply_waterlogging"
       }
